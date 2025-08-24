@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(CardVisualizer))]
@@ -32,6 +33,9 @@ public class CardPlayer : MonoBehaviour
 
         Debug.Log("Carta jugada");
 
-        cardVisualizer.card.OnActivated(null);
+        IHittable ih = FindObjectsByType<MonoBehaviour>(sortMode: FindObjectsSortMode.None).OfType<IHittable>().ToArray()[0];
+
+        if(ih != null)
+            cardVisualizer.card.OnActivated(ih);
     }
 }

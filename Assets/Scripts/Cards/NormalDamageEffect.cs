@@ -4,10 +4,12 @@ using UnityEngine;
 public class NormalDamageEffect : CardEffect
 {
     public DamageType damageType = DamageType.Normal;
-    public int amount = 0; // Valor que se cambia en el editor de unity
+    public int amount = 0; // Valor que se cambia en el editor de unity TODO
 
-    public override void OnEffectActivated(GameObject target)
+    public override void OnEffectActivated(IHittable target)
     {
         Debug.Log("CARTA DE NOMBRE " + this.name + " JUGADA");
+
+        target.TakeDamage(amount, damageType);
     }
 }

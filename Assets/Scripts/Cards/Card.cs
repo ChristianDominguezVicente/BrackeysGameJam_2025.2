@@ -10,5 +10,5 @@ public abstract class Card : ScriptableObject
 
     public List<CardEffect> effects;
 
-    public abstract void OnActivated(GameObject target);
+    public abstract void OnActivated(IHittable target);
 }
