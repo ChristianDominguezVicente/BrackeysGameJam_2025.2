@@ -4,7 +4,9 @@ using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    public List<Card> deck;
+    public static Player pj;
+
+    private List<Card> deck;
     private List<Card> cementery;
 
     public int handSize = 3;
@@ -17,12 +19,36 @@ public class Player : MonoBehaviour
 
     public float spacing;
 
+    public void AddNewCard(Card newCard)
+    {
+        this.deck.Add(newCard);
+    }
+
+    public void AddNewCards(List<Card> cards)
+    {
+        this.deck.AddRange(cards);
+    }
+
+    void Awake()
+    {
+        if (pj == null)
+        {
+            this.deck = new List<Card>();
+            this.hand = new List<GameObject>();
+            this.cementery = new List<Card>();
+
+            pj = this;
+            DontDestroyOnLoad(gameObject);
+            return;
+        }
+
+        Destroy(gameObject);
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        hand = new List<GameObject>();
-        cementery = new List<Card>();
-        DrawHand();
+        
     }
 
     // Update is called once per frame
