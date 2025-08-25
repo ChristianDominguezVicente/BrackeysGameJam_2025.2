@@ -69,6 +69,9 @@ public class Player : MonoBehaviour
     public void ClearDeck()
     {
         this.deck.Clear();
+        ClearHand();
+        this.cementery.Clear();
+        UpdateCardPositions();
     }
 
     void Awake()
@@ -221,6 +224,8 @@ public class Player : MonoBehaviour
 
     private void HandleCardSelection(Vector2 ctx)
     {
+        if (SceneManager.GetActiveScene().name != "TestScene" || pause.IsPaused) return;
+
         if (ctx.x != 0 && Time.time >= selectionCooldownEndTime)
         {
             if (ctx.x < 0 && selectedCardIndex > 0)
@@ -243,6 +248,8 @@ public class Player : MonoBehaviour
 
     private void HandleMouseSelection(Vector2 ctx)
     {
+        if (SceneManager.GetActiveScene().name != "TestScene" || pause.IsPaused) return;
+
         Vector2 globalLocation = Camera.main.ScreenToWorldPoint(ctx);
 
         RaycastHit2D isCard = Physics2D.Raycast(globalLocation, Vector2.zero);
@@ -267,6 +274,8 @@ public class Player : MonoBehaviour
 
     private void HandleCardUsage()
     {
+        if (SceneManager.GetActiveScene().name != "TestScene" || pause.IsPaused) return;
+
         if (selectedCardIndex >= 0 && selectedCardIndex < hand.Count)
             PlayCard();
     }
@@ -303,5 +312,15 @@ public class Player : MonoBehaviour
         }
 
         UpdateCardPositions();
+    }
+
+    private void ClearHand()
+    {
+        for (int i = hand.Count -1; i >= 0; i--)
+        {
+            GameObject tmp = hand[i];
+            hand.Remove(tmp);
+            Destroy(tmp);
+        }
     }
 }
