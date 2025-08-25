@@ -4,15 +4,18 @@ using UnityEngine.SceneManagement;
 
 public class DeckMenu : MonoBehaviour
 {
-    [SerializeField]
+    [Header("Decks")]
+    [SerializeField] private List<Card> badassDeck;
+
     private Player player;
 
-    [SerializeField]
-    private List<Card> badassDeck;
+    private void Start()
+    {
+        player = FindFirstObjectByType<Player>();
+    }
 
     public void BadassDeck()
     {
-
         player.AddNewCards(badassDeck);
 
         SceneManager.LoadScene("TestScene");

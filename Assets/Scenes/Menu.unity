@@ -1802,7 +1802,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc2137c714912e845802ab240a1fb7d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1415908630}
   badassDeck:
   - {fileID: 11400000, guid: a081e22d4ac62358db788b445d4eac63, type: 2}
   - {fileID: 11400000, guid: a081e22d4ac62358db788b445d4eac63, type: 2}
@@ -3693,7 +3692,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Back
+  m_text: FullScreen
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8eba6c7f621249e4ea5d400dcb63d89b, type: 2}
   m_sharedMaterial: {fileID: 6661272207104595983, guid: 8eba6c7f621249e4ea5d400dcb63d89b, type: 2}
@@ -4526,6 +4525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a519ed17dc69e16b1dc43aa49a2645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputManager: {fileID: 11400000, guid: 08bd95469d90e664a83bf34d1906ebd4, type: 2}
   handSize: 3
   position: {fileID: 1415908631}
   cardPrefab: {fileID: 8371679423922417987, guid: f9d2c95d6c624ceebab1c6ae6a26a1b9, type: 3}

@@ -1,10 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
     public static Player pj;
+
+    [Header("Inputs")]
+    [SerializeField] private InputManagerSO inputManager;
+
+    private PauseMenu pause;
+    private GameObject pauseMenu;
+    private GameObject settingsMenu;
 
     private List<Card> deck;
     private List<Card> cementery;
@@ -29,6 +37,11 @@ public class Player : MonoBehaviour
         this.deck.AddRange(cards);
     }
 
+    public void ClearDeck()
+    {
+        this.deck.Clear();
+    }
+
     void Awake()
     {
         if (pj == null)
@@ -39,16 +52,48 @@ public class Player : MonoBehaviour
 
             pj = this;
             DontDestroyOnLoad(gameObject);
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
             return;
         }
 
         Destroy(gameObject);
     }
 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "TestScene")
+        {
+            pause = FindFirstObjectByType<PauseMenu>();
+            if (pause != null)
+            {
+                pauseMenu = pause.PauseGameObject;
+                settingsMenu = pause.SettingsGameObject;
+            }
+        }
+        else
+        {
+            pause = null;
+            pauseMenu = null;
+            settingsMenu = null;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnEnable()
+    {
+        inputManager.OnCancel += Cancel;
+        inputManager.OnPause += Pause;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -101,5 +146,55 @@ public class Player : MonoBehaviour
 
             hand[i].transform.position = cardPosition;
         }
+    }
+
+    private void Cancel()
+    {
+        if (SceneManager.GetActiveScene().name != "TestScene") return;
+
+        if (pause.IsPaused)
+        {
+            pause.Back();
+        }
+    }
+
+    private void Pause()
+    {
+        if (SceneManager.GetActiveScene().name != "TestScene") return;
+
+        if (!pause.IsPaused)
+        {
+            pause.IsPaused = true;
+            pauseMenu.SetActive(true);
+            settingsMenu.SetActive(false);
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            if (settingsMenu.activeSelf)
+            {
+                settingsMenu.SetActive(false);
+                Resume();
+            }
+            else if (pauseMenu.activeSelf)
+            {
+                Resume();
+            }
+        }
+
+    }
+
+    private void Resume()
+    {
+        pause.IsPaused = false;
+        pauseMenu.SetActive(false);
+        settingsMenu.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    private void OnDisable()
+    {
+        inputManager.OnCancel -= Cancel;
+        inputManager.OnPause -= Pause;
     }
 }
