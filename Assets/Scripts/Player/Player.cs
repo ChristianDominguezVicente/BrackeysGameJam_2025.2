@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
 
     private InputAction ia_SelectCard;
     private InputAction ia_Select;
+    private InputAction ia_MouseLocation;
 
     private Vector2 userSelection;
 
@@ -71,6 +73,7 @@ public class Player : MonoBehaviour
 
             ia_SelectCard = actions.FindActionMap("Gameplay").FindAction("Move");
             ia_Select = actions.FindActionMap("Gameplay").FindAction("Action");
+            ia_MouseLocation = actions.FindActionMap("Gameplay").FindAction("MouseLocation");
 
             return;
         }
@@ -88,6 +91,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         HandleCardSelection();
+        HandleMouseSelection();
         HandleCardUsage();
 
         if (Input.GetKeyDown(KeyCode.X))
@@ -165,13 +169,37 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void HandleMouseSelection()
+    {
+        Vector2 mouseLocation = ia_MouseLocation.ReadValue<Vector2>();
+        Vector2 globalLocation = Camera.main.ScreenToWorldPoint(mouseLocation);
+
+        RaycastHit2D isCard = Physics2D.Raycast(globalLocation, Vector2.zero);
+
+        if (isCard.collider != null)
+        {
+            CardPlayer cardPlayer = isCard.collider.GetComponent<CardPlayer>();
+
+            if (cardPlayer != null)
+            {
+                int i = hand.IndexOf(cardPlayer.gameObject);
+
+                if (i != selectedCardIndex && (i >= 0 || i < hand.Count))
+                {
+                    selectedCardIndex = i;
+
+                    UpdateCardPositions();
+                }
+            }
+        }
+    }
+
     private void HandleCardUsage()
     {
 
         if (ia_Select.WasPressedThisFrame())
         {
             PlayCard();
-
         }
     }
 
