@@ -4,7 +4,7 @@ using UnityEngine;
 public class NormalDamageEffect : CardEffect
 {
     public DamageType damageType = DamageType.Normal;
-    public int amount = 0; // Valor que se cambia en el editor de unity TODO
+    public int amount = 0;
 
     public override void OnEffectActivated(IHittable target)
     {

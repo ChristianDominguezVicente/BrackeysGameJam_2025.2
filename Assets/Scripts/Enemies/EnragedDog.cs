@@ -14,6 +14,8 @@ public class EnragedDog : Enemy
 
     }
 
+    
+
     public override void Die()
     {
         Debug.Log("ME MORí");

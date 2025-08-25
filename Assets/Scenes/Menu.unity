@@ -4530,6 +4530,8 @@ MonoBehaviour:
   position: {fileID: 1415908631}
   cardPrefab: {fileID: 8371679423922417987, guid: f9d2c95d6c624ceebab1c6ae6a26a1b9, type: 3}
   spacing: 2
+  selectedCardYOffset: 1
+  actions: {fileID: -944628639613478452, guid: b8f2e3dc557532c4b81eab4424a63351, type: 3}
 --- !u!4 &1415908631
 Transform:
   m_ObjectHideFlags: 0
