@@ -28,26 +28,25 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private float selectedCardYOffset;
+
     [SerializeField]
-    private InputActionAsset actions;
-
-    private InputAction ia_SelectCard;
-    private InputAction ia_Select;
-    private InputAction ia_MouseLocation;
-
-    private Vector2 userSelection;
+    private InputManagerSO inputManager;
 
     private float selectionCooldown = 0.25f;
     private float selectionCooldownEndTime = 0f;
 
     void OnEnable()
     {
-        actions.FindActionMap("Gameplay").Enable();
+        inputManager.OnAction += HandleCardUsage;
+        inputManager.OnMove += HandleCardSelection;
+        inputManager.OnMouseLocation += HandleMouseSelection;
     }
 
     void OnDisable()
     {
-        actions.FindActionMap("Gameplay").Disable();
+        inputManager.OnAction -= HandleCardUsage;
+        inputManager.OnMove -= HandleCardSelection;
+        inputManager.OnMouseLocation -= HandleMouseSelection;
     }
 
     public void AddNewCard(Card newCard)
@@ -71,10 +70,6 @@ public class Player : MonoBehaviour
             pj = this;
             DontDestroyOnLoad(gameObject);
 
-            ia_SelectCard = actions.FindActionMap("Gameplay").FindAction("Move");
-            ia_Select = actions.FindActionMap("Gameplay").FindAction("Action");
-            ia_MouseLocation = actions.FindActionMap("Gameplay").FindAction("MouseLocation");
-
             return;
         }
 
@@ -90,10 +85,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleCardSelection();
-        HandleMouseSelection();
-        HandleCardUsage();
 
+        // TODO DEBUG ELIMINAR ELIMINAR TODO
         if (Input.GetKeyDown(KeyCode.X))
             DrawHand();
     }
@@ -145,17 +138,15 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void HandleCardSelection()
+    private void HandleCardSelection(Vector2 ctx)
     {
-        userSelection = ia_SelectCard.ReadValue<Vector2>();
-
-        if (userSelection.x != 0 && Time.time >= selectionCooldownEndTime)
+        if (ctx.x != 0 && Time.time >= selectionCooldownEndTime)
         {
-            if (userSelection.x < 0 && selectedCardIndex > 0)
+            if (ctx.x < 0 && selectedCardIndex > 0)
             {
                 selectedCardIndex--;
             }
-            else if (userSelection.x > 0 && selectedCardIndex < (hand.Count - 1))
+            else if (ctx.x > 0 && selectedCardIndex < (hand.Count - 1))
             {
                 selectedCardIndex++;
             }
@@ -163,16 +154,15 @@ public class Player : MonoBehaviour
             selectionCooldownEndTime = Time.time + selectionCooldown;
             UpdateCardPositions();
         }
-        else if (userSelection.x == 0)
+        else if (ctx.x == 0)
         {
             selectionCooldownEndTime = 0;
         }
     }
 
-    private void HandleMouseSelection()
+    private void HandleMouseSelection(Vector2 ctx)
     {
-        Vector2 mouseLocation = ia_MouseLocation.ReadValue<Vector2>();
-        Vector2 globalLocation = Camera.main.ScreenToWorldPoint(mouseLocation);
+        Vector2 globalLocation = Camera.main.ScreenToWorldPoint(ctx);
 
         RaycastHit2D isCard = Physics2D.Raycast(globalLocation, Vector2.zero);
 
@@ -196,11 +186,8 @@ public class Player : MonoBehaviour
 
     private void HandleCardUsage()
     {
-
-        if (ia_Select.WasPressedThisFrame())
-        {
+        if (selectedCardIndex >= 0 && selectedCardIndex < hand.Count)
             PlayCard();
-        }
     }
 
     private void PlayCard()
