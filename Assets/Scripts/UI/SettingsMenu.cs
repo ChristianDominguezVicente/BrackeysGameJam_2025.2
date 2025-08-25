@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
 {
-    [Header("Inputs")]
-    [SerializeField] private InputManagerSO inputManager;
-
     [Header("Settings")]
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private Slider musicSlider;
