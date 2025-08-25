@@ -13,7 +13,6 @@ public abstract class Enemy : MonoBehaviour, IHittable
         switch (dt)
         {
             default:
-                Debug.Log("Me he comido " + amount + " de daño de tipo " + dt);
                 break;
         }
 

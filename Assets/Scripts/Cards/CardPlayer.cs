@@ -11,11 +11,6 @@ public class CardPlayer : MonoBehaviour
         cardVisualizer = GetComponent<CardVisualizer>();
     }
 
-    void OnMouseDown()
-    {
-        Play();
-    }
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,14 +23,17 @@ public class CardPlayer : MonoBehaviour
 
     }
 
-    private void Play()
+    public void Play()
     {
 
         Debug.Log("Carta jugada");
 
         IHittable ih = FindObjectsByType<MonoBehaviour>(sortMode: FindObjectsSortMode.None).OfType<IHittable>().ToArray()[0];
 
-        if(ih != null)
+        if (ih != null)
+        {
             cardVisualizer.card.OnActivated(ih);
+            Player.pj.OnCardPlayed(this.gameObject);
+        }
     }
 }

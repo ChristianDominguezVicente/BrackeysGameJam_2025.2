@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -25,7 +28,33 @@ public class Player : MonoBehaviour
 
     private List<GameObject> hand;
 
-    public float spacing;
+    // Logica para la selección de las cartas con mando, teclado y raton.
+    private int selectedCardIndex = 0;
+
+    [Header("Card Configuration")]
+    [SerializeField] private float selectedCardYOffset;
+    [SerializeField] private float spacing;
+
+    private float selectionCooldown = 0.25f;
+    private float selectionCooldownEndTime = 0f;
+
+    private void OnEnable()
+    {
+        inputManager.OnAction += HandleCardUsage;
+        inputManager.OnMove += HandleCardSelection;
+        inputManager.OnMouseLocation += HandleMouseSelection;
+        inputManager.OnCancel += Cancel;
+        inputManager.OnPause += Pause;
+    }
+
+    private void OnDisable()
+    {
+        inputManager.OnAction -= HandleCardUsage;
+        inputManager.OnMove -= HandleCardSelection;
+        inputManager.OnMouseLocation -= HandleMouseSelection;
+        inputManager.OnCancel -= Cancel;
+        inputManager.OnPause -= Pause;
+    }
 
     public void AddNewCard(Card newCard)
     {
@@ -84,22 +113,19 @@ public class Player : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void OnEnable()
-    {
-        inputManager.OnCancel += Cancel;
-        inputManager.OnPause += Pause;
-    }
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        DrawHand();
     }
 
     // Update is called once per frame
     void Update()
     {
 
+        // TODO DEBUG ELIMINAR ELIMINAR TODO
+        if (Input.GetKeyDown(KeyCode.X))
+            DrawHand();
     }
 
     private void Draw(int cardNum)
@@ -141,8 +167,9 @@ public class Player : MonoBehaviour
         for (int i = 0; i < hand.Count; i++)
         {
             float nextPositionX = firstCardPosition + i * spacing;
+            float yOffset = (i == selectedCardIndex) ? selectedCardYOffset : 0;
 
-            Vector2 cardPosition = new Vector2(nextPositionX, position.position.y);
+            Vector2 cardPosition = new Vector2(nextPositionX, position.position.y + yOffset);
 
             hand[i].transform.position = cardPosition;
         }
@@ -192,9 +219,89 @@ public class Player : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    private void OnDisable()
+    private void HandleCardSelection(Vector2 ctx)
     {
-        inputManager.OnCancel -= Cancel;
-        inputManager.OnPause -= Pause;
+        if (ctx.x != 0 && Time.time >= selectionCooldownEndTime)
+        {
+            if (ctx.x < 0 && selectedCardIndex > 0)
+            {
+                selectedCardIndex--;
+            }
+            else if (ctx.x > 0 && selectedCardIndex < (hand.Count - 1))
+            {
+                selectedCardIndex++;
+            }
+
+            selectionCooldownEndTime = Time.time + selectionCooldown;
+            UpdateCardPositions();
+        }
+        else if (ctx.x == 0)
+        {
+            selectionCooldownEndTime = 0;
+        }
+    }
+
+    private void HandleMouseSelection(Vector2 ctx)
+    {
+        Vector2 globalLocation = Camera.main.ScreenToWorldPoint(ctx);
+
+        RaycastHit2D isCard = Physics2D.Raycast(globalLocation, Vector2.zero);
+
+        if (isCard.collider != null)
+        {
+            CardPlayer cardPlayer = isCard.collider.GetComponent<CardPlayer>();
+
+            if (cardPlayer != null)
+            {
+                int i = hand.IndexOf(cardPlayer.gameObject);
+
+                if (i != selectedCardIndex && (i >= 0 || i < hand.Count))
+                {
+                    selectedCardIndex = i;
+
+                    UpdateCardPositions();
+                }
+            }
+        }
+    }
+
+    private void HandleCardUsage()
+    {
+        if (selectedCardIndex >= 0 && selectedCardIndex < hand.Count)
+            PlayCard();
+    }
+
+    private void PlayCard()
+    {
+        if (hand.Count > 0)
+        {
+            GameObject selectedCard = hand[selectedCardIndex];
+            CardPlayer cardPlayer = selectedCard.GetComponent<CardPlayer>();
+
+            if (cardPlayer != null)
+            {
+                cardPlayer.Play();
+            }
+        }
+    }
+
+    public void OnCardPlayed(GameObject playedCard)
+    {
+        CardVisualizer cv = playedCard.GetComponent<CardVisualizer>();
+
+        if (cv != null && cv.card != null)
+        {
+            cementery.Add(cv.card);
+        }
+
+        hand.Remove(playedCard);
+        Destroy(playedCard);
+
+        if (selectedCardIndex >= hand.Count)
+        {
+            selectedCardIndex = hand.Count - 1;
+        }
+
+        UpdateCardPositions();
     }
 }
