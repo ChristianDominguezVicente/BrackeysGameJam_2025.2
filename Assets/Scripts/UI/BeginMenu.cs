@@ -24,7 +24,6 @@ public class BeginMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        inputManager.OnAction += Action;
         inputManager.OnCancel += Cancel;
 
         uiObject = buttonBegin;
@@ -33,15 +32,6 @@ public class BeginMenu : MonoBehaviour
     private void SelectButton()
     {
         EventSystem.current.SetSelectedGameObject(uiObject);
-    }
-
-    private void Action()
-    {
-        if (EventSystem.current.currentSelectedGameObject != null)
-        {
-            Button button = EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
-            button?.onClick.Invoke();
-        }
     }
 
     private void Cancel()
@@ -103,7 +93,6 @@ public class BeginMenu : MonoBehaviour
 
     private void OnDisable()
     {
-        inputManager.OnAction -= Action;
         inputManager.OnCancel -= Cancel;
     }
 }

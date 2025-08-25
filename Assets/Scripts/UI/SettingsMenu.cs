@@ -15,22 +15,6 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] private Slider sfxSlider;
     [SerializeField] private Toggle screen;
 
-    private void OnEnable()
-    {
-        inputManager.OnAction += Action;
-    }
-
-    private void Action()
-    {
-        if (EventSystem.current.currentSelectedGameObject != null)
-        {
-            Toggle toggle = EventSystem.current.currentSelectedGameObject.GetComponent<Toggle>();
-            if (toggle != null)
-            {
-                toggle.isOn = !toggle.isOn;
-            }
-        }
-    }
     public void FullScreen()
     {
         Screen.fullScreen = screen.isOn;
@@ -50,10 +34,5 @@ public class SettingsMenu : MonoBehaviour
             audioMixer.SetFloat("SFX", -80f);
         else
             audioMixer.SetFloat("SFX", Mathf.Log10(sfxSlider.value) * 20);
-    }
-
-    private void OnDisable()
-    {
-        inputManager.OnAction -= Action;
     }
 }
