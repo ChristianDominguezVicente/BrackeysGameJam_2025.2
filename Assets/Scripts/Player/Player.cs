@@ -38,6 +38,15 @@ public class Player : MonoBehaviour
     private float selectionCooldown = 0.25f;
     private float selectionCooldownEndTime = 0f;
 
+    private GameObject selectedCard = null;
+
+    // Eventos y delegador para comunicarse con el gestor de los turnos
+    public delegate void SelectedCard();
+    public event SelectedCard OnSelectedCard;
+
+    public delegate void EnemySelectionCanceled();
+    public event EnemySelectionCanceled OnEnemySelectionCanceled;
+
     private void OnEnable()
     {
         inputManager.OnAction += HandleCardUsage;
@@ -186,6 +195,10 @@ public class Player : MonoBehaviour
         {
             pause.Back();
         }
+        else if (TurnManager.tm.CurrentTurn == TurnManager.TurnState.SelectingTarget)
+        {
+            OnEnemySelectionCanceled?.Invoke();
+        }
     }
 
     private void Pause()
@@ -277,20 +290,15 @@ public class Player : MonoBehaviour
         if (SceneManager.GetActiveScene().name != "TestScene" || pause.IsPaused) return;
 
         if (selectedCardIndex >= 0 && selectedCardIndex < hand.Count)
-            PlayCard();
+            SelectCard();
     }
 
-    private void PlayCard()
+    private void SelectCard()
     {
         if (hand.Count > 0)
         {
-            GameObject selectedCard = hand[selectedCardIndex];
-            CardPlayer cardPlayer = selectedCard.GetComponent<CardPlayer>();
-
-            if (cardPlayer != null)
-            {
-                cardPlayer.Play();
-            }
+            selectedCard = hand[selectedCardIndex];
+            OnSelectedCard?.Invoke();
         }
     }
 
@@ -316,7 +324,7 @@ public class Player : MonoBehaviour
 
     private void ClearHand()
     {
-        for (int i = hand.Count -1; i >= 0; i--)
+        for (int i = hand.Count - 1; i >= 0; i--)
         {
             GameObject tmp = hand[i];
             hand.Remove(tmp);
