@@ -2,9 +2,19 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour, IHittable
 {
-    public EnemyStats enemyStats;
+    [Header("Enemy stats")]
+    [SerializeField] protected EnemyStats enemyStats;
+
+    protected int health;
+
+    public int Health { get { return health; } }
 
     public abstract void Die();
+
+    void Start()
+    {
+        this.health = enemyStats.health;
+    }
 
     public virtual void TakeDamage(int amount, DamageType dt)
     {
@@ -16,9 +26,11 @@ public abstract class Enemy : MonoBehaviour, IHittable
                 break;
         }
 
-        this.enemyStats.health -= baseDamage;
+        this.health -= baseDamage;
 
-        if (enemyStats.health <= 0)
+        Debug.Log($"Me como daño {amount} para una vida total de {health}");
+
+        if (health <= 0)
             Die();
     }
 }

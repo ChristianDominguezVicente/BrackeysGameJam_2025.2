@@ -23,17 +23,15 @@ public class CardPlayer : MonoBehaviour
 
     }
 
-    public void Play()
+    public void Play(IHittable target)
     {
 
         Debug.Log("Carta jugada");
 
-        IHittable ih = FindObjectsByType<MonoBehaviour>(sortMode: FindObjectsSortMode.None).OfType<IHittable>().ToArray()[0];
-
-        if (ih != null)
+        if (target != null)
         {
-            cardVisualizer.card.OnActivated(ih);
-            Player.pj.OnCardPlayed(this.gameObject);
+            cardVisualizer.card.OnActivated(target);
+            Player.pj.OnCardUsed(this.gameObject);
         }
     }
 }
