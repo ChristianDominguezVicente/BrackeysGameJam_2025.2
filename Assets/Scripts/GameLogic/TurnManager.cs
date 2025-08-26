@@ -69,6 +69,11 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    public void GenerateEnemies(Node.Difficulty difficulty, int level)
+    {
+
+    }
+
     private void InitializeTurnManager(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == "TestScene")

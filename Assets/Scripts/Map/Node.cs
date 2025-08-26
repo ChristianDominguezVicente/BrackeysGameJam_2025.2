@@ -3,6 +3,12 @@ using UnityEngine;
 
 public class Node : MonoBehaviour
 {
+    public enum Difficulty
+    {
+        Normal,
+        Hard,
+    }
+
     private Map map;
 
     private SpriteRenderer sprite;
@@ -12,6 +18,10 @@ public class Node : MonoBehaviour
     private int index;
 
     private List<Node> connectedNodes = new List<Node>();
+
+    private Difficulty difficulty;
+
+    public Difficulty RoomDifficulty { get { return difficulty; } }
 
     public bool IsSelected { get => isSelected; set => isSelected = value; }
     public int Level { get => level; set => level = value; }
@@ -28,7 +38,7 @@ public class Node : MonoBehaviour
     private void OnMouseEnter()
     {
         if (!isSelected && map.CanSelectNode(this))
-            map.SetHoveredNode(this);  
+            map.SetHoveredNode(this);
     }
 
     private void OnMouseDown()
