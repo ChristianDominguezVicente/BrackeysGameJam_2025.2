@@ -185,7 +185,6 @@ public class TurnManager : MonoBehaviour
 
         foreach (Enemy enemy in enemies)
         {
-            // TODO Cambiar a properties
             if (enemy.Health > 0)
             {
                 Debug.Log("EL ENEMIGO " + enemy.name + " ESTA ATACANDO!");
