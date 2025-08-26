@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EnragedDog
   m_EditorClassIdentifier: 
   enemyName: Enraged Dog
-  health: 6
+  health: 3

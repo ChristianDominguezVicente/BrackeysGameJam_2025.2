@@ -1,10 +1,6 @@
 using System.Collections.Generic;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -40,6 +36,11 @@ public class Player : MonoBehaviour
 
     private GameObject selectedCard = null;
 
+    [Header("Enemy selection configurator")]
+    [SerializeField] private float selectedEnemyScaleModifier = 1.3f;
+    private List<Enemy> enemies;
+    private int selectedEnemyIndex = 0;
+
     // Eventos y delegador para comunicarse con el gestor de los turnos
     public delegate void SelectedCard();
     public event SelectedCard OnSelectedCard;
@@ -47,10 +48,13 @@ public class Player : MonoBehaviour
     public delegate void EnemySelectionCanceled();
     public event EnemySelectionCanceled OnEnemySelectionCanceled;
 
+    public delegate void CardPlayed(Card card, IHittable target, GameObject playedCard);
+    public event CardPlayed OnCardPlayed;
+
     private void OnEnable()
     {
         inputManager.OnAction += HandleCardUsage;
-        inputManager.OnMove += HandleCardSelection;
+        inputManager.OnMove += HandleSelection;
         inputManager.OnMouseLocation += HandleMouseSelection;
         inputManager.OnCancel += Cancel;
         inputManager.OnPause += Pause;
@@ -59,7 +63,7 @@ public class Player : MonoBehaviour
     private void OnDisable()
     {
         inputManager.OnAction -= HandleCardUsage;
-        inputManager.OnMove -= HandleCardSelection;
+        inputManager.OnMove -= HandleSelection;
         inputManager.OnMouseLocation -= HandleMouseSelection;
         inputManager.OnCancel -= Cancel;
         inputManager.OnPause -= Pause;
@@ -111,6 +115,8 @@ public class Player : MonoBehaviour
                 pauseMenu = pause.PauseGameObject;
                 settingsMenu = pause.SettingsGameObject;
             }
+
+            enemies = new List<Enemy>(FindObjectsByType<Enemy>(FindObjectsSortMode.None));
         }
         else
         {
@@ -128,7 +134,7 @@ public class Player : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        DrawHand();
+
     }
 
     // Update is called once per frame
@@ -167,7 +173,7 @@ public class Player : MonoBehaviour
         UpdateCardPositions();
     }
 
-    private void DrawHand()
+    public void DrawHand()
     {
         Draw(handSize);
     }
@@ -235,23 +241,40 @@ public class Player : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    private void HandleCardSelection(Vector2 ctx)
+    private void HandleSelection(Vector2 ctx)
     {
         if (SceneManager.GetActiveScene().name != "TestScene" || pause.IsPaused) return;
 
         if (ctx.x != 0 && Time.time >= selectionCooldownEndTime)
         {
-            if (ctx.x < 0 && selectedCardIndex > 0)
+            if (TurnManager.tm.CurrentTurn == TurnManager.TurnState.PlayerTurn)
             {
-                selectedCardIndex--;
+                if (ctx.x < 0 && selectedCardIndex > 0)
+                {
+                    selectedCardIndex--;
+                }
+                else if (ctx.x > 0 && selectedCardIndex < (hand.Count - 1))
+                {
+                    selectedCardIndex++;
+                }
+
+                UpdateCardPositions();
             }
-            else if (ctx.x > 0 && selectedCardIndex < (hand.Count - 1))
+            else if (TurnManager.tm.CurrentTurn == TurnManager.TurnState.SelectingTarget)
             {
-                selectedCardIndex++;
+                if (ctx.x < 0 && selectedEnemyIndex > 0)
+                {
+                    selectedEnemyIndex--;
+                }
+                else if (ctx.x > 0 && selectedEnemyIndex < (enemies.Count - 1))
+                {
+                    selectedEnemyIndex++;
+                }
+
+                UpdateEnemySelection();
             }
 
             selectionCooldownEndTime = Time.time + selectionCooldown;
-            UpdateCardPositions();
         }
         else if (ctx.x == 0)
         {
@@ -262,6 +285,7 @@ public class Player : MonoBehaviour
     private void HandleMouseSelection(Vector2 ctx)
     {
         if (SceneManager.GetActiveScene().name != "TestScene" || pause.IsPaused) return;
+        if (TurnManager.tm.CurrentTurn != TurnManager.TurnState.PlayerTurn) return;
 
         Vector2 globalLocation = Camera.main.ScreenToWorldPoint(ctx);
 
@@ -289,8 +313,26 @@ public class Player : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name != "TestScene" || pause.IsPaused) return;
 
-        if (selectedCardIndex >= 0 && selectedCardIndex < hand.Count)
-            SelectCard();
+        if (TurnManager.tm.CurrentTurn == TurnManager.TurnState.PlayerTurn)
+        {
+            Debug.Log($"Carta Seleccionada {selectedCardIndex}");
+            if (selectedCardIndex >= 0 && selectedCardIndex < hand.Count)
+            {
+                SelectCard();
+            }
+        }
+        else if (TurnManager.tm.CurrentTurn == TurnManager.TurnState.SelectingTarget)
+        {
+            Debug.Log($"ATACANDO A {selectedEnemyIndex} ENTRE {enemies.Count}");
+            if (selectedEnemyIndex >= 0 && selectedEnemyIndex < enemies.Count)
+            {
+                PlayCard(
+                    hand[selectedCardIndex].GetComponent<CardVisualizer>().card,
+                    enemies[selectedEnemyIndex],
+                    hand[selectedCardIndex]
+                );
+            }
+        }
     }
 
     private void SelectCard()
@@ -302,7 +344,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void OnCardPlayed(GameObject playedCard)
+    private void PlayCard(Card card, IHittable target, GameObject playedCard)
+    {
+        OnCardPlayed?.Invoke(card, target, playedCard);
+    }
+
+    public void OnCardUsed(GameObject playedCard)
     {
         CardVisualizer cv = playedCard.GetComponent<CardVisualizer>();
 
@@ -322,6 +369,27 @@ public class Player : MonoBehaviour
         UpdateCardPositions();
     }
 
+    public void ResetPlayer()
+    {
+        ClearHand();
+        deck.AddRange(cementery);
+        cementery.Clear();
+        selectedCardIndex = 0;
+        selectedCard = null;
+    }
+
+    public void RemoveEnemy(Enemy enemy)
+    {
+        if (enemies.Contains(enemy))
+        {
+            enemies.Remove(enemy);
+
+            selectedEnemyIndex = 0;
+
+            UpdateEnemySelection();
+        }
+    }
+
     private void ClearHand()
     {
         for (int i = hand.Count - 1; i >= 0; i--)
@@ -329,6 +397,21 @@ public class Player : MonoBehaviour
             GameObject tmp = hand[i];
             hand.Remove(tmp);
             Destroy(tmp);
+        }
+    }
+
+    private void UpdateEnemySelection()
+    {
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            if (i == selectedEnemyIndex)
+            {
+                enemies[i].transform.localScale = Vector2.one * selectedEnemyScaleModifier;
+            }
+            else
+            {
+                enemies[i].transform.localScale = Vector2.one;
+            }
         }
     }
 }

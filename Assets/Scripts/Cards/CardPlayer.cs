@@ -31,7 +31,7 @@ public class CardPlayer : MonoBehaviour
         if (target != null)
         {
             cardVisualizer.card.OnActivated(target);
-            Player.pj.OnCardPlayed(this.gameObject);
+            Player.pj.OnCardUsed(this.gameObject);
         }
     }
 }
