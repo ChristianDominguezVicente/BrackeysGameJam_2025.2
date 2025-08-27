@@ -18,7 +18,7 @@ public class DeckMenu : MonoBehaviour
     {
         player.AddNewCards(badassDeck);
 
-        SceneManager.LoadScene("TestScene");
+        SceneManager.LoadScene("Map");
     }
 
     public void ClearheadedDeck()

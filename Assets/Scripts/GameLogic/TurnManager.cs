@@ -19,6 +19,27 @@ public class TurnManager : MonoBehaviour
 
     private int turnNumber = 0;
 
+    [Header("Enemies Human Prefab")]
+    [SerializeField] private GameObject salesmanPrefab;
+    [SerializeField] private GameObject drunkPrefab;
+    [SerializeField] private GameObject teacherPrefab;
+    [SerializeField] private GameObject exConvictPrefab;
+    [SerializeField] private GameObject junkiesPrefab;
+    [SerializeField] private GameObject yakuzaPrefab;
+
+    [Header("Enemies NoHuman Prefab")]
+    [SerializeField] private GameObject racoonPrefab;
+    [SerializeField] private GameObject ratPrefab;
+    [SerializeField] private GameObject mutantRatPrefab;
+    [SerializeField] private GameObject mutantDogPrefab;
+    [SerializeField] private GameObject wtfPrefab;
+
+    private int selectedNodeLevel;
+    private Node.Difficulty selectedNodeDifficulty;
+
+    public int SelectedNodeLevel { get => selectedNodeLevel; set => selectedNodeLevel = value; }
+    public Node.Difficulty SelectedNodeDifficulty { get => selectedNodeDifficulty; set => selectedNodeDifficulty = value; }
+
     public int TurnNumber
     {
         get { return turnNumber; }
@@ -71,7 +92,95 @@ public class TurnManager : MonoBehaviour
 
     public void GenerateEnemies(Node.Difficulty difficulty, int level)
     {
+        switch (difficulty)
+        {
+            case Node.Difficulty.Human:
+                InstantiateHumanEnemy(level);
+                break;
+            case Node.Difficulty.NoHuman:
+                InstantiateNoHumanEnemy(level);
+                break;
+        }
+    }
 
+    private void SpawnEnemies(GameObject[] prefabs)
+    {
+        if (enemies == null)
+            enemies = new List<Enemy>();
+
+        Vector3 centerPosition = new Vector3(0, 1.5f, 0);
+        float spacing = 2f;
+        int enemyCount = prefabs.Length;
+
+        for (int i = 0; i < enemyCount; i++)
+        {
+            Enemy newEnemy = Instantiate(prefabs[i]).GetComponent<Enemy>();
+            float offset = (i - (enemyCount - 1) / 2f) * spacing;
+            newEnemy.transform.position = centerPosition + new Vector3(offset, 0, 0);
+            enemies.Add(newEnemy);
+        }
+    }
+
+    private void InstantiateHumanEnemy(int level)
+    {
+        switch (level)
+        {
+            case 1:
+                SpawnEnemies(new GameObject[] { salesmanPrefab });
+                break;
+            case 2:
+                SpawnEnemies(new GameObject[] { drunkPrefab });
+                break;
+            case 3:
+                SpawnEnemies(new GameObject[] { teacherPrefab });
+                break;
+            case 4:
+                SpawnEnemies(new GameObject[] { exConvictPrefab });
+                break;
+            case 5:
+                SpawnEnemies(new GameObject[] { junkiesPrefab, junkiesPrefab });
+                break;
+            case 6:
+                SpawnEnemies(new GameObject[] { yakuzaPrefab, yakuzaPrefab });
+                break;
+        }
+    }
+
+    private void InstantiateNoHumanEnemy(int level)
+    {
+        switch (level)
+        {
+            case 1:
+                SpawnEnemies(new GameObject[] { racoonPrefab });
+                break;
+            case 2:
+                if (Random.value < 0.5f)
+                    SpawnEnemies(new GameObject[] { ratPrefab, racoonPrefab });
+                else
+                    SpawnEnemies(new GameObject[] { ratPrefab, mutantRatPrefab, ratPrefab });
+                break;
+            case 3:
+                if (Random.value < 0.5f)
+                    SpawnEnemies(new GameObject[] { ratPrefab, racoonPrefab, ratPrefab });
+                else
+                    SpawnEnemies(new GameObject[] { mutantRatPrefab, mutantDogPrefab, mutantRatPrefab });
+                break;
+            case 4:
+                if (Random.value < 0.5f)
+                    SpawnEnemies(new GameObject[] { ratPrefab, racoonPrefab, ratPrefab, racoonPrefab, ratPrefab });
+                else
+                    SpawnEnemies(new GameObject[] { mutantRatPrefab, mutantDogPrefab, mutantRatPrefab, mutantRatPrefab });
+                break;
+            case 5:
+                if (Random.value < 0.5f)
+                    SpawnEnemies(new GameObject[] { ratPrefab, ratPrefab, ratPrefab, ratPrefab, ratPrefab });
+                else
+                    SpawnEnemies(new GameObject[] { mutantDogPrefab, mutantRatPrefab, ratPrefab, mutantRatPrefab, mutantDogPrefab });
+                break;
+            case 6:
+                SpawnEnemies(new GameObject[] { wtfPrefab, mutantDogPrefab, mutantRatPrefab, ratPrefab, racoonPrefab });
+                break;
+        }
     }
 
     private void InitializeTurnManager(Scene scene, LoadSceneMode mode)
@@ -81,6 +190,7 @@ public class TurnManager : MonoBehaviour
             Debug.Log("EMPEZANDO EL MANEJO DE TURNOS");
 
             PrepareVariables();
+            GenerateEnemies(selectedNodeDifficulty, selectedNodeLevel);
             StartPlayerTurn();
         }
         else
@@ -156,6 +266,15 @@ public class TurnManager : MonoBehaviour
             currentTurn = TurnState.NotPlayable;
             player.ResetPlayer();
             turnNumber = 0;
+
+            if (selectedNodeLevel == 6)
+            {
+                SceneManager.LoadScene("Menu");
+            }
+            else
+            {
+                SceneManager.LoadScene("Map");
+            }
         }
         else
         {
@@ -215,7 +334,6 @@ public class TurnManager : MonoBehaviour
 
     private void PrepareVariables()
     {
-        enemies = new List<Enemy>(FindObjectsByType<Enemy>(FindObjectsSortMode.None));
         currentTurn = TurnState.PlayerTurn;
         turnNumber = 0;
     }

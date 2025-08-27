@@ -588,6 +588,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1415908630}
+  salesmanPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
+  drunkPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
+  teacherPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
+  exConvictPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
+  junkiesPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
+  yakuzaPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
+  racoonPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
+  ratPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
+  mutantRatPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
+  mutantDogPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
+  wtfPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
 --- !u!4 &219970077
 Transform:
   m_ObjectHideFlags: 0
@@ -5029,6 +5040,63 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &1793275389
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1668001494484156612, guid: dc239e34ff4f46c49903fd345d34bf5c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668001494484156612, guid: dc239e34ff4f46c49903fd345d34bf5c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668001494484156612, guid: dc239e34ff4f46c49903fd345d34bf5c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668001494484156612, guid: dc239e34ff4f46c49903fd345d34bf5c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668001494484156612, guid: dc239e34ff4f46c49903fd345d34bf5c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668001494484156612, guid: dc239e34ff4f46c49903fd345d34bf5c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668001494484156612, guid: dc239e34ff4f46c49903fd345d34bf5c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668001494484156612, guid: dc239e34ff4f46c49903fd345d34bf5c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668001494484156612, guid: dc239e34ff4f46c49903fd345d34bf5c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668001494484156612, guid: dc239e34ff4f46c49903fd345d34bf5c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230250893042088703, guid: dc239e34ff4f46c49903fd345d34bf5c, type: 3}
+      propertyPath: m_Name
+      value: Map
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dc239e34ff4f46c49903fd345d34bf5c, type: 3}
 --- !u!1 &1806501843
 GameObject:
   m_ObjectHideFlags: 0
@@ -5268,7 +5336,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Card Game
+  m_text: rowan just wants biscuits
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bbf2ce150adbfaa419427021c52c4216, type: 2}
   m_sharedMaterial: {fileID: -1310810124599496466, guid: bbf2ce150adbfaa419427021c52c4216, type: 2}
@@ -5295,8 +5363,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 200
-  m_fontSizeBase: 200
+  m_fontSize: 130
+  m_fontSizeBase: 130
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5719,6 +5787,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
+  - {fileID: 1793275389}
   - {fileID: 5312744515276812740}
   - {fileID: 481241097}
   - {fileID: 848065250}

@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Node : MonoBehaviour
 {
     public enum Difficulty
     {
-        Normal,
-        Hard,
+        Human,
+        NoHuman, 
+        Non
     }
 
     private Map map;
@@ -21,7 +23,7 @@ public class Node : MonoBehaviour
 
     private Difficulty difficulty;
 
-    public Difficulty RoomDifficulty { get { return difficulty; } }
+    public Difficulty RoomDifficulty { get => difficulty; set => difficulty = value; }
 
     public bool IsSelected { get => isSelected; set => isSelected = value; }
     public int Level { get => level; set => level = value; }
@@ -48,6 +50,26 @@ public class Node : MonoBehaviour
             map.SelectNode(this);
             isSelected = true;
             sprite.color = Color.green;
+
+            TurnManager.tm.SelectedNodeLevel = this.Level;
+            TurnManager.tm.SelectedNodeDifficulty = this.RoomDifficulty;
+
+            SceneManager.LoadScene("TestScene");
+        }
+    }
+
+    public Color GetDefaultColor()
+    {
+        switch (difficulty)
+        {
+            case Difficulty.Human:
+                return new Color(1f, 0.5f, 0f);
+            case Difficulty.NoHuman:
+                return new Color(0.5f, 0f, 0.5f);
+            case Difficulty.Non:
+                return Color.gray;
+            default:
+                return Color.white;
         }
     }
 }

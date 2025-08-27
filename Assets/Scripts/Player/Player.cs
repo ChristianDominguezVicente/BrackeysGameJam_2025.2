@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "TestScene")
+        if (scene.name == "TestScene" || scene.name == "Map")
         {
             pause = FindFirstObjectByType<PauseMenu>();
             if (pause != null)
@@ -116,7 +116,10 @@ public class Player : MonoBehaviour
                 settingsMenu = pause.SettingsGameObject;
             }
 
-            enemies = new List<Enemy>(FindObjectsByType<Enemy>(FindObjectsSortMode.None));
+            if (scene.name == "TestScene")
+                enemies = new List<Enemy>(FindObjectsByType<Enemy>(FindObjectsSortMode.None));
+            else
+                enemies = null;
         }
         else
         {
@@ -195,13 +198,13 @@ public class Player : MonoBehaviour
 
     private void Cancel()
     {
-        if (SceneManager.GetActiveScene().name != "TestScene") return;
+        if (SceneManager.GetActiveScene().name != "TestScene" && SceneManager.GetActiveScene().name != "Map") return;
 
         if (pause.IsPaused)
         {
             pause.Back();
         }
-        else if (TurnManager.tm.CurrentTurn == TurnManager.TurnState.SelectingTarget)
+        else if (SceneManager.GetActiveScene().name != "TestScene" && TurnManager.tm.CurrentTurn == TurnManager.TurnState.SelectingTarget)
         {
             OnEnemySelectionCanceled?.Invoke();
         }
@@ -209,7 +212,7 @@ public class Player : MonoBehaviour
 
     private void Pause()
     {
-        if (SceneManager.GetActiveScene().name != "TestScene") return;
+        if (SceneManager.GetActiveScene().name != "TestScene" && SceneManager.GetActiveScene().name != "Map") return;
 
         if (!pause.IsPaused)
         {

@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Map : MonoBehaviour
 {
+    public static Map map;
+
     [Header("Inputs")]
     [SerializeField] private InputManagerSO inputManager;
 
@@ -25,7 +28,45 @@ public class Map : MonoBehaviour
     private int currentLevel = 0;
     private Node hoveredNode;
     private int hoveredIndex = 0;
+    private bool mapGenerated = false;
 
+    private PauseMenu pause;
+
+    void Awake()
+    {
+        if (map == null)
+        {
+            map = this;
+            DontDestroyOnLoad(gameObject);
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            return;
+        }
+
+        Destroy(gameObject);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Map")
+        {
+            pause = FindFirstObjectByType<PauseMenu>();
+            gameObject.SetActive(true);
+            if (!mapGenerated)
+            {
+                GenerateMap();
+                mapGenerated = true;
+            }       
+        }
+        else if (scene.name == "Menu")
+        {
+            ClearMap();
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+    }
     private void OnEnable()
     {
         inputManager.OnMove += Move;
@@ -40,13 +81,7 @@ public class Map : MonoBehaviour
 
     public void GenerateMap()
     {
-        foreach (var level in graph) 
-            foreach(var node in level)
-                Destroy(node);
-        foreach (var line in lines) Destroy(line.LineRenderer);
-        graph.Clear();
-        lines.Clear();
-        currentLevel = 0;
+        ClearMap();
 
         for (int i = 0; i < nodesPerLevel.Length; i++)
         {
@@ -64,9 +99,13 @@ public class Map : MonoBehaviour
                 script.Level = i;
                 script.Index = j;
                 script.Map = this;
+                script.RoomDifficulty = GetNodeDifficulty(i, j);
+
+                node.GetComponent<SpriteRenderer>().color = script.GetDefaultColor();
+
                 levelNodes.Add(script);
 
-                node.GetComponent<CircleCollider2D>().enabled = (i == 0);
+                node.GetComponent<CircleCollider2D>().enabled = (i == 0 && GetNodeDifficulty(i, j) != Node.Difficulty.Non);
             }
 
             graph.Add(levelNodes);
@@ -135,6 +174,7 @@ public class Map : MonoBehaviour
 
     public bool CanSelectNode(Node node)
     {
+        if (node.RoomDifficulty == Node.Difficulty.Non) return false;
         if (currentLevel == 0 && node.Level == 0 && !node.IsSelected) return true;
 
         if(node.Level == currentLevel + 1)
@@ -172,7 +212,7 @@ public class Map : MonoBehaviour
     public void SetHoveredNode(Node node)
     {
         if (hoveredNode != null && !hoveredNode.IsSelected)
-            hoveredNode.GetComponent<SpriteRenderer>().color = Color.white;
+            hoveredNode.GetComponent<SpriteRenderer>().color = hoveredNode.GetDefaultColor();
 
         hoveredNode = node;
 
@@ -211,8 +251,38 @@ public class Map : MonoBehaviour
         }
     }
 
+    private Node.Difficulty GetNodeDifficulty(int level, int index)
+    {
+        if (level == 7 && index == 0) return Node.Difficulty.Non;
+
+        switch (level)
+        {
+            case 1:
+                return (index == 0) ? Node.Difficulty.Human : Node.Difficulty.NoHuman;
+            case 2:
+                if (index == 0) return Node.Difficulty.NoHuman;
+                if (index == 1) return Node.Difficulty.Human;
+                return Node.Difficulty.NoHuman;
+            case 3:
+                if (index == 2) return Node.Difficulty.Human;
+                return Node.Difficulty.NoHuman;
+            case 4:
+                if (index == 2) return Node.Difficulty.Human;
+                return Node.Difficulty.NoHuman;
+            case 5:
+                if (index == 2) return Node.Difficulty.Human;
+                return Node.Difficulty.NoHuman;
+            case 6:
+                if (index == 1) return Node.Difficulty.Human;
+                return Node.Difficulty.NoHuman;
+        }
+        return Node.Difficulty.NoHuman;
+    }
+
     private void Move(Vector2 ctx)
     {
+        if (pause != null && pause.IsPaused) return;
+
         if (currentLevel >= graph.Count - 1) return;
 
         Node selected = graph[currentLevel].Find(n => n.IsSelected);
@@ -231,10 +301,36 @@ public class Map : MonoBehaviour
 
     private void Action()
     {
+        if (pause != null && pause.IsPaused) return;
+
         if (hoveredNode != null && CanSelectNode(hoveredNode))
         {
             SelectNode(hoveredNode);
             hoveredIndex = 0;
+
+            TurnManager.tm.SelectedNodeLevel = hoveredNode.Level;
+            TurnManager.tm.SelectedNodeDifficulty = hoveredNode.RoomDifficulty;
+
+            SceneManager.LoadScene("TestScene");
         }
+    }
+
+    private void ClearMap()
+    {
+        foreach (var level in graph)
+            foreach (var node in level)
+                if (node != null)
+                    Destroy(node.gameObject);
+
+        foreach (var line in lines)
+            if (line.LineRenderer != null)
+                Destroy(line.LineRenderer.gameObject);
+
+        graph.Clear();
+        lines.Clear();
+        currentLevel = 0;
+        hoveredNode = null;
+        hoveredIndex = 0;
+        mapGenerated = false;
     }
 }
