@@ -9,6 +9,7 @@ public abstract class Card : ScriptableObject
     public int manaCost;
     public int damage;
     public bool areaEffect;
+    public Sprite cardSprite;
 
     public List<CardEffect> effects;
 

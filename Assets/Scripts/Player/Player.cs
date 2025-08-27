@@ -206,6 +206,11 @@ public class Player : MonoBehaviour, IHittable
             Vector2 cardPosition = new Vector2(nextPositionX, position.position.y + yOffset);
 
             hand[i].transform.position = cardPosition;
+
+            CardVisualizer cv = hand[i].GetComponent<CardVisualizer>();
+            SpriteRenderer sr = cv.GetComponent<SpriteRenderer>();
+
+            sr.sortingOrder = (i == selectedCardIndex) ? 100 : 0;
         }
     }
 
