@@ -375,6 +375,7 @@ public class Player : MonoBehaviour, IHittable
 
     private void PlayCard(Card card, IHittable target, GameObject playedCard)
     {
+        mana -= card.manaCost;
         OnCardPlayed?.Invoke(card, target, playedCard);
     }
 
