@@ -2,12 +2,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IHittable
 {
     public static Player pj;
 
     [Header("Inputs")]
     [SerializeField] private InputManagerSO inputManager;
+
+    [Header("Player stats")]
+    [SerializeField] private int totalHealth;
+    private int health;
 
     private PauseMenu pause;
     private GameObject pauseMenu;
@@ -123,6 +127,7 @@ public class Player : MonoBehaviour
             pause = null;
             pauseMenu = null;
             settingsMenu = null;
+            this.health = this.totalHealth;
         }
     }
 
@@ -376,6 +381,7 @@ public class Player : MonoBehaviour
         cementery.Clear();
         selectedCardIndex = 0;
         selectedCard = null;
+        this.health = this.totalHealth;
     }
 
     public void RemoveEnemy(Enemy enemy)
@@ -413,5 +419,29 @@ public class Player : MonoBehaviour
                 enemies[i].transform.localScale = Vector2.one;
             }
         }
+    }
+
+    public void TakeDamage(int amount, DamageType dt)
+    {
+        int damageTaken = amount;
+
+        switch (dt)
+        {
+            default:
+                break;
+        }
+
+        this.health -= damageTaken;
+        Debug.Log($"El jugador se come {damageTaken} par auna vida resultante de {this.health}/{this.totalHealth}");
+
+        if (this.health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("OH NOOOOOOOOOOOOOOOOOOOOOOOOOOOOO! GAME OVER!!!!!!!!!!!!!!!");
     }
 }

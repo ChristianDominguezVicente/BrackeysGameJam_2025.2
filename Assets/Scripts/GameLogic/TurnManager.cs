@@ -193,6 +193,7 @@ public class TurnManager : MonoBehaviour
             if (enemy.Health > 0)
             {
                 Debug.Log("EL ENEMIGO " + enemy.name + " ESTA ATACANDO!");
+                enemy.Attack(player);
             }
         }
 

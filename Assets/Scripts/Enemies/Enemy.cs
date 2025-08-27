@@ -33,4 +33,24 @@ public abstract class Enemy : MonoBehaviour, IHittable
         if (health <= 0)
             Die();
     }
+
+    public virtual void Attack(IHittable target)
+    {
+        EnemyAttack ea = GetRandomAttack();
+
+        if (ea != null)
+        {
+            ea.OnAttackActivated(target, enemyStats.damage);
+        }
+    }
+
+    private EnemyAttack GetRandomAttack()
+    {
+        if (enemyStats.attacks != null && enemyStats.attacks.Count > 0)
+        {
+            return enemyStats.attacks[Random.Range(0, enemyStats.attacks.Count)];
+        }
+
+        return null;
+    }
 }

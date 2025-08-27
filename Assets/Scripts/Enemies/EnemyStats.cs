@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -6,4 +7,6 @@ public class EnemyStats : ScriptableObject
 {
     public string enemyName;
     public int health;
+    public int damage;
+    public List<EnemyAttack> attacks;
 }

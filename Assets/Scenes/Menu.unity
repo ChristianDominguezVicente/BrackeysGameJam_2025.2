@@ -4571,6 +4571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 11400000, guid: 08bd95469d90e664a83bf34d1906ebd4, type: 2}
+  totalHealth: 3
   handSize: 3
   position: {fileID: 1415908631}
   cardPrefab: {fileID: 8371679423922417987, guid: f9d2c95d6c624ceebab1c6ae6a26a1b9, type: 3}
