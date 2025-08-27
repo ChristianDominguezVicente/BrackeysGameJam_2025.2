@@ -4,6 +4,7 @@ public enum DamageType
 {
     Normal,
     Bleed,
+    Fear,
 }
 
 public interface IHittable

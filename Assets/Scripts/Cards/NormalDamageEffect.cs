@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NormalDamageEffect", menuName = "Script of the normal damage")]
+[CreateAssetMenu(fileName = "NormalDamageEffect", menuName = "Scriptable Objects/Effect/Normal damage effect")]
 public class NormalDamageEffect : CardEffect
 {
     public DamageType damageType = DamageType.Normal;

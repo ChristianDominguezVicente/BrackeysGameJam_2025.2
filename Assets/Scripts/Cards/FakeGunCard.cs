@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PunchCard", menuName = "Scriptable Objects/Cards/PunchCard")]
-public class PunchCard : Card
+[CreateAssetMenu(fileName = "FakeGunCard", menuName = "Scriptable Objects/Cards/FakeGunCard")]
+public class FakeGunCard : Card
 {
     public override void OnActivated(IHittable target)
     {

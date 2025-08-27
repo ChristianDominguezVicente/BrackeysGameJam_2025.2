@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 626f58dd49c4ebc468095fc8dc306384, type: 3}
-  m_Name: PunchCard
+  m_Script: {fileID: 11500000, guid: ce077ae03e043856fb92d88ddf424c6e, type: 3}
+  m_Name: NormalEffect
   m_EditorClassIdentifier: 
-  cardId: 1
-  cardName: Punch
-  manaCost: 1
-  damage: 2
-  effects:
-  - {fileID: 11400000, guid: 8cb566de81ead5a96a72710db5b56d6b, type: 2}
+  damageType: 0
+  amount: 3
