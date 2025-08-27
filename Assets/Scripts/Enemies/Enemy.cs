@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour, IHittable
@@ -6,14 +7,44 @@ public abstract class Enemy : MonoBehaviour, IHittable
     [SerializeField] protected EnemyStats enemyStats;
 
     protected int health;
+    protected List<StatusEffect> statusEffects;
 
     public int Health { get { return health; } }
 
     public abstract void Die();
+    public virtual StatusEffect HandleStatusEffects(int playerLife)
+    {
+        foreach (StatusEffect se in statusEffects)
+        {
+
+            switch (se)
+            {
+                case StatusEffect.Bleeding:
+                    TakeDamage(1, DamageType.Bleed);
+                    break;
+
+                case StatusEffect.Numb:
+                    return StatusEffect.Numb;
+
+                case StatusEffect.Torment:
+                    if (playerLife > this.health)
+                        return StatusEffect.Torment;
+
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (this.health <= 0)
+                return StatusEffect.Death;
+        }
+
+        return StatusEffect.None;
+    }
 
     void Start()
     {
-        this.health = enemyStats.health;
     }
 
     public virtual void TakeDamage(int amount, DamageType dt)
@@ -52,5 +83,26 @@ public abstract class Enemy : MonoBehaviour, IHittable
         }
 
         return null;
+    }
+
+    public bool HasStatusEffect(StatusEffect status)
+    {
+        return statusEffects.Contains(status);
+    }
+
+    public virtual void AddStatus(StatusEffect status)
+    {
+        if (HasStatusEffect(status))
+            return;
+
+        statusEffects.Add(status);
+    }
+
+    public virtual void RemoveStatus(StatusEffect status)
+    {
+        if (!HasStatusEffect(status))
+            return;
+
+        statusEffects.Remove(status);
     }
 }

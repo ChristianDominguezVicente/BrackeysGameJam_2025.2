@@ -54,6 +54,7 @@ public class TurnManager : MonoBehaviour
             player.OnSelectedCard += StartEnemySelection;
             player.OnEnemySelectionCanceled += CancelEnemySelection;
             player.OnCardPlayed += CardPlayed;
+            player.OnTurnEnded += EndPlayerTurn;
         }
     }
 
@@ -66,6 +67,7 @@ public class TurnManager : MonoBehaviour
             player.OnSelectedCard -= StartEnemySelection;
             player.OnEnemySelectionCanceled -= CancelEnemySelection;
             player.OnCardPlayed -= CardPlayed;
+            player.OnTurnEnded -= EndPlayerTurn;
         }
     }
 
@@ -113,9 +115,19 @@ public class TurnManager : MonoBehaviour
         if (currentTurn == TurnState.NotPlayable) return;
 
         Debug.Log("LE TOCA AL JUGADOR");
-        currentTurn = TurnState.PlayerTurn;
+
+        player.ResetMana();
+
+        if (player.HandleStatusEffects() == StatusEffect.Numb)
+        {
+            Debug.Log("El jugador estaba inmovil ha pasado el turno");
+            player.RemoveStatus(StatusEffect.Numb);
+            EndPlayerTurn();
+            return;
+        }
 
         this.turnNumber++;
+        currentTurn = TurnState.PlayerTurn;
 
         if (turnNumber == 1)
         {
@@ -159,7 +171,7 @@ public class TurnManager : MonoBehaviour
         }
         else
         {
-            EndPlayerTurn();
+            currentTurn = TurnState.PlayerTurn;
         }
     }
 
@@ -192,8 +204,26 @@ public class TurnManager : MonoBehaviour
         {
             if (enemy.Health > 0)
             {
-                Debug.Log("EL ENEMIGO " + enemy.name + " ESTA ATACANDO!");
-                enemy.Attack(player);
+                StatusEffect se = enemy.HandleStatusEffects(player.Health);
+
+                if (se == StatusEffect.None)
+                {
+                    Debug.Log("EL ENEMIGO " + enemy.name + " ESTA ATACANDO!");
+                    enemy.Attack(player);
+                }
+                else if (se == StatusEffect.Numb)
+                {
+                    Debug.Log("El enemigo no se puede mover. No ataca");
+                    enemy.RemoveStatus(StatusEffect.Numb);
+                }
+                else if (se == StatusEffect.Torment)
+                {
+                    Debug.Log("El enemigo te tiene miedo y retrocede. No ataca");
+                }
+                else if (se == StatusEffect.Death)
+                {
+                    Debug.Log("El enemigo se murio a causa de un efecto");
+                }
             }
         }
 

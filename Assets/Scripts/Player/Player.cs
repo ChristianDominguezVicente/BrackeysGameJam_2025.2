@@ -11,7 +11,12 @@ public class Player : MonoBehaviour, IHittable
 
     [Header("Player stats")]
     [SerializeField] private int totalHealth;
+    [SerializeField] private int totalMana;
     private int health;
+    private int mana;
+
+    public int Health { get { return health; } }
+    public int Mana { get { return mana; } }
 
     private PauseMenu pause;
     private GameObject pauseMenu;
@@ -20,11 +25,11 @@ public class Player : MonoBehaviour, IHittable
     private List<Card> deck;
     private List<Card> cementery;
 
-    public int handSize = 3;
+    [SerializeField] private int handSize = 3;
 
-    public Transform position;
+    [SerializeField] private Transform position;
 
-    public GameObject cardPrefab;
+    [SerializeField] private GameObject cardPrefab;
 
     private List<GameObject> hand;
 
@@ -45,6 +50,8 @@ public class Player : MonoBehaviour, IHittable
     private List<Enemy> enemies;
     private int selectedEnemyIndex = 0;
 
+    private List<StatusEffect> statusEffects;
+
     // Eventos y delegador para comunicarse con el gestor de los turnos
     public delegate void SelectedCard();
     public event SelectedCard OnSelectedCard;
@@ -54,6 +61,9 @@ public class Player : MonoBehaviour, IHittable
 
     public delegate void CardPlayed(Card card, IHittable target, GameObject playedCard);
     public event CardPlayed OnCardPlayed;
+
+    public delegate void TurnEnded();
+    public event TurnEnded OnTurnEnded;
 
     private void OnEnable()
     {
@@ -98,6 +108,7 @@ public class Player : MonoBehaviour, IHittable
             this.deck = new List<Card>();
             this.hand = new List<GameObject>();
             this.cementery = new List<Card>();
+            this.statusEffects = new List<StatusEffect>();
 
             pj = this;
             DontDestroyOnLoad(gameObject);
@@ -209,6 +220,10 @@ public class Player : MonoBehaviour, IHittable
         else if (TurnManager.tm.CurrentTurn == TurnManager.TurnState.SelectingTarget)
         {
             OnEnemySelectionCanceled?.Invoke();
+        }
+        else if (TurnManager.tm.CurrentTurn == TurnManager.TurnState.PlayerTurn)
+        {
+            OnTurnEnded?.Invoke();
         }
     }
 
@@ -344,8 +359,17 @@ public class Player : MonoBehaviour, IHittable
     {
         if (hand.Count > 0)
         {
-            selectedCard = hand[selectedCardIndex];
-            OnSelectedCard?.Invoke();
+            Card card = hand[selectedCardIndex].GetComponent<CardVisualizer>().card;
+
+            if (card != null && mana >= card.manaCost)
+            {
+                selectedCard = hand[selectedCardIndex];
+                OnSelectedCard?.Invoke();
+            }
+            else
+            {
+                Debug.Log("No tienes suficiente maná para juagr esta carta.");
+            }
         }
     }
 
@@ -406,6 +430,11 @@ public class Player : MonoBehaviour, IHittable
         }
     }
 
+    public void ResetMana()
+    {
+        mana = totalMana;
+    }
+
     private void UpdateEnemySelection()
     {
         for (int i = 0; i < enemies.Count; i++)
@@ -443,5 +472,50 @@ public class Player : MonoBehaviour, IHittable
     private void Die()
     {
         Debug.Log("OH NOOOOOOOOOOOOOOOOOOOOOOOOOOOOO! GAME OVER!!!!!!!!!!!!!!!");
+    }
+
+    public bool HasStatusEffect(StatusEffect status)
+    {
+        return statusEffects.Contains(status);
+    }
+
+    public void AddStatus(StatusEffect status)
+    {
+        if (HasStatusEffect(status))
+            return;
+
+        statusEffects.Add(status);
+    }
+
+    public void RemoveStatus(StatusEffect status)
+    {
+        if (!HasStatusEffect(status))
+            return;
+
+        statusEffects.Remove(status);
+    }
+
+    public StatusEffect HandleStatusEffects()
+    {
+        foreach (StatusEffect se in statusEffects)
+        {
+            switch (se)
+            {
+                case StatusEffect.Bleeding:
+                    TakeDamage(1, DamageType.Bleed);
+                    break;
+
+                case StatusEffect.Numb:
+                    return StatusEffect.Numb;
+
+                default:
+                    break;
+            }
+
+            if (this.health <= 0)
+                return StatusEffect.Death;
+        }
+
+        return StatusEffect.None;
     }
 }
