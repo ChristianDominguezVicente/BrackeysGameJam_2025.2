@@ -19,8 +19,13 @@ public class BeginMenu : MonoBehaviour
     [SerializeField] private GameObject buttonDeck;
     [SerializeField] private GameObject buttonCredits;
 
+    [Header("Dialogue Config")]
+    [SerializeField, TextArea(1, 5)] private string[] deckDialogue;
+
     private GameObject uiObject;
     private GameObject lastSelectedObject;
+
+    private static bool deckDialogueShown = false;
 
     private void OnEnable()
     {
@@ -50,10 +55,22 @@ public class BeginMenu : MonoBehaviour
 
     public void DeckMenu()
     {
+        beginMenu.SetActive(false);
+
+        if (!deckDialogueShown)
+        {
+            deckDialogueShown = true;
+            DialogueSystem.ds.StartDialogue(deckDialogue, () => { OpenDeckMenu(); });
+        }
+        else
+            OpenDeckMenu();
+    }
+
+    private void OpenDeckMenu()
+    {
         uiObject = buttonDeck;
         EventSystem.current.SetSelectedGameObject(uiObject);
 
-        beginMenu.SetActive(false);
         deckMenu.SetActive(true);
     }
 
