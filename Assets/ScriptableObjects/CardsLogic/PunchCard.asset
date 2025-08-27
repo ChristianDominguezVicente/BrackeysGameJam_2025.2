@@ -15,5 +15,6 @@ MonoBehaviour:
   cardId: 1
   cardName: Punch
   manaCost: 1
+  damage: 2
   effects:
   - {fileID: 11400000, guid: 8cb566de81ead5a96a72710db5b56d6b, type: 2}

@@ -4,12 +4,11 @@ using UnityEngine;
 public class NormalDamageEffect : CardEffect
 {
     public DamageType damageType = DamageType.Normal;
-    public int amount = 0;
 
-    public override void OnEffectActivated(IHittable target)
+    public override void OnEffectActivated(IHittable target, int damage)
     {
         Debug.Log("CARTA DE NOMBRE " + this.name + " JUGADA");
 
-        target.TakeDamage(amount, damageType);
+        target.TakeDamage(damage, damageType);
     }
 }

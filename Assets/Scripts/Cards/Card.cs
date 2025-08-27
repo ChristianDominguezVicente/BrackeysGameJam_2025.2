@@ -1,12 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "AbstractCard", menuName = "Scriptable Objects/AbstractCard")]
+[CreateAssetMenu(fileName = "AbstractCard", menuName = "Scriptable Objects/Cards/AbstractCard")]
 public abstract class Card : ScriptableObject
 {
     public string cardId;
     public string cardName;
     public int manaCost;
+    public int damage;
 
     public List<CardEffect> effects;
 
