@@ -53,6 +53,18 @@ public abstract class Enemy : MonoBehaviour, IHittable
 
         switch (dt)
         {
+            case DamageType.Bleed:
+                AddStatus(StatusEffect.Bleeding);
+                break;
+
+            case DamageType.Fear:
+                AddStatus(StatusEffect.Torment);
+                break;
+
+            case DamageType.Numbing:
+                AddStatus(StatusEffect.Numb);
+                break;
+
             default:
                 break;
         }

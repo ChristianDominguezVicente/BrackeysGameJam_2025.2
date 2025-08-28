@@ -28,10 +28,27 @@ public class CardPlayer : MonoBehaviour
 
         Debug.Log("Carta jugada");
 
-        if (target != null)
+        if (cardVisualizer.card.areaEffect)
         {
-            cardVisualizer.card.OnActivated(target);
-            Player.pj.OnCardUsed(this.gameObject);
+            if (TurnManager.tm != null && TurnManager.tm.Enemies != null)
+            {
+                foreach (Enemy enemy in TurnManager.tm.Enemies)
+                {
+                    if (enemy.Health > 0)
+                    {
+                        cardVisualizer.card.OnActivated(enemy);
+                    }
+                }
+            }
         }
+        else
+        {
+            if (target != null)
+            {
+                cardVisualizer.card.OnActivated(target);
+            }
+        }
+
+        Player.pj.OnCardUsed(this.gameObject);
     }
 }

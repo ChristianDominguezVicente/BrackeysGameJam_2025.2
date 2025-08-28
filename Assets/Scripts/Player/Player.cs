@@ -213,7 +213,7 @@ public class Player : MonoBehaviour, IHittable
             CardVisualizer cv = hand[i].GetComponent<CardVisualizer>();
             SpriteRenderer sr = cv.GetComponent<SpriteRenderer>();
 
-            sr.sortingOrder = (i == selectedCardIndex) ? 100 : 0;
+            sr.sortingOrder = (i == selectedCardIndex) ? 100 : i;
         }
     }
 
