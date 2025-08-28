@@ -4,10 +4,12 @@ public class CardVisualizer : MonoBehaviour
 {
     public Card card;
     private SpriteRenderer spriteRenderer;
+    private BoxCollider2D boxCollider;
 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        boxCollider = GetComponent<BoxCollider2D>();
 
         if (spriteRenderer == null)
         {
@@ -21,6 +23,11 @@ public class CardVisualizer : MonoBehaviour
         if (card != null && card.cardSprite != null)
         {
             spriteRenderer.sprite = card.cardSprite;
+
+            if (boxCollider != null)
+            {
+                boxCollider.size = spriteRenderer.bounds.size * 2;
+            }
         }
     }
 
