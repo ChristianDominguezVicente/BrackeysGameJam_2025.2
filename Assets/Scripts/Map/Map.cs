@@ -11,10 +11,7 @@ public class Map : MonoBehaviour
     [SerializeField] private InputManagerSO inputManager;
 
     [Header("Settings")]
-    [SerializeField] private float xSpacing;
-    [SerializeField] private float ySpacing;
     [SerializeField] private float lineWidth;
-    [SerializeField] private Vector2 offset;
     [SerializeField] private Vector3[] nodePositions;
 
     [Header("Prefabs")]

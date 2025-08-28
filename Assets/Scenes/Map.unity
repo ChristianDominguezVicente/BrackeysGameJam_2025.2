@@ -4617,6 +4617,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputManager: {fileID: 11400000, guid: 08bd95469d90e664a83bf34d1906ebd4, type: 2}
   confirmationMenu: {fileID: 1132710032}
+  nodeImage: {fileID: 1245710475}
+  humanSprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  noHumanSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   buttonAccept: {fileID: 1036670354}
   buttonPause: {fileID: 1598285416}
 --- !u!1 &1931201560

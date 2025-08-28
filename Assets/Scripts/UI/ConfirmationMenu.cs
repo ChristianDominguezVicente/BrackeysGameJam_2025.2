@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ConfirmationMenu : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class ConfirmationMenu : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private GameObject confirmationMenu;
+    [SerializeField] private Image nodeImage;
+    [SerializeField] private Sprite humanSprite;
+    [SerializeField] private Sprite noHumanSprite;
 
     [Header("Buttons")]
     [SerializeField] private GameObject buttonAccept;
@@ -39,6 +43,17 @@ public class ConfirmationMenu : MonoBehaviour
         this.map = map;
         this.node = node;
         map.InputLocked = true;
+
+        switch (node.RoomDifficulty)
+        {
+            case Node.Difficulty.Human:
+                nodeImage.sprite = humanSprite;
+                break;
+            case Node.Difficulty.NoHuman:
+                nodeImage.sprite = noHumanSprite;
+                break;
+        }
+
         uiObject = buttonAccept;
         SelectButton();
         confirmationMenu.SetActive(true);
