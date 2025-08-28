@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,6 +36,8 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private GameObject mutantDogPrefab;
     [SerializeField] private GameObject wtfPrefab;
 
+    private TextMeshProUGUI turnChangeFeedback;
+
     private int selectedNodeLevel;
     private Node.Difficulty selectedNodeDifficulty;
 
@@ -53,6 +57,7 @@ public class TurnManager : MonoBehaviour
     }
 
     private List<Enemy> enemies;
+    public List<Enemy> Enemies { get { return enemies; } }
 
     private void Awake()
     {
@@ -191,6 +196,18 @@ public class TurnManager : MonoBehaviour
         {
             Debug.Log("EMPEZANDO EL MANEJO DE TURNOS");
 
+            GameObject fto = GameObject.Find("TurnFeedbackText");
+
+            if (fto != null)
+            {
+                turnChangeFeedback = fto.GetComponent<TextMeshProUGUI>();
+
+                if (turnChangeFeedback != null)
+                {
+                    turnChangeFeedback.gameObject.SetActive(false);
+                }
+            }
+
             PrepareVariables();
             GenerateEnemies(selectedNodeDifficulty, selectedNodeLevel);
             StartPlayerTurn();
@@ -205,6 +222,8 @@ public class TurnManager : MonoBehaviour
                 enemies.Clear();
                 enemies = null;
             }
+
+            turnChangeFeedback = null;
         }
     }
 
@@ -238,6 +257,7 @@ public class TurnManager : MonoBehaviour
 
         this.turnNumber++;
         currentTurn = TurnState.PlayerTurn;
+        ShowTurnFeedback("YOUR TURN!");
 
         if (turnNumber == 1)
         {
@@ -257,7 +277,7 @@ public class TurnManager : MonoBehaviour
     {
         if (currentTurn != TurnState.SelectingTarget) return;
 
-        card.OnActivated(target);
+        playedCard.GetComponent<CardPlayer>().Play(target);
 
         for (int i = enemies.Count - 1; i >= 0; i--)
         {
@@ -269,8 +289,6 @@ public class TurnManager : MonoBehaviour
         }
 
         Debug.Log("NUMERO DE ENEMIGOS RESTANTES " + enemies.Count);
-
-        player.OnCardUsed(playedCard);
 
         if (enemies.Count == 0)
         {
@@ -312,6 +330,8 @@ public class TurnManager : MonoBehaviour
         if (currentTurn == TurnState.NotPlayable) return;
         currentTurn = TurnState.EnemyTurn;
 
+        ShowTurnFeedback("ENEMY TURN!");
+
         if (enemies == null || enemies.Count == 0)
         {
             Debug.Log("ENEMIGOS DERROTADOS, NO HAY MAS ENEMIGOS");
@@ -348,6 +368,27 @@ public class TurnManager : MonoBehaviour
 
         Debug.Log("FIN DEL TURNO DE LOS ENEMIGOS");
         StartPlayerTurn();
+    }
+
+    private void ShowTurnFeedback(string msg)
+    {
+        if (turnChangeFeedback != null)
+        {
+            turnChangeFeedback.text = msg;
+            turnChangeFeedback.gameObject.SetActive(true);
+            StartCoroutine(HideFeedbackTextAfterDelay(2f));
+        }
+    }
+
+    private IEnumerator HideFeedbackTextAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (turnChangeFeedback != null)
+        {
+            turnChangeFeedback.text = "";
+            turnChangeFeedback.gameObject.SetActive(false);
+        }
     }
 
     private bool AreEnemiesDead()
