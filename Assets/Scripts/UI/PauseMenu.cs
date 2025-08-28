@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
     [Header("Menus")]
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject settingsMenu;
+    [SerializeField] private ConfirmationMenu confirmationMenu;
 
     [Header("Buttons")]
     [SerializeField] private GameObject buttonPause;
@@ -22,6 +23,7 @@ public class PauseMenu : MonoBehaviour
     public bool IsPaused { get => isPaused; set => isPaused = value; }
     public GameObject PauseGameObject { get => pauseMenu; }
     public GameObject SettingsGameObject { get => settingsMenu; }
+    public ConfirmationMenu ConfirmationMenu { get => confirmationMenu; set => confirmationMenu = value; }
 
     private void Start()
     {
@@ -51,6 +53,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(false);
         Time.timeScale = 1f;
+
+        confirmationMenu?.ShowAfterPause();
     }
 
     public void Settings()

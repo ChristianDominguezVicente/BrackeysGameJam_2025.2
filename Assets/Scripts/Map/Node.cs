@@ -39,23 +39,14 @@ public class Node : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (!isSelected && map.CanSelectNode(this))
+        if (!isSelected && map.CanSelectNode(this) && !map.InputLocked)
             map.SetHoveredNode(this);
     }
 
     private void OnMouseDown()
     {
-        if (map.CanSelectNode(this))
-        {
-            map.SelectNode(this);
-            isSelected = true;
-            sprite.color = Color.green;
-
-            TurnManager.tm.SelectedNodeLevel = this.Level;
-            TurnManager.tm.SelectedNodeDifficulty = this.RoomDifficulty;
-
-            SceneManager.LoadScene("TestScene");
-        }
+        if (!map.InputLocked && map.CanSelectNode(this))
+            map.ConfirmationMenu.Initialize(map, this);
     }
 
     public Color GetDefaultColor()

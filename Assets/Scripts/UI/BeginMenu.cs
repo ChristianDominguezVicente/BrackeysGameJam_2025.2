@@ -55,23 +55,30 @@ public class BeginMenu : MonoBehaviour
 
     public void DeckMenu()
     {
+        uiObject = buttonDeck;
+        EventSystem.current.SetSelectedGameObject(uiObject);
+
         beginMenu.SetActive(false);
+        deckMenu.SetActive(true);
 
         if (!deckDialogueShown)
         {
             deckDialogueShown = true;
-            DialogueSystem.ds.StartDialogue(deckDialogue, () => { OpenDeckMenu(); });
+
+            SetMenuInteractuable(false);
+
+            DialogueSystem.ds.StartDialogue(deckDialogue, () => { SetMenuInteractuable(true); });
         }
-        else
-            OpenDeckMenu();
     }
 
-    private void OpenDeckMenu()
+    private void SetMenuInteractuable(bool state)
     {
-        uiObject = buttonDeck;
-        EventSystem.current.SetSelectedGameObject(uiObject);
-
-        deckMenu.SetActive(true);
+        CanvasGroup cg = deckMenu.GetComponent<CanvasGroup>();
+        if (cg != null)
+        {
+            cg.interactable = state;
+            cg.blocksRaycasts = state;
+        }
     }
 
     public void Settings()

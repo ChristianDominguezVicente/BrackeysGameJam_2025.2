@@ -125,6 +125,7 @@ public class Player : MonoBehaviour, IHittable
         if (scene.name == "TestScene" || scene.name == "Map")
         {
             pause = FindFirstObjectByType<PauseMenu>();
+
             if (pause != null)
             {
                 pauseMenu = pause.PauseGameObject;
@@ -245,6 +246,8 @@ public class Player : MonoBehaviour, IHittable
             pauseMenu.SetActive(true);
             settingsMenu.SetActive(false);
             Time.timeScale = 0f;
+
+            pause.ConfirmationMenu?.HideForPause();
         }
         else
         {
@@ -267,6 +270,8 @@ public class Player : MonoBehaviour, IHittable
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(false);
         Time.timeScale = 1f;
+
+        pause.ConfirmationMenu?.ShowAfterPause();
     }
 
     private void HandleSelection(Vector2 ctx)

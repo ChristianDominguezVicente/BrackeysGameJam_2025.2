@@ -15,10 +15,15 @@ public class Map : MonoBehaviour
     [SerializeField] private float ySpacing;
     [SerializeField] private float lineWidth;
     [SerializeField] private Vector2 offset;
+    [SerializeField] private Vector3[] nodePositions;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject nodePrefab;
     [SerializeField] private GameObject linePrefab;
+
+    [Header("Line Materials")]
+    [SerializeField] private Material solidLineMat;
+    [SerializeField] private Material dashedLineMat;
 
     private int[] nodesPerLevel = new int[] { 1, 2, 3, 3, 3, 3, 2, 1 };
 
@@ -31,6 +36,12 @@ public class Map : MonoBehaviour
     private bool mapGenerated = false;
 
     private PauseMenu pause;
+    private ConfirmationMenu confirmationMenu;
+
+    private bool inputLocked = false;
+
+    public ConfirmationMenu ConfirmationMenu { get => confirmationMenu; set => confirmationMenu = value; }
+    public bool InputLocked { get => inputLocked; set => inputLocked = value; }
 
     void Awake()
     {
@@ -51,12 +62,14 @@ public class Map : MonoBehaviour
         if (scene.name == "Map")
         {
             pause = FindFirstObjectByType<PauseMenu>();
+            confirmationMenu = FindFirstObjectByType<ConfirmationMenu>();
             gameObject.SetActive(true);
             if (!mapGenerated)
             {
                 GenerateMap();
                 mapGenerated = true;
-            }       
+            }
+            inputLocked = false;
         }
         else if (scene.name == "Menu")
         {
@@ -83,6 +96,8 @@ public class Map : MonoBehaviour
     {
         ClearMap();
 
+        int globalIndex = 0;
+
         for (int i = 0; i < nodesPerLevel.Length; i++)
         {
             int nodeCount = nodesPerLevel[i];
@@ -90,7 +105,7 @@ public class Map : MonoBehaviour
 
             for (int j = 0; j < nodeCount; j++)
             {
-                Vector3 pos = new Vector3(i * xSpacing + offset.x, j * ySpacing - (nodeCount - 1) * ySpacing / 2f + offset.y, 0);
+                Vector3 pos = nodePositions[globalIndex];
 
                 GameObject node = Instantiate(nodePrefab, pos, Quaternion.identity, transform);
                 node.name = $"Node L{i} N{j}";
@@ -106,6 +121,8 @@ public class Map : MonoBehaviour
                 levelNodes.Add(script);
 
                 node.GetComponent<CircleCollider2D>().enabled = (i == 0 && GetNodeDifficulty(i, j) != Node.Difficulty.Non);
+
+                globalIndex++;
             }
 
             graph.Add(levelNodes);
@@ -235,18 +252,27 @@ public class Map : MonoBehaviour
         {
             if (line.Origin.IsSelected && line.Destination.IsSelected)
             {
+                line.LineRenderer.material = solidLineMat;
                 line.LineRenderer.startColor = Color.green;
                 line.LineRenderer.endColor = Color.green;
             }
             else if (hoveredNode != null && ((line.Origin.IsSelected && line.Destination == hoveredNode) || (line.Destination.IsSelected && line.Origin == hoveredNode)))
             {
+                line.LineRenderer.material = solidLineMat;
                 line.LineRenderer.startColor = Color.yellow;
                 line.LineRenderer.endColor = Color.yellow;
             }
+            else if ((line.Origin.IsSelected && !line.Destination.IsSelected && CanSelectNode(line.Destination)) || (line.Destination.IsSelected && !line.Origin.IsSelected && CanSelectNode(line.Origin)))
+            {
+                line.LineRenderer.material = dashedLineMat;
+                line.LineRenderer.startColor = Color.white;
+                line.LineRenderer.endColor = Color.white;
+            }
             else
             {
-                line.LineRenderer.startColor = Color.magenta;
-                line.LineRenderer.endColor = Color.magenta;
+                line.LineRenderer.material = solidLineMat;
+                line.LineRenderer.startColor = new Color(0, 0, 0, 0);
+                line.LineRenderer.endColor = new Color(0, 0, 0, 0);
             }
         }
     }
@@ -282,15 +308,15 @@ public class Map : MonoBehaviour
     private void Move(Vector2 ctx)
     {
         if (pause != null && pause.IsPaused) return;
-
+        if (inputLocked) return;
         if (currentLevel >= graph.Count - 1) return;
 
         Node selected = graph[currentLevel].Find(n => n.IsSelected);
         if (selected == null || selected.ConnectedNodes.Count == 0) return;
 
-        if (Mathf.Abs(ctx.y) > 0.5f)
+        if (Mathf.Abs(ctx.x) > 0.5f)
         {
-            if (ctx.y > 0) hoveredIndex++;
+            if (ctx.x > 0) hoveredIndex++;
             else hoveredIndex--;
 
             hoveredIndex = Mathf.Clamp(hoveredIndex, 0, selected.ConnectedNodes.Count - 1);
@@ -302,17 +328,22 @@ public class Map : MonoBehaviour
     private void Action()
     {
         if (pause != null && pause.IsPaused) return;
+        if (inputLocked) return;
 
         if (hoveredNode != null && CanSelectNode(hoveredNode))
-        {
-            SelectNode(hoveredNode);
-            hoveredIndex = 0;
+            confirmationMenu.Initialize(this, hoveredNode);
+    }
 
-            TurnManager.tm.SelectedNodeLevel = hoveredNode.Level;
-            TurnManager.tm.SelectedNodeDifficulty = hoveredNode.RoomDifficulty;
+    public void ConfirmNodeSelection(Node node)
+    {
+        inputLocked = true;
+        SelectNode(node);
+        hoveredIndex = 0;
 
-            SceneManager.LoadScene("TestScene");
-        }
+        TurnManager.tm.SelectedNodeLevel = node.Level;
+        TurnManager.tm.SelectedNodeDifficulty = node.RoomDifficulty;
+
+        SceneManager.LoadScene("TestScene");
     }
 
     private void ClearMap()
