@@ -39,9 +39,11 @@ public class TurnManager : MonoBehaviour
     private TextMeshProUGUI turnChangeFeedback;
 
     private int selectedNodeLevel;
+    private int selectedNodeIndex;
     private Node.Difficulty selectedNodeDifficulty;
 
     public int SelectedNodeLevel { get => selectedNodeLevel; set => selectedNodeLevel = value; }
+    public int SelectedNodeIndex { get => selectedNodeIndex; set => selectedNodeIndex = value; }
     public Node.Difficulty SelectedNodeDifficulty { get => selectedNodeDifficulty; set => selectedNodeDifficulty = value; }
 
     public int TurnNumber
@@ -51,13 +53,13 @@ public class TurnManager : MonoBehaviour
 
     private TurnState currentTurn;
 
-    public TurnState CurrentTurn
-    {
-        get { return currentTurn; }
-    }
+    public TurnState CurrentTurn { get => currentTurn; set => currentTurn = value; }
 
     private List<Enemy> enemies;
     public List<Enemy> Enemies { get { return enemies; } }
+
+    private ResultMenu resultMenu;
+    public ResultMenu ResultMenu { get => resultMenu; }
 
     private void Awake()
     {
@@ -97,15 +99,15 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    public void GenerateEnemies(Node.Difficulty difficulty, int level)
+    public void GenerateEnemies(Node.Difficulty difficulty, int level, int index)
     {
         switch (difficulty)
         {
             case Node.Difficulty.Human:
-                InstantiateHumanEnemy(level);
+                InstantiateHumanEnemy(level, index);
                 break;
             case Node.Difficulty.NoHuman:
-                InstantiateNoHumanEnemy(level);
+                InstantiateNoHumanEnemy(level, index);
                 break;
         }
     }
@@ -128,7 +130,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    private void InstantiateHumanEnemy(int level)
+    private void InstantiateHumanEnemy(int level, int index)
     {
         switch (level)
         {
@@ -153,7 +155,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    private void InstantiateNoHumanEnemy(int level)
+    private void InstantiateNoHumanEnemy(int level, int index)
     {
         switch (level)
         {
@@ -161,25 +163,25 @@ public class TurnManager : MonoBehaviour
                 SpawnEnemies(new GameObject[] { racoonPrefab });
                 break;
             case 2:
-                if (Random.value < 0.5f)
+                if (index == 0)
                     SpawnEnemies(new GameObject[] { ratPrefab, racoonPrefab });
                 else
                     SpawnEnemies(new GameObject[] { ratPrefab, mutantRatPrefab, ratPrefab });
                 break;
             case 3:
-                if (Random.value < 0.5f)
+                if (index == 0)
                     SpawnEnemies(new GameObject[] { ratPrefab, racoonPrefab, ratPrefab });
                 else
                     SpawnEnemies(new GameObject[] { mutantRatPrefab, mutantDogPrefab, mutantRatPrefab });
                 break;
             case 4:
-                if (Random.value < 0.5f)
+                if (index == 0)
                     SpawnEnemies(new GameObject[] { ratPrefab, racoonPrefab, ratPrefab, racoonPrefab, ratPrefab });
                 else
                     SpawnEnemies(new GameObject[] { mutantRatPrefab, mutantDogPrefab, mutantRatPrefab, mutantRatPrefab });
                 break;
             case 5:
-                if (Random.value < 0.5f)
+                if (index == 0)
                     SpawnEnemies(new GameObject[] { ratPrefab, ratPrefab, ratPrefab, ratPrefab, ratPrefab });
                 else
                     SpawnEnemies(new GameObject[] { mutantDogPrefab, mutantRatPrefab, ratPrefab, mutantRatPrefab, mutantDogPrefab });
@@ -198,6 +200,8 @@ public class TurnManager : MonoBehaviour
 
             GameObject fto = GameObject.Find("TurnFeedbackText");
 
+            resultMenu = FindFirstObjectByType<ResultMenu>();
+
             if (fto != null)
             {
                 turnChangeFeedback = fto.GetComponent<TextMeshProUGUI>();
@@ -209,7 +213,7 @@ public class TurnManager : MonoBehaviour
             }
 
             PrepareVariables();
-            GenerateEnemies(selectedNodeDifficulty, selectedNodeLevel);
+            GenerateEnemies(selectedNodeDifficulty, selectedNodeLevel, selectedNodeIndex);
             StartPlayerTurn();
         }
         else
@@ -303,7 +307,8 @@ public class TurnManager : MonoBehaviour
             }
             else
             {
-                SceneManager.LoadScene("Map");
+                resultMenu.SuccesMenu.SetActive(true);
+                //SceneManager.LoadScene("Map");
             }
         }
         else

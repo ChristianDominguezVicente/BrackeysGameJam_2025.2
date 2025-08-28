@@ -37,6 +37,8 @@ public class Map : MonoBehaviour
 
     private bool inputLocked = false;
 
+    private Stack<Node> selectionHistory = new Stack<Node>();
+
     public ConfirmationMenu ConfirmationMenu { get => confirmationMenu; set => confirmationMenu = value; }
     public bool InputLocked { get => inputLocked; set => inputLocked = value; }
 
@@ -201,6 +203,8 @@ public class Map : MonoBehaviour
 
     public void SelectNode(Node node)
     {
+        selectionHistory.Push(node);
+
         node.IsSelected = true;
         node.GetComponent<SpriteRenderer>().color = Color.green;
         currentLevel = node.Level;
@@ -338,6 +342,7 @@ public class Map : MonoBehaviour
         hoveredIndex = 0;
 
         TurnManager.tm.SelectedNodeLevel = node.Level;
+        TurnManager.tm.SelectedNodeIndex = node.Index;
         TurnManager.tm.SelectedNodeDifficulty = node.RoomDifficulty;
 
         SceneManager.LoadScene("TestScene");
@@ -360,5 +365,30 @@ public class Map : MonoBehaviour
         hoveredNode = null;
         hoveredIndex = 0;
         mapGenerated = false;
+    }
+
+    public void RevertSelection()
+    {
+        if (selectionHistory.Count > 1)
+        {
+            Node lastNode = selectionHistory.Pop();
+            lastNode.IsSelected = false;
+            lastNode.GetComponent<SpriteRenderer>().color = lastNode.GetDefaultColor();
+
+            Node previousNode = selectionHistory.Peek();
+            currentLevel = previousNode.Level;
+
+            foreach (Node n in graph[currentLevel + 1])
+                n.GetComponent<CircleCollider2D>().enabled = false;
+
+            foreach (Node c in previousNode.ConnectedNodes)
+                c.GetComponent<CircleCollider2D>().enabled = true;
+
+            hoveredIndex = 0;
+            if (previousNode.ConnectedNodes.Count > 0)
+                SetHoveredNode(previousNode.ConnectedNodes[0]);
+
+            UpdateLines();
+        }
     }
 }

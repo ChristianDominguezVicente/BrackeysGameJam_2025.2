@@ -240,6 +240,8 @@ public class Player : MonoBehaviour, IHittable
     {
         if (SceneManager.GetActiveScene().name != "TestScene" && SceneManager.GetActiveScene().name != "Map") return;
 
+        if (TurnManager.tm.ResultMenu.SuccesMenu.activeSelf || TurnManager.tm.ResultMenu.FailMenu.activeSelf) return;
+
         if (!pause.IsPaused)
         {
             pause.IsPaused = true;
@@ -486,6 +488,8 @@ public class Player : MonoBehaviour, IHittable
     private void Die()
     {
         Debug.Log("OH NOOOOOOOOOOOOOOOOOOOOOOOOOOOOO! GAME OVER!!!!!!!!!!!!!!!");
+        TurnManager.tm.CurrentTurn = TurnManager.TurnState.NotPlayable;
+        TurnManager.tm.ResultMenu.FailMenu.SetActive(true);
     }
 
     public bool HasStatusEffect(StatusEffect status)

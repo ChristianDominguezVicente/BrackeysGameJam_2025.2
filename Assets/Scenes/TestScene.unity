@@ -1052,9 +1052,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ConfirmationMenu, Assembly-CSharp
-        m_MethodName: Accept
+      - m_Target: {fileID: 1970222613}
+        m_TargetAssemblyTypeName: ResultMenu, Assembly-CSharp
+        m_MethodName: Retry
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4486,9 +4486,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ConfirmationMenu, Assembly-CSharp
-        m_MethodName: Cancel
+      - m_Target: {fileID: 1970222613}
+        m_TargetAssemblyTypeName: ResultMenu, Assembly-CSharp
+        m_MethodName: ReturnMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5409,9 +5409,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ConfirmationMenu, Assembly-CSharp
-        m_MethodName: Cancel
+      - m_Target: {fileID: 1970222613}
+        m_TargetAssemblyTypeName: ResultMenu, Assembly-CSharp
+        m_MethodName: ReturnMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5730,6 +5730,7 @@ GameObject:
   - component: {fileID: 1970222608}
   - component: {fileID: 1970222607}
   - component: {fileID: 1970222612}
+  - component: {fileID: 1970222613}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -5858,6 +5859,20 @@ MonoBehaviour:
   confirmationMenu: {fileID: 0}
   buttonPause: {fileID: 1080071527}
   buttonSettings: {fileID: 150912271}
+--- !u!114 &1970222613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970222606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7327daa93400f794da04cb5ee9e9c3b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  failMenu: {fileID: 928273414}
+  succesMenu: {fileID: 277711628}
 --- !u!1 &2093586085
 GameObject:
   m_ObjectHideFlags: 0
