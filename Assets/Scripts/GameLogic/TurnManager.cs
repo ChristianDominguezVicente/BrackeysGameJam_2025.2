@@ -271,7 +271,7 @@ public class TurnManager : MonoBehaviour
 
         if (turnNumber == 1)
         {
-            player.DrawHand();
+            player.StartCombat();
         }
     }
 
