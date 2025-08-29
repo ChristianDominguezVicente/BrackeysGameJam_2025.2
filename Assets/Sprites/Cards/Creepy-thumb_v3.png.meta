@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Creepy-thumb_v3_0: 3723580856299041481
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

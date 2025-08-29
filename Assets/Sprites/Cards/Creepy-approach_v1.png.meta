@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Creepy-approach_v1_0: -31188067691620458
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

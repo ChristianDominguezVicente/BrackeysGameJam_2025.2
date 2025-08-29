@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Creepy-move away_v1_0: -3128394681256389705
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
