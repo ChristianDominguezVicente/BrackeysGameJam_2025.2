@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class DialogueSystem : MonoBehaviour
@@ -16,6 +17,12 @@ public class DialogueSystem : MonoBehaviour
 
     [Header("Inputs")]
     [SerializeField] private InputManagerSO inputManager;
+
+    [Header("Sounds")]
+    [SerializeField] private AudioClip clickSound;
+
+    [Header("Audio Source")]
+    [SerializeField] private AudioSource audioSFX;
 
     private string[] phrases;
     private int index;
@@ -63,6 +70,9 @@ public class DialogueSystem : MonoBehaviour
     {
         if (phrases == null || phrases.Length == 0)
             return;
+
+        if(dialogueFrame.activeSelf)
+            audioSFX.PlayOneShot(clickSound);
 
         if (!talking)
         {

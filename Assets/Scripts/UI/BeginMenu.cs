@@ -23,6 +23,12 @@ public class BeginMenu : MonoBehaviour
     [Header("Dialogue Config")]
     [SerializeField, TextArea(1, 5)] private string[] deckDialogue;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip backSound;
+
+    [Header("Audio Source")]
+    [SerializeField] private AudioSource audioSFX;
+
     private GameObject uiObject;
     private GameObject lastSelectedObject;
 
@@ -43,7 +49,10 @@ public class BeginMenu : MonoBehaviour
     private void Cancel()
     {
         if (!beginMenu.activeSelf)
+        {
+            audioSFX.PlayOneShot(backSound);
             Back();
+        }      
     }
 
     private void Update()

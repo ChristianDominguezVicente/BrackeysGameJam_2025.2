@@ -17,6 +17,12 @@ public class ConfirmationMenu : MonoBehaviour
     [SerializeField] private GameObject buttonAccept;
     [SerializeField] private GameObject buttonPause;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip backSound;
+
+    [Header("Audio Source")]
+    [SerializeField] private AudioSource audioSFX;
+
     private Map map;
     private Node node;
     private bool isActive;
@@ -70,6 +76,7 @@ public class ConfirmationMenu : MonoBehaviour
     {
         node = null;
         map.InputLocked = false;
+        audioSFX.PlayOneShot(backSound);
         confirmationMenu.SetActive(false);
     }
     public void HideForPause()

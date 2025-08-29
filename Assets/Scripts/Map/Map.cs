@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class Map : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class Map : MonoBehaviour
     [SerializeField] private Material solidLineMat;
     [SerializeField] private Material dashedLineMat;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip hoverSound;
+    [SerializeField] private AudioClip clickSound;
+
     private int[] nodesPerLevel = new int[] { 1, 2, 3, 3, 3, 3, 2, 1 };
 
     private List<List<Node>> graph = new List<List<Node>>();
@@ -38,6 +43,8 @@ public class Map : MonoBehaviour
     private bool inputLocked = false;
 
     private Stack<Node> selectionHistory = new Stack<Node>();
+
+    private AudioSource audioSFX;
 
     public ConfirmationMenu ConfirmationMenu { get => confirmationMenu; set => confirmationMenu = value; }
     public bool InputLocked { get => inputLocked; set => inputLocked = value; }
@@ -62,6 +69,7 @@ public class Map : MonoBehaviour
         {
             pause = FindFirstObjectByType<PauseMenu>();
             confirmationMenu = FindFirstObjectByType<ConfirmationMenu>();
+            audioSFX = GameObject.Find("AudioSFX").GetComponent<AudioSource>();
             gameObject.SetActive(true);
             if (!mapGenerated)
             {
@@ -114,6 +122,8 @@ public class Map : MonoBehaviour
                 script.Index = j;
                 script.Map = this;
                 script.RoomDifficulty = GetNodeDifficulty(i, j);
+                script.HoverSound = hoverSound;
+                script.ClickSound = clickSound;
 
                 node.GetComponent<SpriteRenderer>().color = script.GetDefaultColor();
 
@@ -317,6 +327,7 @@ public class Map : MonoBehaviour
 
         if (Mathf.Abs(ctx.x) > 0.5f)
         {
+            audioSFX.PlayOneShot(hoverSound);
             if (ctx.x > 0) hoveredIndex++;
             else hoveredIndex--;
 
@@ -332,7 +343,10 @@ public class Map : MonoBehaviour
         if (inputLocked) return;
 
         if (hoveredNode != null && CanSelectNode(hoveredNode))
+        {
+            audioSFX.PlayOneShot(clickSound);
             confirmationMenu.Initialize(this, hoveredNode);
+        }    
     }
 
     public void ConfirmNodeSelection(Node node)

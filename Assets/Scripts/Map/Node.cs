@@ -11,6 +11,11 @@ public class Node : MonoBehaviour
         Non
     }
 
+    private AudioClip hoverSound;
+    private AudioClip clickSound;
+
+    private AudioSource audioSFX;
+
     private Map map;
 
     private SpriteRenderer sprite;
@@ -30,23 +35,33 @@ public class Node : MonoBehaviour
     public int Index { get => index; set => index = value; }
     public List<Node> ConnectedNodes { get => connectedNodes; set => connectedNodes = value; }
     public Map Map { get => map; set => map = value; }
+    public AudioClip HoverSound { get => hoverSound; set => hoverSound = value; }
+    public AudioClip ClickSound { get => clickSound; set => clickSound = value; }
 
     private void Start()
     {
         map = GetComponentInParent<Map>();
         sprite = GetComponent<SpriteRenderer>();
+        audioSFX = GameObject.Find("AudioSFX").GetComponent<AudioSource>();
     }
 
     private void OnMouseEnter()
     {
         if (!isSelected && map.CanSelectNode(this) && !map.InputLocked)
+        {
+            audioSFX.PlayOneShot(hoverSound);
             map.SetHoveredNode(this);
+        }
+            
     }
 
     private void OnMouseDown()
     {
         if (!map.InputLocked && map.CanSelectNode(this))
+        {
+            audioSFX.PlayOneShot(clickSound);
             map.ConfirmationMenu.Initialize(map, this);
+        }      
     }
 
     public Color GetDefaultColor()
