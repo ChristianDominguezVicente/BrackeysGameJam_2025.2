@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Badass-backhand_v1_0: 4429020254100551422
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

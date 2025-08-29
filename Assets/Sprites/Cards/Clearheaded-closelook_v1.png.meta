@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Clearheaded-closelook_v1_0: 4810033787352906289
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

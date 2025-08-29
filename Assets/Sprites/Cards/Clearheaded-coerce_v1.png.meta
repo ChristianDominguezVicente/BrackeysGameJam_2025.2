@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Clearheaded-coerce_v1_0: 7348895791519448596
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

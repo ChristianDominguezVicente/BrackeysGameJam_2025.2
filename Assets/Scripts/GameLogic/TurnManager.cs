@@ -430,6 +430,11 @@ public class TurnManager : MonoBehaviour
             return;
         }
 
+        StartCoroutine(HandleEnemiesTurns());
+    }
+
+    private IEnumerator HandleEnemiesTurns()
+    {
         foreach (Enemy enemy in enemies)
         {
             if (enemy.Health > 0)
@@ -438,22 +443,32 @@ public class TurnManager : MonoBehaviour
 
                 if (se == StatusEffect.None)
                 {
-                    Debug.Log("EL ENEMIGO " + enemy.name + " ESTA ATACANDO!");
+                    ShowTurnFeedback($"{enemy.EnemyName} is attacking!!");
+                    yield return new WaitForSeconds(1f);
+                    Debug.Log("EL ENEMIGO " + enemy.EnemyName + " ESTA ATACANDO!");
                     enemy.Attack(player);
                 }
                 else if (se == StatusEffect.Numb)
                 {
+                    ShowTurnFeedback($"{enemy.EnemyName} couldn't move and did nothing.");
+                    yield return new WaitForSeconds(1f);
                     Debug.Log("El enemigo no se puede mover. No ataca");
                     enemy.RemoveStatus(StatusEffect.Numb);
                 }
                 else if (se == StatusEffect.Torment)
                 {
+                    ShowTurnFeedback($"{enemy.EnemyName} feared you and backed-up.");
+                    yield return new WaitForSeconds(1f);
                     Debug.Log("El enemigo te tiene miedo y retrocede. No ataca");
                 }
                 else if (se == StatusEffect.Death)
                 {
+                    ShowTurnFeedback($"{enemy.EnemyName} ended up dying.");
+                    yield return new WaitForSeconds(1f);
                     Debug.Log("El enemigo se murio a causa de un efecto");
                 }
+
+                yield return new WaitForSeconds(1.5f);
             }
         }
 

@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Badass-rustypipe_v1_0: -3220381571876953676
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
