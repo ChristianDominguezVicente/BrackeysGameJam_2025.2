@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Creepy-attitude_v1_0: -2729080862478293296
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

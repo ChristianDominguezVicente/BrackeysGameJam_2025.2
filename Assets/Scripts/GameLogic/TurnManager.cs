@@ -19,6 +19,8 @@ public class TurnManager : MonoBehaviour
     [Header("Dependencias necesarias")]
     [SerializeField] private Player player;
 
+    public Player Player { get { return player; } }
+
     private int turnNumber = 0;
 
     [Header("Enemies Human Prefab")]
@@ -51,9 +53,17 @@ public class TurnManager : MonoBehaviour
 
     private TurnState currentTurn;
 
+    public delegate void TurnStateChanged(TurnState state);
+    public event TurnStateChanged OnTurnStateChanged;
+
     public TurnState CurrentTurn
     {
         get { return currentTurn; }
+        set
+        {
+            currentTurn = value;
+            OnTurnStateChanged?.Invoke(currentTurn);
+        }
     }
 
     private List<Enemy> enemies;
@@ -216,7 +226,7 @@ public class TurnManager : MonoBehaviour
         {
             Debug.Log("EN ESTA ESCENA NO SE JUEGA");
 
-            currentTurn = TurnState.NotPlayable;
+            CurrentTurn = TurnState.NotPlayable;
             if (enemies != null)
             {
                 enemies.Clear();
@@ -241,7 +251,7 @@ public class TurnManager : MonoBehaviour
 
     private void StartPlayerTurn()
     {
-        if (currentTurn == TurnState.NotPlayable) return;
+        if (CurrentTurn == TurnState.NotPlayable) return;
 
         Debug.Log("LE TOCA AL JUGADOR");
 
@@ -256,7 +266,7 @@ public class TurnManager : MonoBehaviour
         }
 
         this.turnNumber++;
-        currentTurn = TurnState.PlayerTurn;
+        CurrentTurn = TurnState.PlayerTurn;
         ShowTurnFeedback("YOUR TURN!");
 
         if (turnNumber == 1)
@@ -267,7 +277,7 @@ public class TurnManager : MonoBehaviour
 
     private void EndPlayerTurn()
     {
-        if (currentTurn == TurnState.NotPlayable) return;
+        if (CurrentTurn == TurnState.NotPlayable) return;
 
         Debug.Log("TURNO DE JUGADOR FINALIZADO");
         StartEnemyTurn();
@@ -293,7 +303,7 @@ public class TurnManager : MonoBehaviour
         if (enemies.Count == 0)
         {
             Debug.Log("GANASTE!");
-            currentTurn = TurnState.NotPlayable;
+            CurrentTurn = TurnState.NotPlayable;
             player.ResetPlayer();
             turnNumber = 0;
 
@@ -308,27 +318,27 @@ public class TurnManager : MonoBehaviour
         }
         else
         {
-            currentTurn = TurnState.PlayerTurn;
+            CurrentTurn = TurnState.PlayerTurn;
         }
     }
 
     private void StartEnemySelection()
     {
-        if (currentTurn != TurnState.PlayerTurn) return;
-        currentTurn = TurnState.SelectingTarget;
+        if (CurrentTurn != TurnState.PlayerTurn) return;
+        CurrentTurn = TurnState.SelectingTarget;
         Debug.Log("Seleccionando enemigo");
     }
 
     private void CancelEnemySelection()
     {
-        if (currentTurn != TurnState.SelectingTarget) return;
-        currentTurn = TurnState.PlayerTurn;
+        if (CurrentTurn != TurnState.SelectingTarget) return;
+        CurrentTurn = TurnState.PlayerTurn;
     }
 
     private void StartEnemyTurn()
     {
-        if (currentTurn == TurnState.NotPlayable) return;
-        currentTurn = TurnState.EnemyTurn;
+        if (CurrentTurn == TurnState.NotPlayable) return;
+        CurrentTurn = TurnState.EnemyTurn;
 
         ShowTurnFeedback("ENEMY TURN!");
 
@@ -406,7 +416,7 @@ public class TurnManager : MonoBehaviour
 
     private void PrepareVariables()
     {
-        currentTurn = TurnState.PlayerTurn;
+        CurrentTurn = TurnState.PlayerTurn;
         turnNumber = 0;
     }
 }

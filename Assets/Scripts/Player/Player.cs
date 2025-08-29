@@ -15,8 +15,24 @@ public class Player : MonoBehaviour, IHittable
     private int health;
     private int mana;
 
-    public int Health { get { return health; } }
-    public int Mana { get { return mana; } }
+    public int Health
+    {
+        get { return health; }
+        set
+        {
+            this.health = value;
+            OnLifeChanged?.Invoke(this.health, this.totalHealth);
+        }
+    }
+    public int Mana
+    {
+        get { return mana; }
+        set
+        {
+            this.mana = value;
+            OnManaChanged?.Invoke(this.mana);
+        }
+    }
 
     private PauseMenu pause;
     private GameObject pauseMenu;
@@ -64,6 +80,12 @@ public class Player : MonoBehaviour, IHittable
 
     public delegate void TurnEnded();
     public event TurnEnded OnTurnEnded;
+
+    public delegate void LifeChanged(int life, int totalLife);
+    public event LifeChanged OnLifeChanged;
+
+    public delegate void ManaChanged(int mana);
+    public event ManaChanged OnManaChanged;
 
     private void OnEnable()
     {
@@ -142,7 +164,7 @@ public class Player : MonoBehaviour, IHittable
             pause = null;
             pauseMenu = null;
             settingsMenu = null;
-            this.health = this.totalHealth;
+            this.Health = this.totalHealth;
         }
     }
 
@@ -226,14 +248,19 @@ public class Player : MonoBehaviour, IHittable
         {
             pause.Back();
         }
-        else if (SceneManager.GetActiveScene().name != "TestScene" && TurnManager.tm.CurrentTurn == TurnManager.TurnState.SelectingTarget)
+        else if (SceneManager.GetActiveScene().name == "TestScene" && TurnManager.tm.CurrentTurn == TurnManager.TurnState.SelectingTarget)
         {
             OnEnemySelectionCanceled?.Invoke();
         }
         else if (TurnManager.tm.CurrentTurn == TurnManager.TurnState.PlayerTurn)
         {
-            OnTurnEnded?.Invoke();
+            EndTurn();
         }
+    }
+
+    public void EndTurn()
+    {
+        OnTurnEnded?.Invoke();
     }
 
     private void Pause()
@@ -374,7 +401,7 @@ public class Player : MonoBehaviour, IHittable
         {
             Card card = hand[selectedCardIndex].GetComponent<CardVisualizer>().card;
 
-            if (card != null && mana >= card.manaCost)
+            if (card != null && Mana >= card.manaCost)
             {
                 selectedCard = hand[selectedCardIndex];
                 OnSelectedCard?.Invoke();
@@ -388,7 +415,7 @@ public class Player : MonoBehaviour, IHittable
 
     private void PlayCard(Card card, IHittable target, GameObject playedCard)
     {
-        mana -= card.manaCost;
+        Mana -= card.manaCost;
         OnCardPlayed?.Invoke(card, target, playedCard);
     }
 
@@ -419,7 +446,7 @@ public class Player : MonoBehaviour, IHittable
         cementery.Clear();
         selectedCardIndex = 0;
         selectedCard = null;
-        this.health = this.totalHealth;
+        this.Health = this.totalHealth;
     }
 
     public void RemoveEnemy(Enemy enemy)
@@ -446,7 +473,7 @@ public class Player : MonoBehaviour, IHittable
 
     public void ResetMana()
     {
-        mana = totalMana;
+        Mana = totalMana;
     }
 
     private void UpdateEnemySelection()
@@ -474,10 +501,10 @@ public class Player : MonoBehaviour, IHittable
                 break;
         }
 
-        this.health -= damageTaken;
-        Debug.Log($"El jugador se come {damageTaken} par auna vida resultante de {this.health}/{this.totalHealth}");
+        this.Health -= damageTaken;
+        Debug.Log($"El jugador se come {damageTaken} par auna vida resultante de {this.Health}/{this.totalHealth}");
 
-        if (this.health <= 0)
+        if (this.Health <= 0)
         {
             Die();
         }
@@ -526,7 +553,7 @@ public class Player : MonoBehaviour, IHittable
                     break;
             }
 
-            if (this.health <= 0)
+            if (this.Health <= 0)
                 return StatusEffect.Death;
         }
 
