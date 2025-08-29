@@ -17,3 +17,4 @@ MonoBehaviour:
   damage: 1
   attacks:
   - {fileID: 11400000, guid: da6f0ac4fdd8624f3b35b829b0b54efb, type: 2}
+  enemyType: 1
