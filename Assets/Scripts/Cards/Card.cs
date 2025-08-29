@@ -12,6 +12,7 @@ public abstract class Card : ScriptableObject
     public Sprite cardSprite;
 
     public List<CardEffect> effects;
+    public EnemyType targetType;
 
     public abstract void OnActivated(IHittable target);
 }

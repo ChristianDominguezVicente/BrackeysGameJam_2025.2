@@ -7,6 +7,7 @@ public abstract class Enemy : MonoBehaviour, IHittable
     [SerializeField] protected EnemyStats enemyStats;
 
     public string EnemyName { get { return enemyStats.name; } }
+    public EnemyType EnemyType { get { return enemyStats.enemyType; } }
 
     protected int health;
     protected List<StatusEffect> statusEffects;
