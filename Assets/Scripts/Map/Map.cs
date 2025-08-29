@@ -76,6 +76,16 @@ public class Map : MonoBehaviour
                 GenerateMap();
                 mapGenerated = true;
             }
+
+            foreach (var level in graph)
+            {
+                foreach (var node in level)
+                {
+                    if (node != null)
+                        node.AudioSFX = audioSFX;
+                }
+            }
+
             inputLocked = false;
         }
         else if (scene.name == "Menu")
@@ -124,7 +134,6 @@ public class Map : MonoBehaviour
                 script.RoomDifficulty = GetNodeDifficulty(i, j);
                 script.HoverSound = hoverSound;
                 script.ClickSound = clickSound;
-                script.AudioSFX = audioSFX;
 
                 node.GetComponent<SpriteRenderer>().color = script.GetDefaultColor();
 

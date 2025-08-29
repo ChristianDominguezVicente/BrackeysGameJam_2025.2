@@ -161,7 +161,10 @@ public class Player : MonoBehaviour, IHittable
             }
 
             if (scene.name == "TestScene")
+            {
                 enemies = new List<Enemy>(FindObjectsByType<Enemy>(FindObjectsSortMode.None));
+                enemies.Sort((a, b) => a.transform.position.x.CompareTo(b.transform.position.x));
+            }  
             else
                 enemies = null;
         }

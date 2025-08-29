@@ -158,8 +158,18 @@ public class TurnManager : MonoBehaviour
         for (int i = 0; i < enemyCount; i++)
         {
             Enemy newEnemy = Instantiate(prefabs[i]).GetComponent<Enemy>();
-            float offset = (i - (enemyCount - 1) / 2f) * spacing;
-            newEnemy.transform.position = centerPosition + new Vector3(offset, 0, 0);
+            float offsetX = (i - (enemyCount - 1) / 2f) * spacing;
+
+            float offsetY = 0f;
+            if (enemyCount >= 3)
+            {
+                if (i % 2 == 0)
+                    offsetY = 0.5f;
+                else
+                    offsetY = -0.5f;
+            }
+
+            newEnemy.transform.position = centerPosition + new Vector3(offsetX, offsetY, 0);
             enemies.Add(newEnemy);
         }
     }
@@ -393,8 +403,6 @@ public class TurnManager : MonoBehaviour
             {
                 resultMenu.ShowRewards(selectedNodeDifficulty, SelectedNodeLevel);
                 resultMenu.SuccesMenu.SetActive(true);
-                //resultMenu.SelectButton();
-                //SceneManager.LoadScene("Map");
             }
         }
         else
