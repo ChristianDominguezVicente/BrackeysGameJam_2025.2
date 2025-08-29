@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BeginMenu : MonoBehaviour
@@ -105,7 +106,8 @@ public class BeginMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(uiObject);
 
         settingsMenu.SetActive(false);
-        deckMenu.SetActive(false);
+        if (deckMenu != null)
+            deckMenu.SetActive(false);
         credits.SetActive(false);
         beginMenu.SetActive(true);
     }
@@ -113,6 +115,11 @@ public class BeginMenu : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void Return()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
     private void OnDisable()

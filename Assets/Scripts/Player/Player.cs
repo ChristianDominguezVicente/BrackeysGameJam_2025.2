@@ -18,6 +18,9 @@ public class Player : MonoBehaviour, IHittable
     public int Health { get { return health; } }
     public int Mana { get { return mana; } }
 
+    public int TotalHealth { get => totalHealth; set => totalHealth = value; }
+    public int TotalMana { get => totalMana; set => totalMana = value; }
+
     private PauseMenu pause;
     private GameObject pauseMenu;
     private GameObject settingsMenu;
@@ -220,6 +223,7 @@ public class Player : MonoBehaviour, IHittable
 
     private void Cancel()
     {
+        if (DialogueSystem.ds.Active) return;
         if (SceneManager.GetActiveScene().name != "TestScene" && SceneManager.GetActiveScene().name != "Map") return;
 
         if (pause.IsPaused)
@@ -238,9 +242,10 @@ public class Player : MonoBehaviour, IHittable
 
     private void Pause()
     {
+        if (DialogueSystem.ds.Active) return;
         if (SceneManager.GetActiveScene().name != "TestScene" && SceneManager.GetActiveScene().name != "Map") return;
 
-        if (TurnManager.tm.ResultMenu.SuccesMenu.activeSelf || TurnManager.tm.ResultMenu.FailMenu.activeSelf) return;
+        if (TurnManager.tm.ResultMenu != null && (TurnManager.tm.ResultMenu.SuccesMenu.activeSelf || TurnManager.tm.ResultMenu.FailMenu.activeSelf)) return;
 
         if (!pause.IsPaused)
         {
@@ -278,6 +283,7 @@ public class Player : MonoBehaviour, IHittable
 
     private void HandleSelection(Vector2 ctx)
     {
+        if (DialogueSystem.ds.Active) return;
         if (SceneManager.GetActiveScene().name != "TestScene" || pause.IsPaused) return;
 
         if (ctx.x != 0 && Time.time >= selectionCooldownEndTime)
@@ -319,6 +325,7 @@ public class Player : MonoBehaviour, IHittable
 
     private void HandleMouseSelection(Vector2 ctx)
     {
+        if (DialogueSystem.ds.Active) return;
         if (SceneManager.GetActiveScene().name != "TestScene" || pause.IsPaused) return;
         if (TurnManager.tm.CurrentTurn != TurnManager.TurnState.PlayerTurn) return;
 
@@ -346,6 +353,7 @@ public class Player : MonoBehaviour, IHittable
 
     private void HandleCardUsage()
     {
+        if (DialogueSystem.ds.Active) return;
         if (SceneManager.GetActiveScene().name != "TestScene" || pause.IsPaused) return;
 
         if (TurnManager.tm.CurrentTurn == TurnManager.TurnState.PlayerTurn)
@@ -490,6 +498,7 @@ public class Player : MonoBehaviour, IHittable
         Debug.Log("OH NOOOOOOOOOOOOOOOOOOOOOOOOOOOOO! GAME OVER!!!!!!!!!!!!!!!");
         TurnManager.tm.CurrentTurn = TurnManager.TurnState.NotPlayable;
         TurnManager.tm.ResultMenu.FailMenu.SetActive(true);
+        TurnManager.tm.ResultMenu.SelectButton();
     }
 
     public bool HasStatusEffect(StatusEffect status)

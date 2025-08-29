@@ -23,6 +23,10 @@ public class DialogueSystem : MonoBehaviour
 
     private System.Action onDialogueFinished;
 
+    private bool active = false;
+
+    public bool Active { get => active; set => active = value; }
+
     private void Awake()
     {
         if (ds == null) ds = this;
@@ -49,6 +53,8 @@ public class DialogueSystem : MonoBehaviour
         this.onDialogueFinished = onFinish;
 
         dialogueFrame.SetActive(true);
+
+        active = true;
 
         NextPhrase();
     }
@@ -88,6 +94,7 @@ public class DialogueSystem : MonoBehaviour
         index = -1;
         dialogueFrame.SetActive(false);
 
+        active = false;
 
         onDialogueFinished?.Invoke();
     }

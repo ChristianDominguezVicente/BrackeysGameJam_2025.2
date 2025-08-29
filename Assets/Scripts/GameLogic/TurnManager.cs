@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class TurnManager : MonoBehaviour
 {
@@ -35,6 +36,26 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private GameObject mutantRatPrefab;
     [SerializeField] private GameObject mutantDogPrefab;
     [SerializeField] private GameObject wtfPrefab;
+
+    [Header("DialoguesHuman")]
+    [SerializeField] private string[] hCombat1;
+    [SerializeField] private string[] hCombat2;
+    [SerializeField] private string[] hCombat3;
+    [SerializeField] private string[] hCombat4;
+    [SerializeField] private string[] hCombat5;
+    [SerializeField] private string[] hCombat6;
+
+    [Header("DialoguesNoHuman")]
+    [SerializeField] private string[] nhCombat1;
+    [SerializeField] private string[] nhCombat2a;
+    [SerializeField] private string[] nhCombat2b;
+    [SerializeField] private string[] nhCombat3a;
+    [SerializeField] private string[] nhCombat3b;
+    [SerializeField] private string[] nhCombat4a;
+    [SerializeField] private string[] nhCombat4b;
+    [SerializeField] private string[] nhCombat5a;
+    [SerializeField] private string[] nhCombat5b;
+    [SerializeField] private string[] nhCombat6;
 
     private TextMeshProUGUI turnChangeFeedback;
 
@@ -214,7 +235,10 @@ public class TurnManager : MonoBehaviour
 
             PrepareVariables();
             GenerateEnemies(selectedNodeDifficulty, selectedNodeLevel, selectedNodeIndex);
-            StartPlayerTurn();
+
+            string[] phrases = GetDialogueForNode(selectedNodeDifficulty, selectedNodeLevel, selectedNodeIndex);
+
+            DialogueSystem.ds.StartDialogue(phrases, () => { StartPlayerTurn(); });
         }
         else
         {
@@ -229,6 +253,53 @@ public class TurnManager : MonoBehaviour
 
             turnChangeFeedback = null;
         }
+    }
+
+    private string[] GetDialogueForNode(Node.Difficulty difficulty, int level, int index)
+    {
+        switch (difficulty)
+        {
+            case Node.Difficulty.Human:
+                switch (level)
+                {
+                    case 1: return hCombat1;
+                    case 2: return hCombat2;
+                    case 3: return hCombat3;
+                    case 4: return hCombat4;
+                    case 5: return hCombat5;
+                    case 6: return hCombat6;
+                }
+                break;
+
+            case Node.Difficulty.NoHuman:
+                switch (level)
+                {
+                    case 1: return nhCombat1;
+                    case 2:
+                        if (index == 0)
+                            return nhCombat2a;
+                        else
+                            return nhCombat2b;
+                    case 3:
+                        if (index == 0)
+                            return nhCombat3a;
+                        else
+                            return nhCombat3b;
+                    case 4:
+                        if (index == 0)
+                            return nhCombat4a;
+                        else
+                            return nhCombat4b;
+                    case 5:
+                        if (index == 0)
+                            return nhCombat5a;
+                        else
+                            return nhCombat5b;
+                    case 6: return nhCombat6;
+                }
+                break;
+        }
+        return hCombat1;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -307,7 +378,9 @@ public class TurnManager : MonoBehaviour
             }
             else
             {
+                resultMenu.ShowRewards(selectedNodeDifficulty, SelectedNodeLevel);
                 resultMenu.SuccesMenu.SetActive(true);
+                //resultMenu.SelectButton();
                 //SceneManager.LoadScene("Map");
             }
         }

@@ -599,6 +599,83 @@ MonoBehaviour:
   mutantRatPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
   mutantDogPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
   wtfPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
+  hCombat1:
+  - WTF, a salesman!
+  - What does he want?
+  - ... aha...
+  - 'FUCK YOU, LIAR, I''M NOT THE ONLY ONE WHO DOESN''T HAVE AN INTERNET CONTRACT
+    WITH YOUR SHITTY COMPANY!! '
+  - 'FUCK YOU, LIAR, I''M NOT THE ONLY ONE WHO DOESN''T HAVE AN INTERNET CONTRACT
+    WITH YOUR SHITTY COMPANY!! '
+  - 'I''M NOT INTERESTED!! '
+  hCombat2:
+  - 'Ugggggh, what a stench! '
+  - 'This lady must be drunk.  '
+  - 'Excuse me, lady, I need to pass on this sidewalk... '
+  - 'HEY, BE CAREFUL! '
+  - 'Damn, she handles drunkenness with violence. '
+  hCombat3:
+  - ...
+  - 'Isn''t that... '
+  - '... my high school literature teacher? '
+  - 'I have to leave befo---- '
+  - 'Damn, she has saw me. '
+  hCombat4:
+  - 'I bet he''s doped up. '
+  - 'And that tattoos... '
+  - 'Ah. Ex-convict. Yeah. '
+  - 'NO, PLEASE, DON''T LOOK AT ME!! '
+  - 'NO, PLEASE, DON''T LOOK AT ME!! '
+  hCombat5:
+  - 'Wow, now that IS whay I call a couple of junkies. '
+  - 'I should''n worry about them. They''re not even in this world. '
+  - ...
+  - 'DUDE, WHAT''S THAT YELL?! '
+  - 'oh. I just stepped on your hand... I''m so-- '
+  hCombat6:
+  - 'Okay, now seriously. '
+  - 'I don''t want to mess with the Yakuza ten steps before reaching the 24h. '
+  - 'Don''t look at them. '
+  - '...dontlookatthemdontlookatthemdontlookatthem... '
+  - 'COME ON, DON''T ATTACK ME!! I DIDN''T EVEN LOOK YOU IN THE EYE!! '
+  nhCombat1:
+  - 'Oh wow, how cute. A Raccoon. '
+  - 'Can I pet it? '
+  - 'HEY! What did I do to you?! '
+  nhCombat2a:
+  - 'Ok. Rat and Raccoon.  '
+  - 'I''m not going to pet any of them.  '
+  - 'I''ve learned. '
+  nhCombat2b:
+  - 'Eh... '
+  - 'Rats and... what kind of animal is that...? '
+  - 'Is that... a mutant rat or... something? '
+  nhCombat3a:
+  - 'I''m starting to worry about these alleys. '
+  - 'Rats are increasing their size.  '
+  - 'But that Raccoon is really cute... '
+  - '... Rowan focus. '
+  nhCombat3b:
+  - 'This is the first time I''ve ever seen a scabby dog.  '
+  - 'Oh, his jaw has dropped in a way that-...  '
+  - '... how can this animal still... be alive... '
+  nhCombat4a:
+  - 'WHAT''S THIS, A FUCKING ANIMAL GANG??! '
+  - 'I JUST WANT SOME BISCUITS, WHY DO I HAVE TO STRUGGLE THIS MUCH?! '
+  nhCombat4b:
+  - 'WHAT''S THIS, A FUCKING MUTANT ANIMAL GANG??! '
+  - 'I JUST WANT SOME BISCUITS, WHY DO I HAVE TO STRUGGLE THIS MUCH?! '
+  nhCombat5a:
+  - 'Well, isn''t the entire rat family seeking revenge? '
+  - 'I should have waited until tomorrow. '
+  nhCombat5b:
+  - 'Oh well, hello, NORMAL RAT! '
+  - 'Please, somebody help me. '
+  nhCombat6:
+  - ...
+  - ............
+  - ....................
+  - 'WHAT THE FUCK IS THAT? '
 --- !u!4 &219970077
 Transform:
   m_ObjectHideFlags: 0
@@ -1832,8 +1909,15 @@ MonoBehaviour:
   buttonDeck: {fileID: 1806501843}
   buttonCredits: {fileID: 262066091}
   deckDialogue:
-  - Prueba de dialogo1
-  - Prueba de dialogo2
+  - ... Damn, what do I do now?
+  - I can't believe I'm so foolish as to not buy biscuits when I ONLY eat biscuits.
+  - Now what? It's already 8 p.m. It's dark outside, and I don't live in the safest
+    neighborhood...
+  - The main streets are full of thugs and the alleys are full of nocturnal wildlife.
+  - If I want THAT BAD those biscuits, I should prepare myself really well.
+  - Should I grab the rusty pipe and go for it?
+  - ... Perhaps pretend, feign, and resort to my powers of persuasion...?
+  - ... or how about giving everyone the creeps?
 --- !u!114 &481241099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4202,7 +4286,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 8
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
