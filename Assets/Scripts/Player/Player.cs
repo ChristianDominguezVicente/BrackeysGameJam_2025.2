@@ -90,6 +90,9 @@ public class Player : MonoBehaviour, IHittable
     public delegate void ManaChanged(int mana);
     public event ManaChanged OnManaChanged;
 
+    public delegate void DamageTaken(int amount);
+    public event DamageTaken OnDamageTaken;
+
     private void OnEnable()
     {
         inputManager.OnAction += HandleCardUsage;
@@ -186,9 +189,6 @@ public class Player : MonoBehaviour, IHittable
     void Update()
     {
 
-        // TODO DEBUG ELIMINAR ELIMINAR TODO
-        if (Input.GetKeyDown(KeyCode.X))
-            DrawHand();
     }
 
     private void Draw(int cardNum)
@@ -218,8 +218,10 @@ public class Player : MonoBehaviour, IHittable
         UpdateCardPositions();
     }
 
-    public void DrawHand()
+    public void StartCombat()
     {
+        this.Health = this.health;
+        this.Mana = this.mana;
         Draw(handSize);
     }
 
@@ -513,6 +515,8 @@ public class Player : MonoBehaviour, IHittable
 
         this.Health -= damageTaken;
         Debug.Log($"El jugador se come {damageTaken} par auna vida resultante de {this.Health}/{this.totalHealth}");
+
+        OnDamageTaken(damageTaken);
 
         if (this.Health <= 0)
         {

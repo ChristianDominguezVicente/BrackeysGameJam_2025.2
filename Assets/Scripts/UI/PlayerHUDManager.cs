@@ -56,7 +56,10 @@ public class PlayerHUDManager : MonoBehaviour
 
     private void OnLifeChanged(int life, int totalLife)
     {
-        this.lifeTag.text = String.Format("{0}/{1}", life, totalLife);
+        if (life > 0)
+            this.lifeTag.text = String.Format("{0}/{1}", life, totalLife);
+        else
+            this.lifeTag.text = "Death";
     }
 
     private void OnManaChanged(int mana)
