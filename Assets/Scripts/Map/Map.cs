@@ -124,6 +124,7 @@ public class Map : MonoBehaviour
                 script.RoomDifficulty = GetNodeDifficulty(i, j);
                 script.HoverSound = hoverSound;
                 script.ClickSound = clickSound;
+                script.AudioSFX = audioSFX;
 
                 node.GetComponent<SpriteRenderer>().color = script.GetDefaultColor();
 

@@ -37,12 +37,12 @@ public class Node : MonoBehaviour
     public Map Map { get => map; set => map = value; }
     public AudioClip HoverSound { get => hoverSound; set => hoverSound = value; }
     public AudioClip ClickSound { get => clickSound; set => clickSound = value; }
+    public AudioSource AudioSFX { get => audioSFX; set => audioSFX = value; }
 
     private void Start()
     {
         map = GetComponentInParent<Map>();
         sprite = GetComponent<SpriteRenderer>();
-        audioSFX = GameObject.Find("AudioSFX").GetComponent<AudioSource>();
     }
 
     private void OnMouseEnter()
