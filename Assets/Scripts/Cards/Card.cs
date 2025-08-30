@@ -14,5 +14,10 @@ public abstract class Card : ScriptableObject
     public List<CardEffect> effects;
     public EnemyType targetType;
 
-    public abstract void OnActivated(IHittable target);
+    public virtual void OnActivated(IHittable target)
+    {
+        if (this.effects != null)
+            foreach (CardEffect effect in effects)
+                effect.OnEffectActivated(target, this.damage);
+    }
 }
