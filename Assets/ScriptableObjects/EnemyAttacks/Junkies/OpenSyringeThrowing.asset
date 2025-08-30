@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e8555c6f36c355c964e4d741f54612, type: 3}
   m_Name: OpenSyringeThrowing
   m_EditorClassIdentifier: 
-  damageType: 0
+  damageTypes: 00000000
   baseAttack: 2
   chanceToHit: 30
   attackName: Open Syringe Throwing

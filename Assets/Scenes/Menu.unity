@@ -5441,7 +5441,7 @@ MonoBehaviour:
   handSize: 5
   position: {fileID: 1415908631}
   cardPrefab: {fileID: 8371679423922417987, guid: f9d2c95d6c624ceebab1c6ae6a26a1b9, type: 3}
-  selectedCardYOffset: 1
+  selectedCardYOffset: 1.7
   spacing: 2
   selectedEnemyScaleModifier: 1.3
 --- !u!4 &1415908631

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e8555c6f36c355c964e4d741f54612, type: 3}
   m_Name: SlapWithLooseJaw
   m_EditorClassIdentifier: 
-  damageType: 1
+  damageTypes: 00000000
   baseAttack: 3
   chanceToHit: 40
   attackName: Slap with loose jaw
