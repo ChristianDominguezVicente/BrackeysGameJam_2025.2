@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageType: 0
   baseAttack: 1
+  chanceToHit: 50
+  attackName: Bite
+  chanceToUse: 40

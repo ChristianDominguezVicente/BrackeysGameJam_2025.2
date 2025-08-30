@@ -10,12 +10,14 @@ public class NormalAttack : EnemyAttack
     [SerializeField] private string attackName;
     [SerializeField] private int chanceToUse;
 
+    public int ChanceToUse { get { return chanceToUse; } }
+
     public override void OnAttackActivated(IHittable target, int damage)
     {
         Debug.Log("Ataque de mordisco realizado");
 
         if (chanceToHit >= Random.Range(0, 100))
-            target.TakeDamage(damage + baseAttack, DamageType.Normal);
+            target.TakeDamage(damage + baseAttack, damageType);
         else
             Debug.Log("El enemigo falló su ataque");
     }

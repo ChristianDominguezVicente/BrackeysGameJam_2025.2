@@ -417,6 +417,7 @@ public class TurnManager : MonoBehaviour
     {
         if (CurrentTurn != TurnState.PlayerTurn) return;
         CurrentTurn = TurnState.SelectingTarget;
+        player.StartEnemySelecitonMode();
         Debug.Log("Seleccionando enemigo");
     }
 
