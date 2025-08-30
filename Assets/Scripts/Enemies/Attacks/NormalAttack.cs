@@ -10,6 +10,8 @@ public class NormalAttack : EnemyAttack
     [SerializeField] private string attackName;
     [SerializeField] private int chanceToUse;
 
+    public int ChanceToUse { get { return chanceToUse; } }
+
     public override void OnAttackActivated(IHittable target, int damage)
     {
         Debug.Log("Ataque de mordisco realizado");

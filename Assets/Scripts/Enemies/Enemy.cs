@@ -175,7 +175,16 @@ public abstract class Enemy : MonoBehaviour, IHittable
     {
         if (enemyStats.attacks != null && enemyStats.attacks.Count > 0)
         {
-            return enemyStats.attacks[Random.Range(0, enemyStats.attacks.Count)];
+            int generatedNumber = Random.Range(0, 100);
+            int baseChance = 0;
+
+            foreach (NormalAttack attack in enemyStats.attacks)
+            {
+                baseChance += attack.ChanceToUse;
+
+                if (generatedNumber <= baseChance)
+                    return attack;
+            }
         }
 
         return null;
