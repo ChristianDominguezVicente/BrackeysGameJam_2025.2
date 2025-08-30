@@ -594,7 +594,7 @@ MonoBehaviour:
   exConvictPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
   junkiesPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
   yakuzaPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
-  racoonPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
+  racoonPrefab: {fileID: 167667257847059543, guid: f76c0a6624a214a41b9b20b7dfc2a225, type: 3}
   ratPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
   mutantRatPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
   mutantDogPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}

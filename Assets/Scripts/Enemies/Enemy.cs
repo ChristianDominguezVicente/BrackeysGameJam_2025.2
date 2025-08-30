@@ -90,7 +90,7 @@ public abstract class Enemy : MonoBehaviour, IHittable
         }
     }
 
-    private EnemyAttack GetRandomAttack()
+    protected virtual EnemyAttack GetRandomAttack()
     {
         if (enemyStats.attacks != null && enemyStats.attacks.Count > 0)
         {

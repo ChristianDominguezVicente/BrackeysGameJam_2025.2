@@ -1,12 +1,14 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BiteAttack", menuName = "Scriptable Objects/EnemyAttack/BiteAttack")]
-public class BiteAttack : EnemyAttack
+[CreateAssetMenu(fileName = "NormalAttack", menuName = "Scriptable Objects/EnemyAttack/NormalAttack")]
+public class NormalAttack : EnemyAttack
 {
     [Header("Attack Stats")]
     [SerializeField] private DamageType damageType = DamageType.Normal;
     [SerializeField] private int baseAttack;
     [SerializeField] private int chanceToHit;
+    [SerializeField] private string attackName;
+    [SerializeField] private int chanceToUse;
 
     public override void OnAttackActivated(IHittable target, int damage)
     {
