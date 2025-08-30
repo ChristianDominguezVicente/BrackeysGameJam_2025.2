@@ -15,7 +15,7 @@ public class NormalAttack : EnemyAttack
 
     public override void OnAttackActivated(IHittable target, int damage)
     {
-        Debug.Log("Ataque de mordisco realizado");
+        Debug.Log($"Ataque {attackName} realizado");
 
         if (chanceToHit >= Random.Range(0, 100))
         {

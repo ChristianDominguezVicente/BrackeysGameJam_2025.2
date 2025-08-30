@@ -233,8 +233,8 @@ public class Player : MonoBehaviour, IHittable
 
     public void StartCombat()
     {
-        this.Health = this.health;
-        this.Mana = this.mana;
+        this.Health = this.totalHealth;
+        this.Mana = this.totalMana;
         Draw(handSize);
     }
 
