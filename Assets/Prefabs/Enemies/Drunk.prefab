@@ -148,3 +148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyStats: {fileID: 11400000, guid: cf553f1626cd388418b1b6ee61ad4506, type: 2}
+  flashDuration: 0.2
+  damageFlashDuration: 0.3
+  damageFlashes: 3

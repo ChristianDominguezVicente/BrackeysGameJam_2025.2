@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class TurnManager : MonoBehaviour
@@ -61,6 +62,10 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private string[] nhCombat5a;
     [SerializeField] private string[] nhCombat5b;
     [SerializeField] private string[] nhCombat6;
+
+    [Header("Images")]
+    [SerializeField] private Sprite humanBG;
+    [SerializeField] private Sprite noHumanBG;
 
     private TextMeshProUGUI turnChangeFeedback;
 
@@ -295,6 +300,11 @@ public class TurnManager : MonoBehaviour
             GenerateEnemies(selectedNodeDifficulty, selectedNodeLevel, selectedNodeIndex);
 
             string[] phrases = GetDialogueForNode(selectedNodeDifficulty, selectedNodeLevel, selectedNodeIndex);
+
+            if (selectedNodeDifficulty == Node.Difficulty.Human)
+                GameObject.Find("Image").GetComponent<SpriteRenderer>().sprite = humanBG;
+            else
+                GameObject.Find("Image").GetComponent<SpriteRenderer>().sprite = noHumanBG;
 
             Sprite[] spritesShow = new Sprite[phrases.Length];
 
