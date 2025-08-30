@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7575816152659108921}
   - component: {fileID: 1821390401547046200}
   - component: {fileID: 8466652004263669209}
-  - component: {fileID: 1158484302180344098}
+  - component: {fileID: -2695480553574127808}
   m_Layer: 0
   m_Name: Raccoon
   m_TagString: Untagged
@@ -135,7 +135,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1158484302180344098
+--- !u!114 &-2695480553574127808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,8 +144,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 167667257847059543}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6617e499efb4c48b2814a975351e6b29, type: 3}
+  m_Script: {fileID: 11500000, guid: f8261af872c74c94bbe6a5937d78d7d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyStats: {fileID: 11400000, guid: 1f0f087c926d3584682abe1ac93fba68, type: 2}
+  enemyStats: {fileID: 11400000, guid: bc5d8d705858fff4cac43857efd78987, type: 2}
   flashDuration: 0.2
+  damageFlashDuration: 0.3
+  damageFlashes: 3

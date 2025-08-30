@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Rowan_Badass_Normal_0: 5373393036619862957
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
