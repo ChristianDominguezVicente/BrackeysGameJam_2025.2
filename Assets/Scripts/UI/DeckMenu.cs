@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,6 +14,14 @@ public class DeckMenu : MonoBehaviour
     [SerializeField] private Sprite[] clearheaded;
     [SerializeField] private Sprite[] creepy;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip badaasSound;
+    [SerializeField] private AudioClip clearheadedSound;
+    [SerializeField] private AudioClip creepySound;
+
+    [Header("Audio Source")]
+    [SerializeField] private AudioSource audioSFX;
+
     private Player player;
 
     private void Start()
@@ -23,7 +33,8 @@ public class DeckMenu : MonoBehaviour
     {
         player.AddNewCards(badassDeck);
         player.Images = badass;
-        SceneManager.LoadScene("Map");
+
+        StartCoroutine(PlaySound(badaasSound));  
     }
 
     public void ClearheadedDeck()
@@ -34,5 +45,16 @@ public class DeckMenu : MonoBehaviour
     public void CreepyDeck()
     {
         player.Images = creepy;
+    }
+
+    private IEnumerator PlaySound(AudioClip clip)
+    {
+        if (clip != null && audioSFX != null)
+        {
+            audioSFX.PlayOneShot(clip);
+            yield return new WaitForSeconds(clip.length);
+        }
+
+        SceneManager.LoadScene("Map");
     }
 }

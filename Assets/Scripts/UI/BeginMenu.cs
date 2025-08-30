@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -28,6 +29,9 @@ public class BeginMenu : MonoBehaviour
 
     [Header("Audio Source")]
     [SerializeField] private AudioSource audioSFX;
+
+    [Header("Sprites")]
+    [SerializeField] private Sprite[] sprites;
 
     private GameObject uiObject;
     private GameObject lastSelectedObject;
@@ -77,7 +81,18 @@ public class BeginMenu : MonoBehaviour
 
             SetMenuInteractuable(false);
 
-            DialogueSystem.ds.StartDialogue(deckDialogue, () => { SetMenuInteractuable(true); });
+            Sprite[] spritesShow = new Sprite[deckDialogue.Length];
+            for (int i = 0; i < deckDialogue.Length; i++)
+            {
+                if (i < 2)
+                    spritesShow[i] = sprites[1];
+                else if (i < 5)
+                    spritesShow[i] = sprites[2];
+                else
+                    spritesShow[i] = sprites[3];
+            }
+
+            DialogueSystem.ds.StartDialogue(deckDialogue, spritesShow, () => { SetMenuInteractuable(true); });
         }
     }
 

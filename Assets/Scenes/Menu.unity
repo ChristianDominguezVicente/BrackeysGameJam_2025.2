@@ -1897,7 +1897,6 @@ RectTransform:
   - {fileID: 1904352924}
   - {fileID: 1702237988}
   - {fileID: 1438135080}
-  - {fileID: 486024515}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1938,6 +1937,11 @@ MonoBehaviour:
   - ... or how about giving everyone the creeps?
   backSound: {fileID: 8300000, guid: 7163daef36ef0214d80580845c54df51, type: 3}
   audioSFX: {fileID: 2106339149}
+  sprites:
+  - {fileID: -8030656727092818282, guid: 4f3fc1992a662e941a73d95022ffd42a, type: 3}
+  - {fileID: -3683881560053736206, guid: 5519fedcabde2e74d9ef1983b227f21f, type: 3}
+  - {fileID: 5373393036619862957, guid: 71df81c3b10e1ca4fb6a6531ea1005ca, type: 3}
+  - {fileID: 990052135365916675, guid: c136d1e80e6cd504582e6185f61709cd, type: 3}
 --- !u!114 &481241099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1986,6 +1990,10 @@ MonoBehaviour:
   - {fileID: 2522387568514270289, guid: 3212c4671adb7024fa9c86eff116f281, type: 3}
   - {fileID: 468987525039697428, guid: 38e6a2857ba8a6d47bbb4e2b78c82a4d, type: 3}
   - {fileID: -8909204778067884993, guid: 4344d967b2fd37e43a1ee866e23da659, type: 3}
+  badaasSound: {fileID: 8300000, guid: 5b3422f3ab2abba4bb96389bb16c0c06, type: 3}
+  clearheadedSound: {fileID: 8300000, guid: 8af90d9c1225f8c41b311ab823e130dd, type: 3}
+  creepySound: {fileID: 8300000, guid: e7f4c684c1f5de74882d946291765708, type: 3}
+  audioSFX: {fileID: 2106339149}
 --- !u!1 &486024514
 GameObject:
   m_ObjectHideFlags: 0
@@ -2016,12 +2024,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 481241097}
+  m_Father: {fileID: 1438135080}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -481, y: -414.7}
-  m_SizeDelta: {x: 727.603, y: 203.094}
+  m_SizeDelta: {x: 727.603, y: 203.25208}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &486024516
 MonoBehaviour:
@@ -2036,14 +2044,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
+  m_Color: {r: 1, g: 0.9575472, b: 0.9575472, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5373393036619862957, guid: 71df81c3b10e1ca4fb6a6531ea1005ca, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5070,6 +5078,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 722544721}
+  - {fileID: 486024515}
   m_Father: {fileID: 481241097}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5091,6 +5100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueFrame: {fileID: 722544720}
   dialogueText: {fileID: 1226357169}
+  dialogueSprite: {fileID: 486024516}
   timeBtwLetter: 0.05
   inputManager: {fileID: 11400000, guid: 08bd95469d90e664a83bf34d1906ebd4, type: 2}
   clickSound: {fileID: 8300000, guid: db54cc32d2753a7429c7bbc54b15ac9a, type: 3}

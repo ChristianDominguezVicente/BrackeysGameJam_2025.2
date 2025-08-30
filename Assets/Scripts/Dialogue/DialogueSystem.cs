@@ -1,7 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class DialogueSystem : MonoBehaviour
@@ -11,6 +11,7 @@ public class DialogueSystem : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject dialogueFrame;
     [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private Image dialogueSprite;
 
     [Header("Config")]
     [SerializeField] private float timeBtwLetter;
@@ -25,6 +26,7 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField] private AudioSource audioSFX;
 
     private string[] phrases;
+    private Sprite[] sprites;
     private int index;
     private bool talking;
 
@@ -52,14 +54,18 @@ public class DialogueSystem : MonoBehaviour
         inputManager.OnAction -= OnActionPressed;
     }
 
-    public void StartDialogue(string[] phrases, System.Action onFinish = null)
+    public void StartDialogue(string[] phrases, Sprite[] sprites,System.Action onFinish = null)
     {
         this.phrases = phrases;
+        this.sprites = sprites;
         this.index = -1;
         this.talking = false;
         this.onDialogueFinished = onFinish;
 
         dialogueFrame.SetActive(true);
+
+        dialogueSprite.sprite = sprites[0];
+        dialogueSprite.gameObject.SetActive(true);
 
         active = true;
 
@@ -93,6 +99,9 @@ public class DialogueSystem : MonoBehaviour
         }
         else
         {
+            if (sprites != null && index < sprites.Length && dialogueSprite != null)
+                dialogueSprite.sprite = sprites[index];
+
             StartCoroutine(WritePhrase());
         }
     }
@@ -104,8 +113,9 @@ public class DialogueSystem : MonoBehaviour
         index = -1;
         dialogueFrame.SetActive(false);
 
-        active = false;
+        dialogueSprite.gameObject.SetActive(false);
 
+        active = false;
         onDialogueFinished?.Invoke();
     }
 

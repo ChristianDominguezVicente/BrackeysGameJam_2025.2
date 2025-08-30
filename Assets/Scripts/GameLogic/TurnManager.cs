@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -263,7 +264,154 @@ public class TurnManager : MonoBehaviour
 
             string[] phrases = GetDialogueForNode(selectedNodeDifficulty, selectedNodeLevel, selectedNodeIndex);
 
-            DialogueSystem.ds.StartDialogue(phrases, () => { StartPlayerTurn(); });
+            Sprite[] spritesShow = new Sprite[phrases.Length];
+
+            switch (selectedNodeDifficulty)
+            {
+                case Node.Difficulty.Human:
+                    switch (selectedNodeLevel)
+                    {
+                        case 1:
+                            for (int i = 0; i < phrases.Length; i++)
+                            {
+                                if (i < 3)
+                                    spritesShow[i] = Player.Images[2];
+                                else
+                                    spritesShow[i] = Player.Images[0];
+                            }
+                            break;
+                        case 2:
+                            for (int i = 0; i < phrases.Length; i++)
+                            {
+                                if (i < 2)
+                                    spritesShow[i] = Player.Images[3];
+                                else if (i < 3)
+                                    spritesShow[i] = Player.Images[2];
+                                else
+                                    spritesShow[i] = Player.Images[0];
+                            }
+                            break;
+                        case 3:
+                            for (int i = 0; i < phrases.Length; i++)
+                                spritesShow[i] = Player.Images[3];
+                            break;
+                        case 4:
+                            for (int i = 0; i < phrases.Length; i++)
+                            {
+                                if (i < 4)
+                                    spritesShow[i] = Player.Images[2];
+                                else
+                                    spritesShow[i] = Player.Images[1];
+                            }
+                            break;
+                        case 5:
+                            for (int i = 0; i < phrases.Length; i++)
+                            {
+                                if (i < 3)
+                                    spritesShow[i] = Player.Images[2];
+                                else if (i < 4)
+                                    spritesShow[i] = Player.Images[0];
+                                else
+                                    spritesShow[i] = Player.Images[2];
+                            }
+                            break;
+                        case 6:
+                            for (int i = 0; i < phrases.Length; i++)
+                            {
+                                if (i < 2)
+                                    spritesShow[i] = Player.Images[2];
+                                else if (i < 4)
+                                    spritesShow[i] = Player.Images[1];
+                                else
+                                    spritesShow[i] = Player.Images[0];
+                            }
+                            break;
+                    }
+                    break;
+
+                case Node.Difficulty.NoHuman:
+                    switch (selectedNodeLevel)
+                    {
+                        case 1:
+                            for (int i = 0; i < phrases.Length; i++)
+                            {
+                                if (i < 2)
+                                    spritesShow[i] = Player.Images[2];
+                                else
+                                    spritesShow[i] = Player.Images[0];
+                            }
+                            break;
+                        case 2:
+                            if (selectedNodeIndex == 0)
+                            {
+                                for (int i = 0; i < phrases.Length; i++)
+                                    spritesShow[i] = Player.Images[2];
+                                break;
+                            }
+                            else
+                            {
+                                for (int i = 0; i < phrases.Length; i++)
+                                    spritesShow[i] = Player.Images[3];
+                                break;
+                            }       
+                        case 3:
+                            if (selectedNodeIndex == 0)
+                            {
+                                for (int i = 0; i < phrases.Length; i++)
+                                    spritesShow[i] = Player.Images[3];
+                                break;
+                            }
+                            else
+                            {
+                                for (int i = 0; i < phrases.Length; i++)
+                                {
+                                    if (i < 1)
+                                        spritesShow[i] = Player.Images[2];
+                                    else
+                                        spritesShow[i] = Player.Images[3];
+                                }
+                                break;
+                            }
+                        case 4:
+                            if (selectedNodeIndex == 0)
+                            {
+                                for (int i = 0; i < phrases.Length; i++)
+                                    spritesShow[i] = Player.Images[0];
+                                break;
+                            }
+                            else
+                            {
+                                for (int i = 0; i < phrases.Length; i++)
+                                    spritesShow[i] = Player.Images[0];
+                                break;
+                            }
+                        case 5:
+                            if (selectedNodeIndex == 0)
+                            {
+                                for (int i = 0; i < phrases.Length; i++)
+                                    spritesShow[i] = Player.Images[1];
+                                break;
+                            }
+                            else
+                            {
+                                for (int i = 0; i < phrases.Length; i++)
+                                    spritesShow[i] = Player.Images[1];
+                                break;
+                            }
+                        case 6:
+                            for (int i = 0; i < phrases.Length; i++)
+                            {
+                                if (i < 4)
+                                    spritesShow[i] = Player.Images[2];
+                                else
+                                    spritesShow[i] = Player.Images[1];
+                            }
+                            break;
+                    }
+                    break;
+            }
+
+            DialogueSystem.ds.StartDialogue(phrases, spritesShow, () => { StartPlayerTurn(); });
         }
         else
         {
