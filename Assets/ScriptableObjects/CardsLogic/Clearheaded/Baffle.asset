@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 255baa51808513d1a99d5392037be204, type: 3}
+  m_Name: Baffle
+  m_EditorClassIdentifier: 
+  cardId: 21
+  cardName: Baffle
+  manaCost: 4
+  damage: 0
+  areaEffect: 1
+  cardSprite: {fileID: 5026664593018196924, guid: e8b72899baad8b14c91a16367041572f, type: 3}
+  effects:
+  - {fileID: 11400000, guid: d49a4509a1aa2f0658b9f21562e9bdb7, type: 2}
+  - {fileID: 11400000, guid: d973e21d8a4ac86dc85355783d676197, type: 2}
+  targetType: 1

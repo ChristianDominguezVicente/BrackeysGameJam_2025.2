@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 626f58dd49c4ebc468095fc8dc306384, type: 3}
+  m_Name: BattleCry
+  m_EditorClassIdentifier: 
+  cardId: 10
+  cardName: Battle Cry
+  manaCost: 1
+  damage: 0
+  areaEffect: 1
+  cardSprite: {fileID: -425178528718968339, guid: 02a11fb79ffa8e64bb22cec9d539a64a, type: 3}
+  effects:
+  - {fileID: 11400000, guid: d49a4509a1aa2f0658b9f21562e9bdb7, type: 2}
+  targetType: 1

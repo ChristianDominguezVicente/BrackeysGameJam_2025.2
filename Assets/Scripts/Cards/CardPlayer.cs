@@ -28,6 +28,11 @@ public class CardPlayer : MonoBehaviour
 
         Debug.Log("Carta jugada");
 
+        if (cardVisualizer.card.healPoints != 0)
+        {
+            TurnManager.tm.Player.TakeDamage(cardVisualizer.card.healPoints * -1, DamageType.Normal);
+        }
+
         if (cardVisualizer.card.areaEffect)
         {
             if (TurnManager.tm != null && TurnManager.tm.Enemies != null)

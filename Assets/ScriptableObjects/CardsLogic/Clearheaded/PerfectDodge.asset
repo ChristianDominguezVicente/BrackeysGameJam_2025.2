@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 255baa51808513d1a99d5392037be204, type: 3}
+  m_Name: PerfectDodge
+  m_EditorClassIdentifier: 
+  cardId: 20
+  cardName: PerfectDodge
+  manaCost: 3
+  damage: 0
+  areaEffect: 1
+  cardSprite: {fileID: -5624447928616329405, guid: ce1f2c50cdaeeb54cae012f78495bca4, type: 3}
+  effects:
+  - {fileID: 11400000, guid: 158b50a5c7dc04364be009813d84ddeb, type: 2}
+  - {fileID: 11400000, guid: 16f1b4a785305168996a9dc15531fbad, type: 2}
+  targetType: 1

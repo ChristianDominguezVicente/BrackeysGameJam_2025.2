@@ -587,6 +587,9 @@ public class Player : MonoBehaviour, IHittable
         }
 
         this.Health -= damageTaken;
+
+        if (this.Health > totalHealth) this.Health = totalHealth;
+
         Debug.Log($"El jugador se come {damageTaken} par auna vida resultante de {this.Health}/{this.totalHealth}");
 
         OnDamageTaken(damageTaken);
