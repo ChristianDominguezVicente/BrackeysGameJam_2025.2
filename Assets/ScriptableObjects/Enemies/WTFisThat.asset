@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da863bc5a454f1d33ba238276d653050, type: 3}
+  m_Name: WTFisThat
+  m_EditorClassIdentifier: 
+  enemyName: WTF is that
+  health: 15
+  damage: 1
+  attacks:
+  - {fileID: 11400000, guid: 0e030c280f4e3184a856eb4571c6b2ce, type: 2}
+  - {fileID: 11400000, guid: 8214396865cd05e4cbd7317d63ced075, type: 2}
+  - {fileID: 11400000, guid: 912a56fda84a9ac4987bceffb57a3857, type: 2}
+  - {fileID: 11400000, guid: 0a94835016e19c4448c6b74498dc4ebc, type: 2}
+  enemyType: 1

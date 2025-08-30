@@ -588,17 +588,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1415908630}
-  salesmanPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
-  drunkPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
-  teacherPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
-  exConvictPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
-  junkiesPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
-  yakuzaPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
+  salesmanPrefab: {fileID: 167667257847059543, guid: d0452aa6adb224b43897d737f92daa20, type: 3}
+  drunkPrefab: {fileID: 167667257847059543, guid: 3585d2a18646b094bb521f5cd829caf3, type: 3}
+  teacherPrefab: {fileID: 167667257847059543, guid: d2bd3234ddf50344d89b72bbf6e32a02, type: 3}
+  exConvictPrefab: {fileID: 167667257847059543, guid: 98d46f3c2cea89643a7d241702278b23, type: 3}
+  junkiePrefab1: {fileID: 167667257847059543, guid: 484ad560425aada4b8c6f321a0b73c93, type: 3}
+  junkiePrefab2: {fileID: 167667257847059543, guid: 653523702abe01f469ca45a9b093a8ea, type: 3}
+  yakuzaPrefab1: {fileID: 167667257847059543, guid: d399e5a31dc1a964493f4f884ce122bf, type: 3}
+  yakuzaPrefab2: {fileID: 167667257847059543, guid: 2ddab17c7d8d49540aa17bf96dd644cc, type: 3}
   racoonPrefab: {fileID: 167667257847059543, guid: f76c0a6624a214a41b9b20b7dfc2a225, type: 3}
-  ratPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
-  mutantRatPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
-  mutantDogPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
-  wtfPrefab: {fileID: 167667257847059543, guid: 5c80b4eb85eb9fd4fa8cf45fef9c6b73, type: 3}
+  ratPrefab: {fileID: 167667257847059543, guid: 03820551eefdb0e4ab930eb4ee3b8cf2, type: 3}
+  mutantRatPrefab: {fileID: 167667257847059543, guid: 18817eea552d4fb48b7af1983f35914f, type: 3}
+  mutantDogPrefab: {fileID: 167667257847059543, guid: d55011d3c17a85443bc76aa3a2ef2132, type: 3}
+  wtfPrefab: {fileID: 167667257847059543, guid: e5e8eb9e68f08e44f85eca18b279adb7, type: 3}
   hCombat1:
   - WTF, a salesman!
   - What does he want?

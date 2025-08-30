@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da863bc5a454f1d33ba238276d653050, type: 3}
+  m_Name: ScabbyMutantDog
+  m_EditorClassIdentifier: 
+  enemyName: Scabby Mutant Dog
+  health: 8
+  damage: 1
+  attacks:
+  - {fileID: 11400000, guid: 825c2f3924850d343a6e4f4456de2392, type: 2}
+  - {fileID: 11400000, guid: e45b07c98f73dc648853e0a324ec5db1, type: 2}
+  - {fileID: 11400000, guid: e424863d18553454f9b1b1396505abd6, type: 2}
+  - {fileID: 11400000, guid: 9dcd86ba2d5982846987de8a02de5ead, type: 2}
+  enemyType: 1

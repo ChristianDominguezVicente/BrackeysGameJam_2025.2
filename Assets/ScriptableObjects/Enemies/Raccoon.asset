@@ -16,7 +16,7 @@ MonoBehaviour:
   health: 3
   damage: 1
   attacks:
-  - {fileID: 11400000, guid: da6f0ac4fdd8624f3b35b829b0b54efb, type: 2}
-  - {fileID: 11400000, guid: da6f0ac4fdd8624f3b35b829b0b54efb, type: 2}
-  - {fileID: 11400000, guid: da6f0ac4fdd8624f3b35b829b0b54efb, type: 2}
+  - {fileID: 11400000, guid: 37ea04f615f2d88409f6988ba9e45816, type: 2}
+  - {fileID: 11400000, guid: ff5a247969e4c024bb3db3ed4ad9119b, type: 2}
+  - {fileID: 11400000, guid: 0c07c1f567840124987d236d78a8867d, type: 2}
   enemyType: 1

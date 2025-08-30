@@ -15,3 +15,5 @@ MonoBehaviour:
   damageType: 0
   baseAttack: 0
   chanceToHit: 40
+  attackName: Menance
+  chanceToUse: 40

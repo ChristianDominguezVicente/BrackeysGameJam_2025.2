@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da863bc5a454f1d33ba238276d653050, type: 3}
+  m_Name: Junkies
+  m_EditorClassIdentifier: 
+  enemyName: Hallucinogen Junkies
+  health: 8
+  damage: 1
+  attacks:
+  - {fileID: 11400000, guid: 6a7337ce8fdf5064e9aba438e48d31d8, type: 2}
+  - {fileID: 11400000, guid: 9f927d5ef05a4ea46923c56d6773ef8f, type: 2}
+  - {fileID: 11400000, guid: 1f15fdc0083aa954686c67037bf3bfcc, type: 2}
+  - {fileID: 11400000, guid: c6bad8690e4e2a04e898600ce0d2a122, type: 2}
+  enemyType: 0

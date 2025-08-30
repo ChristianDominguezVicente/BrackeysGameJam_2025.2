@@ -29,8 +29,10 @@ public class TurnManager : MonoBehaviour
     [SerializeField] private GameObject drunkPrefab;
     [SerializeField] private GameObject teacherPrefab;
     [SerializeField] private GameObject exConvictPrefab;
-    [SerializeField] private GameObject junkiesPrefab;
-    [SerializeField] private GameObject yakuzaPrefab;
+    [SerializeField] private GameObject junkiePrefab1;
+    [SerializeField] private GameObject junkiePrefab2;
+    [SerializeField] private GameObject yakuzaPrefab1;
+    [SerializeField] private GameObject yakuzaPrefab2;
 
     [Header("Enemies NoHuman Prefab")]
     [SerializeField] private GameObject racoonPrefab;
@@ -152,7 +154,7 @@ public class TurnManager : MonoBehaviour
             enemies = new List<Enemy>();
 
         Vector3 centerPosition = new Vector3(0, 1.5f, 0);
-        float spacing = 2f;
+        float spacing = 3f;
         int enemyCount = prefabs.Length;
 
         for (int i = 0; i < enemyCount; i++)
@@ -191,10 +193,10 @@ public class TurnManager : MonoBehaviour
                 SpawnEnemies(new GameObject[] { exConvictPrefab });
                 break;
             case 5:
-                SpawnEnemies(new GameObject[] { junkiesPrefab, junkiesPrefab });
+                SpawnEnemies(new GameObject[] { junkiePrefab1, junkiePrefab2 });
                 break;
             case 6:
-                SpawnEnemies(new GameObject[] { yakuzaPrefab, yakuzaPrefab });
+                SpawnEnemies(new GameObject[] { yakuzaPrefab1, yakuzaPrefab2 });
                 break;
         }
     }

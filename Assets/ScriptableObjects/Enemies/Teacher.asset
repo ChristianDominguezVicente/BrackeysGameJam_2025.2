@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da863bc5a454f1d33ba238276d653050, type: 3}
+  m_Name: Teacher
+  m_EditorClassIdentifier: 
+  enemyName: Former High School Teacher
+  health: 10
+  damage: 1
+  attacks:
+  - {fileID: 11400000, guid: 6d940cc4847a6c440b14e7dd8ddf2739, type: 2}
+  - {fileID: 11400000, guid: 447041662db0ac446ac27e4982707751, type: 2}
+  - {fileID: 11400000, guid: c2c0e2600bc2401419b76d4458bb6251, type: 2}
+  - {fileID: 11400000, guid: 17211483de930ad41979160897127705, type: 2}
+  enemyType: 0
