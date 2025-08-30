@@ -11,4 +11,5 @@ public enum StatusEffect
     Fail,
     SelfDamage,
     Death,
+    SecondHit
 }

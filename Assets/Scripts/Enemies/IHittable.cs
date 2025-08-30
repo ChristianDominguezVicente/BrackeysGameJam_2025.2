@@ -6,6 +6,11 @@ public enum DamageType
     Bleed,
     Fear,
     Numbing,
+    DamageX2,
+    PissOff,
+    SecondHit,
+    Fail,
+    SelfDamage
 }
 
 public interface IHittable

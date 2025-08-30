@@ -2202,10 +2202,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   badassDeck:
-  - {fileID: 11400000, guid: a41373f6b1bccc396ba51d7ec0343cd8, type: 2}
-  - {fileID: 11400000, guid: a41373f6b1bccc396ba51d7ec0343cd8, type: 2}
+  - {fileID: 11400000, guid: f2bfa91f0e4d6f86eb571fc3c17d4afe, type: 2}
+  - {fileID: 11400000, guid: 0b1f8990784c709adba2443d422bdb33, type: 2}
+  - {fileID: 11400000, guid: 027e1ec513237351aab4435cc2085b17, type: 2}
+  - {fileID: 11400000, guid: d7a14175166577be9999203f0a931180, type: 2}
   - {fileID: 11400000, guid: a081e22d4ac62358db788b445d4eac63, type: 2}
+  - {fileID: 11400000, guid: 4f0aea3136acb6c4587af5940060a184, type: 2}
+  - {fileID: 11400000, guid: 17d421d9b5cc0036bb9344cc758a7e49, type: 2}
+  - {fileID: 11400000, guid: 0a6c7bd81870bd1888f997f5c75bb86e, type: 2}
+  clearheadedDeck:
+  - {fileID: 11400000, guid: bb962c1145283bc5ca2bc430830b8114, type: 2}
+  - {fileID: 11400000, guid: a684d573693653a68af848f760dd6483, type: 2}
+  - {fileID: 11400000, guid: 380844a876ec9f63a8c408e551f5a989, type: 2}
+  - {fileID: 11400000, guid: d06ecf27064a5a77bb218ae5f8457884, type: 2}
+  - {fileID: 11400000, guid: bde994fb1b4c45f7ebe8eef42431b5a5, type: 2}
+  - {fileID: 11400000, guid: e8e93d43188c16fb18ef54f067f0ee6a, type: 2}
+  - {fileID: 11400000, guid: 2bdfcfffb831acff1a29afc03e073c23, type: 2}
+  creepyDeck:
+  - {fileID: 11400000, guid: 575f22369f13f7cc099f1962fdefc9ca, type: 2}
+  - {fileID: 11400000, guid: 340f90c191bcf18199737b9c62cbfae8, type: 2}
+  - {fileID: 11400000, guid: 203a220d9f42425529fcb220e2b01092, type: 2}
   - {fileID: 11400000, guid: a41373f6b1bccc396ba51d7ec0343cd8, type: 2}
+  - {fileID: 11400000, guid: 83f04efc8ab28eb21b68cb8895273e1c, type: 2}
+  - {fileID: 11400000, guid: bbabcc9e520baad25b4b6be37098928b, type: 2}
+  - {fileID: 11400000, guid: 4361d6f2169fb8e7183a66c57e52126c, type: 2}
+  - {fileID: 11400000, guid: 35fe3e47bdbd06f6da6bb64bfc4c6a99, type: 2}
   badass:
   - {fileID: -8030656727092818282, guid: 4f3fc1992a662e941a73d95022ffd42a, type: 3}
   - {fileID: -3683881560053736206, guid: 5519fedcabde2e74d9ef1983b227f21f, type: 3}
@@ -5409,7 +5430,7 @@ MonoBehaviour:
   inputManager: {fileID: 11400000, guid: 08bd95469d90e664a83bf34d1906ebd4, type: 2}
   totalHealth: 3
   totalMana: 5
-  handSize: 3
+  handSize: 5
   position: {fileID: 1415908631}
   cardPrefab: {fileID: 8371679423922417987, guid: f9d2c95d6c624ceebab1c6ae6a26a1b9, type: 3}
   selectedCardYOffset: 1

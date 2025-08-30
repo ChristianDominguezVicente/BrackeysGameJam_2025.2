@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NormalAttack", menuName = "Scriptable Objects/EnemyAttack/NormalAttack")]
 public class NormalAttack : EnemyAttack
 {
     [Header("Attack Stats")]
-    [SerializeField] private DamageType damageType = DamageType.Normal;
+    [SerializeField] private List<DamageType> damageTypes;
     [SerializeField] private int baseAttack;
     [SerializeField] private int chanceToHit;
     [SerializeField] private string attackName;
@@ -14,11 +15,26 @@ public class NormalAttack : EnemyAttack
 
     public override void OnAttackActivated(IHittable target, int damage)
     {
-        Debug.Log("Ataque de mordisco realizado");
+        Debug.Log($"Ataque {attackName} realizado");
+
+        int damageToHit = baseAttack;
+
+        if (damage == 0)
+        {
+            damageToHit /= 2;
+        }
 
         if (chanceToHit >= Random.Range(0, 100))
-            target.TakeDamage(damage + baseAttack, damageType);
+        {
+            foreach (DamageType dmg in damageTypes)
+            {
+                target.TakeDamage(damageToHit, dmg);
+                damageToHit *= 0;
+            }
+        }
         else
+        {
             Debug.Log("El enemigo falló su ataque");
+        }
     }
 }

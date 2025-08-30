@@ -32,6 +32,10 @@ public abstract class Enemy : MonoBehaviour, IHittable
 
             switch (se)
             {
+                case StatusEffect.SecondHit:
+                    TakeDamage(3, DamageType.Bleed);
+                    AddStatus(StatusEffect.Bleeding);
+                    break;
                 case StatusEffect.Bleeding:
                     TakeDamage(1, DamageType.Bleed);
                     break;
@@ -75,6 +79,26 @@ public abstract class Enemy : MonoBehaviour, IHittable
 
         switch (dt)
         {
+            case DamageType.DamageX2:
+                AddStatus(StatusEffect.DamageX2);
+                break;
+
+            case DamageType.PissOff:
+                AddStatus(StatusEffect.PissOff);
+                break;
+
+            case DamageType.SecondHit:
+                AddStatus(StatusEffect.SecondHit);
+                break;
+
+            case DamageType.Fail:
+                AddStatus(StatusEffect.Fail);
+                break;
+
+            case DamageType.SelfDamage:
+                AddStatus(StatusEffect.SelfDamage);
+                break;
+
             case DamageType.Bleed:
                 AddStatus(StatusEffect.Bleeding);
                 break;
@@ -124,9 +148,32 @@ public abstract class Enemy : MonoBehaviour, IHittable
     {
         EnemyAttack ea = GetRandomAttack();
 
+        int damage = 1;
+
         if (ea != null)
         {
-            ea.OnAttackActivated(target, enemyStats.damage);
+            if (HasStatusEffect(StatusEffect.SelfDamage))
+            {
+                if (Random.Range(1, 100) < 50)
+                {
+                    target = this;
+                }
+            }
+
+            if (HasStatusEffect(StatusEffect.PissOff))
+            {
+                damage = 0;
+                RemoveStatus(StatusEffect.PissOff);
+            }
+
+            if (HasStatusEffect(StatusEffect.Fail))
+            {
+                RemoveStatus(StatusEffect.Fail);
+                Debug.Log("Enemigo falla debido a estado");
+                return;
+            }
+
+            ea.OnAttackActivated(target, damage);
         }
     }
 

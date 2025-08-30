@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 626f58dd49c4ebc468095fc8dc306384, type: 3}
-  m_Name: ProperPunchCard
+  m_Name: ThatRustyPipe
   m_EditorClassIdentifier: 
-  cardId: 1
-  cardName: Proper Punch on Time
-  manaCost: 2
-  damage: 2
+  cardId: 13
+  cardName: That Rusty Pipe
+  manaCost: 3
+  damage: 3
   areaEffect: 0
-  cardSprite: {fileID: 0}
+  cardSprite: {fileID: -3220381571876953676, guid: 2d689ec579df0a6478b61ec842517380, type: 3}
   effects:
-  - {fileID: 11400000, guid: 8cb566de81ead5a96a72710db5b56d6b, type: 2}
+  - {fileID: 11400000, guid: 873148fa31cddddf1945bc919ee8994d, type: 2}
   targetType: 1
