@@ -1680,7 +1680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1689,7 +1689,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 0}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -4855,6 +4855,7 @@ MonoBehaviour:
   nodeImage: {fileID: 1245710475}
   humanSprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   noHumanSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  confirmationSprite: {fileID: 751327393}
   buttonAccept: {fileID: 1036670354}
   buttonPause: {fileID: 1598285416}
   backSound: {fileID: 8300000, guid: 7163daef36ef0214d80580845c54df51, type: 3}

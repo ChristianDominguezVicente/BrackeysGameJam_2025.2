@@ -183,21 +183,27 @@ public class TurnManager : MonoBehaviour
         {
             case 1:
                 SpawnEnemies(new GameObject[] { salesmanPrefab });
+                resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = salesmanPrefab.GetComponent<SpriteRenderer>().sprite;
                 break;
             case 2:
                 SpawnEnemies(new GameObject[] { drunkPrefab });
+                resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = drunkPrefab.GetComponent<SpriteRenderer>().sprite;
                 break;
             case 3:
                 SpawnEnemies(new GameObject[] { teacherPrefab });
+                resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = teacherPrefab.GetComponent<SpriteRenderer>().sprite;
                 break;
             case 4:
                 SpawnEnemies(new GameObject[] { exConvictPrefab });
+                resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = exConvictPrefab.GetComponent<SpriteRenderer>().sprite;
                 break;
             case 5:
                 SpawnEnemies(new GameObject[] { junkiePrefab1, junkiePrefab2 });
+                resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = junkiePrefab1.GetComponent<SpriteRenderer>().sprite;
                 break;
             case 6:
                 SpawnEnemies(new GameObject[] { yakuzaPrefab1, yakuzaPrefab2 });
+                resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = yakuzaPrefab1.GetComponent<SpriteRenderer>().sprite;
                 break;
         }
     }
@@ -208,33 +214,59 @@ public class TurnManager : MonoBehaviour
         {
             case 1:
                 SpawnEnemies(new GameObject[] { racoonPrefab });
+                resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = racoonPrefab.GetComponent<SpriteRenderer>().sprite;
                 break;
             case 2:
                 if (index == 0)
+                {
                     SpawnEnemies(new GameObject[] { ratPrefab, racoonPrefab });
+                    resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = ratPrefab.GetComponent<SpriteRenderer>().sprite;
+                } 
                 else
+                {
                     SpawnEnemies(new GameObject[] { ratPrefab, mutantRatPrefab, ratPrefab });
+                    resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = mutantRatPrefab.GetComponent<SpriteRenderer>().sprite;
+                }    
                 break;
             case 3:
                 if (index == 0)
+                {
                     SpawnEnemies(new GameObject[] { ratPrefab, racoonPrefab, ratPrefab });
+                    resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = ratPrefab.GetComponent<SpriteRenderer>().sprite;
+                }   
                 else
+                {
                     SpawnEnemies(new GameObject[] { mutantRatPrefab, mutantDogPrefab, mutantRatPrefab });
+                    resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = mutantDogPrefab.GetComponent<SpriteRenderer>().sprite;
+                }    
                 break;
             case 4:
                 if (index == 0)
+                {
                     SpawnEnemies(new GameObject[] { ratPrefab, racoonPrefab, ratPrefab, racoonPrefab, ratPrefab });
+                    resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = ratPrefab.GetComponent<SpriteRenderer>().sprite;
+                }    
                 else
+                {
                     SpawnEnemies(new GameObject[] { mutantRatPrefab, mutantDogPrefab, mutantRatPrefab, mutantRatPrefab });
+                    resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = mutantDogPrefab.GetComponent<SpriteRenderer>().sprite;
+                }   
                 break;
             case 5:
                 if (index == 0)
+                {
                     SpawnEnemies(new GameObject[] { ratPrefab, ratPrefab, ratPrefab, ratPrefab, ratPrefab });
+                    resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = ratPrefab.GetComponent<SpriteRenderer>().sprite;
+                }
                 else
+                {
                     SpawnEnemies(new GameObject[] { mutantDogPrefab, mutantRatPrefab, ratPrefab, mutantRatPrefab, mutantDogPrefab });
+                    resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = mutantDogPrefab.GetComponent<SpriteRenderer>().sprite;
+                }  
                 break;
             case 6:
                 SpawnEnemies(new GameObject[] { wtfPrefab, mutantDogPrefab, mutantRatPrefab, ratPrefab, racoonPrefab });
+                resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = wtfPrefab.GetComponent<SpriteRenderer>().sprite;
                 break;
         }
     }

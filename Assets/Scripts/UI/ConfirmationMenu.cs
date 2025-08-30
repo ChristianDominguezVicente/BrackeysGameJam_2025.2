@@ -12,6 +12,7 @@ public class ConfirmationMenu : MonoBehaviour
     [SerializeField] private Image nodeImage;
     [SerializeField] private Sprite humanSprite;
     [SerializeField] private Sprite noHumanSprite;
+    [SerializeField] private Image confirmationSprite;
 
     [Header("Buttons")]
     [SerializeField] private GameObject buttonAccept;
@@ -62,6 +63,7 @@ public class ConfirmationMenu : MonoBehaviour
 
         uiObject = buttonAccept;
         SelectButton();
+        confirmationSprite.sprite = Player.pj.Images[2];
         confirmationMenu.SetActive(true);
     }
 
