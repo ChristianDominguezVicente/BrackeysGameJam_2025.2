@@ -1971,6 +1971,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a41373f6b1bccc396ba51d7ec0343cd8, type: 2}
   - {fileID: 11400000, guid: a081e22d4ac62358db788b445d4eac63, type: 2}
   - {fileID: 11400000, guid: a41373f6b1bccc396ba51d7ec0343cd8, type: 2}
+  badass:
+  - {fileID: -8030656727092818282, guid: 4f3fc1992a662e941a73d95022ffd42a, type: 3}
+  - {fileID: -3683881560053736206, guid: 5519fedcabde2e74d9ef1983b227f21f, type: 3}
+  - {fileID: 5373393036619862957, guid: 71df81c3b10e1ca4fb6a6531ea1005ca, type: 3}
+  - {fileID: 990052135365916675, guid: c136d1e80e6cd504582e6185f61709cd, type: 3}
+  clearheaded:
+  - {fileID: 5490809334563945936, guid: eb4f7ceac753ea94faf8068b3edc647f, type: 3}
+  - {fileID: -6520348731995113241, guid: 900fd630d5f14fc439b35b2e31f6f645, type: 3}
+  - {fileID: -5461999009904275177, guid: f35595de0fc89fc47911336283dff54d, type: 3}
+  - {fileID: -2961504623249521526, guid: 3433dccc1f36c7b4b97278cdf9131e2e, type: 3}
+  creepy:
+  - {fileID: 2618331596282956660, guid: 26fe723169909c0439a82d8811e13eda, type: 3}
+  - {fileID: 2522387568514270289, guid: 3212c4671adb7024fa9c86eff116f281, type: 3}
+  - {fileID: 468987525039697428, guid: 38e6a2857ba8a6d47bbb4e2b78c82a4d, type: 3}
+  - {fileID: -8909204778067884993, guid: 4344d967b2fd37e43a1ee866e23da659, type: 3}
 --- !u!1 &486024514
 GameObject:
   m_ObjectHideFlags: 0

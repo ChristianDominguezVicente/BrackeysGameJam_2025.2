@@ -12,6 +12,7 @@ public class Player : MonoBehaviour, IHittable
     [Header("Player stats")]
     [SerializeField] private int totalHealth;
     [SerializeField] private int totalMana;
+
     private int health;
     private int mana;
 
@@ -36,6 +37,10 @@ public class Player : MonoBehaviour, IHittable
 
     public int TotalHealth { get => totalHealth; set => totalHealth = value; }
     public int TotalMana { get => totalMana; set => totalMana = value; }
+
+    private Sprite[] images;
+
+    public Sprite[] Images { get => images; set => images = value; }
 
     private PauseMenu pause;
     private GameObject pauseMenu;
