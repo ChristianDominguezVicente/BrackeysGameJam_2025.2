@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Badass-Standardknife_v1_0: 5411749105376055752
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

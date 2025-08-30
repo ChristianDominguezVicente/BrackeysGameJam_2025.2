@@ -21,18 +21,4 @@ public class EnragedDog : Enemy
         Debug.Log("ME MORí");
         Destroy(gameObject);
     }
-
-    public override StatusEffect HandleStatusEffects(int playerLife)
-    {
-        foreach (StatusEffect se in statusEffects)
-        {
-            switch (se)
-            {
-                case StatusEffect.Numb:
-                    return StatusEffect.Numb;
-            }
-        }
-
-        return StatusEffect.None;
-    }
 }

@@ -214,7 +214,11 @@ public class Player : MonoBehaviour, IHittable
             }
             else
             {
-                Debug.Log("TE QUEDASTE SIN CARTAS");
+                if (cementery.Count > 0)
+                {
+                    ShuffleCementeryIntoDeck();
+                    --i;
+                }
             }
         }
 
@@ -269,7 +273,20 @@ public class Player : MonoBehaviour, IHittable
 
     public void EndTurn()
     {
+        HandleTurnEnd();
         OnTurnEnded?.Invoke();
+    }
+
+    public void HandleTurnEnd()
+    {
+        for (int i = hand.Count - 1; i >= 0; i--)
+        {
+            SendCardToCementery(hand[i]);
+        }
+
+        hand.Clear();
+
+        Draw(handSize);
     }
 
     private void Pause()
@@ -436,15 +453,7 @@ public class Player : MonoBehaviour, IHittable
 
     public void OnCardUsed(GameObject playedCard)
     {
-        CardVisualizer cv = playedCard.GetComponent<CardVisualizer>();
-
-        if (cv != null && cv.card != null)
-        {
-            cementery.Add(cv.card);
-        }
-
-        hand.Remove(playedCard);
-        Destroy(playedCard);
+        SendCardToCementery(playedCard);
 
         if (selectedCardIndex >= hand.Count)
         {
@@ -452,6 +461,36 @@ public class Player : MonoBehaviour, IHittable
         }
 
         UpdateCardPositions();
+    }
+
+    private void SendCardToCementery(GameObject card)
+    {
+        CardVisualizer cv = card.GetComponent<CardVisualizer>();
+
+        if (cv != null && cv.card != null)
+        {
+            cementery.Add(cv.card);
+        }
+
+        hand.Remove(card);
+        Destroy(card);
+    }
+
+    private void ShuffleCementeryIntoDeck()
+    {
+        deck.AddRange(cementery);
+        cementery.Clear();
+
+        for (int i = 0; i < deck.Count; i++)
+        {
+            Card tmp = deck[i];
+            int randomIndex = Random.Range(i, deck.Count);
+
+            deck[i] = deck[randomIndex];
+            deck[randomIndex] = tmp;
+        }
+
+        Debug.Log("Cementerio barajado al mazo");
     }
 
     public void ResetPlayer()

@@ -36,7 +36,8 @@ public class CardPlayer : MonoBehaviour
                 {
                     if (enemy.Health > 0)
                     {
-                        cardVisualizer.card.OnActivated(enemy);
+                        if (!(enemy.EnemyType != EnemyType.Human && cardVisualizer.card.targetType == EnemyType.Human))
+                            cardVisualizer.card.OnActivated(enemy);
                     }
                 }
             }
@@ -45,7 +46,11 @@ public class CardPlayer : MonoBehaviour
         {
             if (target != null)
             {
-                cardVisualizer.card.OnActivated(target);
+                if (target is Enemy enemyTarget)
+                {
+                    if (!(enemyTarget.EnemyType != EnemyType.Human && cardVisualizer.card.targetType == EnemyType.Human))
+                        cardVisualizer.card.OnActivated(target);
+                }
             }
         }
 

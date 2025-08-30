@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Badass-bottle_v1_0: 1167375801370970520
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
