@@ -15,7 +15,7 @@ public class NormalAttack : EnemyAttack
         Debug.Log("Ataque de mordisco realizado");
 
         if (chanceToHit >= Random.Range(0, 100))
-            target.TakeDamage(damage + baseAttack, DamageType.Normal);
+            target.TakeDamage(damage + baseAttack, damageType);
         else
             Debug.Log("El enemigo falló su ataque");
     }

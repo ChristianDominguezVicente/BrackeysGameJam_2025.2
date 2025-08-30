@@ -68,6 +68,7 @@ public class Player : MonoBehaviour, IHittable
     [SerializeField] private float selectedEnemyScaleModifier = 1.3f;
     private List<Enemy> enemies;
     private int selectedEnemyIndex = 0;
+    private Enemy currentlySelectedEnemy = null;
 
     private List<StatusEffect> statusEffects;
 
@@ -164,7 +165,7 @@ public class Player : MonoBehaviour, IHittable
             {
                 enemies = new List<Enemy>(FindObjectsByType<Enemy>(FindObjectsSortMode.None));
                 enemies.Sort((a, b) => a.transform.position.x.CompareTo(b.transform.position.x));
-            }  
+            }
             else
                 enemies = null;
         }
@@ -263,12 +264,29 @@ public class Player : MonoBehaviour, IHittable
         }
         else if (SceneManager.GetActiveScene().name == "TestScene" && TurnManager.tm.CurrentTurn == TurnManager.TurnState.SelectingTarget)
         {
-            OnEnemySelectionCanceled?.Invoke();
+            CancelEnemySelection();
         }
         else if (TurnManager.tm.CurrentTurn == TurnManager.TurnState.PlayerTurn)
         {
             EndTurn();
         }
+    }
+
+    public void StartEnemySelecitonMode()
+    {
+        selectedEnemyIndex = 0;
+        UpdateEnemySelection();
+    }
+
+    private void CancelEnemySelection()
+    {
+        if (currentlySelectedEnemy != null)
+        {
+            currentlySelectedEnemy.StopFlashing();
+            currentlySelectedEnemy = null;
+        }
+
+        OnEnemySelectionCanceled?.Invoke();
     }
 
     public void EndTurn()
@@ -453,6 +471,12 @@ public class Player : MonoBehaviour, IHittable
 
     public void OnCardUsed(GameObject playedCard)
     {
+        if (currentlySelectedEnemy != null)
+        {
+            currentlySelectedEnemy.StopFlashing();
+            currentlySelectedEnemy = null;
+        }
+
         SendCardToCementery(playedCard);
 
         if (selectedCardIndex >= hand.Count)
@@ -532,15 +556,17 @@ public class Player : MonoBehaviour, IHittable
 
     private void UpdateEnemySelection()
     {
+        if (currentlySelectedEnemy != null)
+        {
+            currentlySelectedEnemy.StopFlashing();
+        }
+
         for (int i = 0; i < enemies.Count; i++)
         {
             if (i == selectedEnemyIndex)
             {
-                enemies[i].transform.localScale = Vector2.one * selectedEnemyScaleModifier;
-            }
-            else
-            {
-                enemies[i].transform.localScale = Vector2.one;
+                currentlySelectedEnemy = enemies[i];
+                currentlySelectedEnemy.StartFlashing();
             }
         }
     }

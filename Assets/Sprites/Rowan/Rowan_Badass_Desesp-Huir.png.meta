@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e33ab4971c296f24898e070dcc8b98ff
+guid: 95f4bb23a13e68cfeb6618686ab7e517
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8165793973258730865
-    second: Ex-convict_0
+      213: -3683881560053736206
+    second: Rowan_Badass_Desesp-Huir_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ex-convict_0
+      name: Rowan_Badass_Desesp-Huir_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 0
-        width: 860
-        height: 1220
+        x: 155
+        y: 5
+        width: 470
+        height: 1132
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f8243e245a54dae80800000000000000
-      internalID: -8165793973258730865
+      spriteID: 2fc926a3d3930ecc0800000000000000
+      internalID: -3683881560053736206
       vertices: []
       indices: 
       edges: []
@@ -160,8 +160,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Ex-convict_0: -8165793973258730865
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
