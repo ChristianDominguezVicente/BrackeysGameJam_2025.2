@@ -602,6 +602,7 @@ public class Player : MonoBehaviour, IHittable
         Debug.Log("OH NOOOOOOOOOOOOOOOOOOOOOOOOOOOOO! GAME OVER!!!!!!!!!!!!!!!");
         TurnManager.tm.CurrentTurn = TurnManager.TurnState.NotPlayable;
         TurnManager.tm.ResultMenu.FailMenu.SetActive(true);
+        TurnManager.tm.ResultMenu.FailSprite.sprite = Images[1];
         TurnManager.tm.ResultMenu.SelectButton();
     }
 

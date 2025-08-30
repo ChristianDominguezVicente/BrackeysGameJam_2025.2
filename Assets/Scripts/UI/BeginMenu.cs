@@ -14,6 +14,7 @@ public class BeginMenu : MonoBehaviour
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject deckMenu;
     [SerializeField] private GameObject credits;
+    [SerializeField] private GameObject buttonsDeck;
 
     [Header("Buttons")]
     [SerializeField] private GameObject buttonBegin;
@@ -26,9 +27,12 @@ public class BeginMenu : MonoBehaviour
 
     [Header("Sounds")]
     [SerializeField] private AudioClip backSound;
+    [SerializeField] private AudioClip deckSound;
+    [SerializeField] private AudioClip menuSound;
 
     [Header("Audio Source")]
     [SerializeField] private AudioSource audioSFX;
+    [SerializeField] private AudioSource audioMusic;
 
     [Header("Sprites")]
     [SerializeField] private Sprite[] sprites;
@@ -75,6 +79,8 @@ public class BeginMenu : MonoBehaviour
         beginMenu.SetActive(false);
         deckMenu.SetActive(true);
 
+        UpdateMusic();
+
         if (!deckDialogueShown)
         {
             deckDialogueShown = true;
@@ -94,10 +100,15 @@ public class BeginMenu : MonoBehaviour
 
             DialogueSystem.ds.StartDialogue(deckDialogue, spritesShow, () => { SetMenuInteractuable(true); });
         }
+        else
+            buttonsDeck.SetActive(true);
     }
 
     private void SetMenuInteractuable(bool state)
     {
+        if (state)
+            buttonsDeck.SetActive(true);
+
         CanvasGroup cg = deckMenu.GetComponent<CanvasGroup>();
         if (cg != null)
         {
@@ -134,6 +145,8 @@ public class BeginMenu : MonoBehaviour
             deckMenu.SetActive(false);
         credits.SetActive(false);
         beginMenu.SetActive(true);
+
+        UpdateMusic();
     }
 
     public void Quit()
@@ -144,6 +157,28 @@ public class BeginMenu : MonoBehaviour
     public void Return()
     {
         SceneManager.LoadScene("Menu");
+    }
+
+    private void UpdateMusic()
+    {
+        if (deckMenu.activeSelf)
+        {
+            if (audioMusic.clip != deckSound)
+            {
+                audioMusic.clip = deckSound;
+                audioMusic.loop = true;
+                audioMusic.Play();
+            }
+        }
+        else
+        {
+            if (audioMusic.clip != menuSound)
+            {
+                audioMusic.clip = menuSound;
+                audioMusic.loop = true;
+                audioMusic.Play();
+            }
+        }
     }
 
     private void OnDisable()

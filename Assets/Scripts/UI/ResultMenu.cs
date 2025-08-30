@@ -10,6 +10,10 @@ public class ResultMenu : MonoBehaviour
     [SerializeField] private GameObject failMenu;
     [SerializeField] private GameObject succesMenu;
     [SerializeField] private GameObject failButton;
+    [SerializeField] private Image failSprite;
+    [SerializeField] private Image successSprite;
+    [SerializeField] private Image failEnemySprite;
+    [SerializeField] private Image successEnemySprite;
 
     [Header("Rewards")]
     [SerializeField] private Transform buttonsContainer;
@@ -19,7 +23,10 @@ public class ResultMenu : MonoBehaviour
 
     public GameObject FailMenu { get => failMenu; set => failMenu = value; }
     public GameObject SuccesMenu { get => succesMenu; set => succesMenu = value; }
-
+    public Image FailSprite { get => failSprite; set => failSprite = value; }
+    public Image SuccessSprite { get => successSprite; set => successSprite = value; }
+    public Image FailEnemySprite { get => failEnemySprite; set => failEnemySprite = value; }
+    public Image SuccessEnemySprite { get => successEnemySprite; set => successEnemySprite = value; }
 
     private void Start()
     {

@@ -1,10 +1,11 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
-public class DialogueSystem : MonoBehaviour
+public class DialogueSystem : MonoBehaviour, IPointerClickHandler
 {
     public static DialogueSystem ds;
 
@@ -136,5 +137,10 @@ public class DialogueSystem : MonoBehaviour
         StopAllCoroutines();
         dialogueText.text = phrases[index];
         talking = false;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        OnActionPressed();
     }
 }

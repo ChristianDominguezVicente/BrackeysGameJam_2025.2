@@ -552,6 +552,7 @@ public class TurnManager : MonoBehaviour
             else
             {
                 resultMenu.ShowRewards(selectedNodeDifficulty, SelectedNodeLevel);
+                resultMenu.SuccessSprite.sprite = player.Images[2];
                 resultMenu.SuccesMenu.SetActive(true);
             }
         }

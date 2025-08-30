@@ -2146,6 +2146,7 @@ MonoBehaviour:
   settingsMenu: {fileID: 657480321}
   deckMenu: {fileID: 1904352923}
   credits: {fileID: 1702237987}
+  buttonsDeck: {fileID: 764921333}
   buttonBegin: {fileID: 236900132}
   buttonSettings: {fileID: 458747216}
   buttonDeck: {fileID: 1806501843}
@@ -2161,7 +2162,10 @@ MonoBehaviour:
   - ... Perhaps pretend, feign, and resort to my powers of persuasion...?
   - ... or how about giving everyone the creeps?
   backSound: {fileID: 8300000, guid: 7163daef36ef0214d80580845c54df51, type: 3}
+  deckSound: {fileID: 8300000, guid: 949ca240c658bf34b93b8a0ce993aa0a, type: 3}
+  menuSound: {fileID: 8300000, guid: 80c8f226a5ea7b842bd8793e21696f2c, type: 3}
   audioSFX: {fileID: 2106339149}
+  audioMusic: {fileID: 1482675540}
   sprites:
   - {fileID: -8030656727092818282, guid: 4f3fc1992a662e941a73d95022ffd42a, type: 3}
   - {fileID: -3683881560053736206, guid: 5519fedcabde2e74d9ef1983b227f21f, type: 3}
@@ -3109,7 +3113,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &764921334
 RectTransform:
   m_ObjectHideFlags: 0
