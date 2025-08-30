@@ -119,6 +119,7 @@ public abstract class Enemy : MonoBehaviour, IHittable
 
         if (baseDamage > 0)
         {
+            Player.pj.AudioSFX.PlayOneShot(Player.pj.OuchEnemySound);
             StartCoroutine(DamageFlashEffect());
         }
 

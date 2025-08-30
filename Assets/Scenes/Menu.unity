@@ -828,7 +828,7 @@ MonoBehaviour:
   - ............
   - ....................
   - 'WHAT THE FUCK IS THAT? '
-  humanBG: {fileID: 21300000, guid: bece70480ac014b6a943ec9372c21848, type: 3}
+  humanBG: {fileID: 406733586492751201, guid: a27d53b31f4f9c94291e213c2bb2d3da, type: 3}
   noHumanBG: {fileID: -111236553691212375, guid: 3a2f8c00a12d739458ef9ce8a871252a, type: 3}
 --- !u!4 &219970077
 Transform:
@@ -5430,6 +5430,14 @@ MonoBehaviour:
   inputManager: {fileID: 11400000, guid: 08bd95469d90e664a83bf34d1906ebd4, type: 2}
   totalHealth: 3
   totalMana: 5
+  cancelSound: {fileID: 8300000, guid: 702a06ad321916c48a39ec56588aed9d, type: 3}
+  hoverSound: {fileID: 8300000, guid: 5ace6271d8325a641b2945ea0aacc942, type: 3}
+  cantSound: {fileID: 8300000, guid: 13d8cb465af94d141872ed2315258799, type: 3}
+  ouchSound: {fileID: 8300000, guid: ef96d556ef1628941aeee99ffafd2646, type: 3}
+  selectSound: {fileID: 8300000, guid: 970dad63a8d53ec4ab70748b020c103d, type: 3}
+  lostSound: {fileID: 8300000, guid: 5eb82946ccbb28c40b2eab51e2f331ed, type: 3}
+  drawSound: {fileID: 8300000, guid: b02dfad35a5e565489f98b6e1ee3e571, type: 3}
+  ouchEnemySound: {fileID: 8300000, guid: 197510df021b79448b1768fda43c5b9e, type: 3}
   handSize: 5
   position: {fileID: 1415908631}
   cardPrefab: {fileID: 8371679423922417987, guid: f9d2c95d6c624ceebab1c6ae6a26a1b9, type: 3}

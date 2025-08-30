@@ -13,6 +13,18 @@ public class Player : MonoBehaviour, IHittable
     [SerializeField] private int totalHealth;
     [SerializeField] private int totalMana;
 
+    [Header("Audios")]
+    [SerializeField] private AudioClip cancelSound;
+    [SerializeField] private AudioClip hoverSound;
+    [SerializeField] private AudioClip cantSound;
+    [SerializeField] private AudioClip ouchSound;
+    [SerializeField] private AudioClip selectSound;
+    [SerializeField] private AudioClip lostSound;
+    [SerializeField] private AudioClip drawSound;
+    [SerializeField] private AudioClip ouchEnemySound;
+
+    private AudioSource audioSFX;
+
     private int health;
     private int mana;
 
@@ -41,6 +53,8 @@ public class Player : MonoBehaviour, IHittable
     private Sprite[] images;
 
     public Sprite[] Images { get => images; set => images = value; }
+    public AudioSource AudioSFX { get => audioSFX; set => audioSFX = value; }
+    public AudioClip OuchEnemySound { get => ouchEnemySound; set => ouchEnemySound = value; }
 
     private PauseMenu pause;
     private GameObject pauseMenu;
@@ -158,6 +172,7 @@ public class Player : MonoBehaviour, IHittable
     {
         if (scene.name == "TestScene" || scene.name == "Map")
         {
+            audioSFX = GameObject.Find("AudioSFX").GetComponent<AudioSource>();
             pause = FindFirstObjectByType<PauseMenu>();
 
             if (pause != null)
@@ -227,7 +242,7 @@ public class Player : MonoBehaviour, IHittable
                 }
             }
         }
-
+        audioSFX.PlayOneShot(drawSound);
         UpdateCardPositions();
     }
 
@@ -269,6 +284,7 @@ public class Player : MonoBehaviour, IHittable
         }
         else if (SceneManager.GetActiveScene().name == "TestScene" && TurnManager.tm.CurrentTurn == TurnManager.TurnState.SelectingTarget)
         {
+            audioSFX.PlayOneShot(cancelSound);
             CancelEnemySelection();
         }
         else if (TurnManager.tm.CurrentTurn == TurnManager.TurnState.PlayerTurn)
@@ -360,6 +376,7 @@ public class Player : MonoBehaviour, IHittable
 
         if (ctx.x != 0 && Time.time >= selectionCooldownEndTime)
         {
+            audioSFX.PlayOneShot(hoverSound);
             if (TurnManager.tm.CurrentTurn == TurnManager.TurnState.PlayerTurn)
             {
                 if (ctx.x < 0 && selectedCardIndex > 0)
@@ -416,7 +433,7 @@ public class Player : MonoBehaviour, IHittable
                 if (i != selectedCardIndex && (i >= 0 || i < hand.Count))
                 {
                     selectedCardIndex = i;
-
+                    audioSFX.PlayOneShot(hoverSound);
                     UpdateCardPositions();
                 }
             }
@@ -463,6 +480,7 @@ public class Player : MonoBehaviour, IHittable
             }
             else
             {
+                audioSFX.PlayOneShot(cantSound);
                 Debug.Log("No tienes suficiente maná para juagr esta carta.");
             }
         }
@@ -566,6 +584,8 @@ public class Player : MonoBehaviour, IHittable
             currentlySelectedEnemy.StopFlashing();
         }
 
+        audioSFX.PlayOneShot(selectSound);
+
         for (int i = 0; i < enemies.Count; i++)
         {
             if (i == selectedEnemyIndex)
@@ -593,6 +613,7 @@ public class Player : MonoBehaviour, IHittable
         Debug.Log($"El jugador se come {damageTaken} par auna vida resultante de {this.Health}/{this.totalHealth}");
 
         OnDamageTaken(damageTaken);
+        audioSFX.PlayOneShot(ouchSound);
 
         if (this.Health <= 0)
         {
@@ -603,6 +624,7 @@ public class Player : MonoBehaviour, IHittable
     private void Die()
     {
         Debug.Log("OH NOOOOOOOOOOOOOOOOOOOOOOOOOOOOO! GAME OVER!!!!!!!!!!!!!!!");
+        audioSFX.PlayOneShot(lostSound);
         TurnManager.tm.CurrentTurn = TurnManager.TurnState.NotPlayable;
         TurnManager.tm.ResultMenu.FailMenu.SetActive(true);
         TurnManager.tm.ResultMenu.FailSprite.sprite = Images[1];
