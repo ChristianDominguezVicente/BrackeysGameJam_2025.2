@@ -9,6 +9,8 @@ public abstract class Enemy : MonoBehaviour, IHittable
 
     [Header("Enemy configuration")]
     [SerializeField] protected float flashDuration = 0.2f;
+    [SerializeField] protected float damageFlashDuration = 0.3f;
+    [SerializeField] protected int damageFlashes = 3;
 
     private SpriteRenderer sr;
 
@@ -91,10 +93,31 @@ public abstract class Enemy : MonoBehaviour, IHittable
 
         this.health -= baseDamage;
 
+        if (baseDamage > 0)
+        {
+            StartCoroutine(DamageFlashEffect());
+        }
+
         Debug.Log($"Me como daño {amount} para una vida total de {health}");
 
         if (health <= 0)
             Die();
+    }
+
+    private IEnumerator DamageFlashEffect()
+    {
+        if (sr == null) yield break;
+
+        for (int i = 0; i < damageFlashes; i++)
+        {
+            sr.color = Color.red;
+            yield return new WaitForSeconds(damageFlashDuration);
+
+            sr.color = Color.white;
+            yield return new WaitForSeconds(damageFlashDuration);
+        }
+
+        sr.color = Color.white;
     }
 
     public virtual void Attack(IHittable target)

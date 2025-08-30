@@ -20,3 +20,4 @@ MonoBehaviour:
   cardSprite: {fileID: 0}
   effects:
   - {fileID: 11400000, guid: 8cb566de81ead5a96a72710db5b56d6b, type: 2}
+  targetType: 1
