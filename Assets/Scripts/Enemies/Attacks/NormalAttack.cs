@@ -17,12 +17,19 @@ public class NormalAttack : EnemyAttack
     {
         Debug.Log($"Ataque {attackName} realizado");
 
+        int damageToHit = baseAttack;
+
+        if (damage == 0)
+        {
+            damageToHit /= 2;
+        }
+
         if (chanceToHit >= Random.Range(0, 100))
         {
             foreach (DamageType dmg in damageTypes)
             {
-                target.TakeDamage(damage, dmg);
-                damage *= 0;
+                target.TakeDamage(damageToHit, dmg);
+                damageToHit *= 0;
             }
         }
         else
