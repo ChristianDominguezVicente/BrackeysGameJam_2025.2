@@ -541,6 +541,7 @@ public class TurnManager : MonoBehaviour
         {
             Debug.Log("El jugador estaba inmovil ha pasado el turno");
             player.RemoveStatus(StatusEffect.Numb);
+            ShowTurnFeedback("SHIT! I Cannot move.  HEY!! What Did you do to me?!");
             EndPlayerTurn();
             return;
         }
