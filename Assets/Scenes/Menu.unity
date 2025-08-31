@@ -2173,6 +2173,9 @@ MonoBehaviour:
   - {fileID: -3683881560053736206, guid: 5519fedcabde2e74d9ef1983b227f21f, type: 3}
   - {fileID: 5373393036619862957, guid: 71df81c3b10e1ca4fb6a6531ea1005ca, type: 3}
   - {fileID: 990052135365916675, guid: c136d1e80e6cd504582e6185f61709cd, type: 3}
+  deckBG: {fileID: 21300000, guid: a4203876e4e4d4dfaabe2f4bd5462978, type: 3}
+  generalBG: {fileID: 21300000, guid: 604b256de984348c6869c4c534b467d5, type: 3}
+  BG: {fileID: 420365822}
 --- !u!114 &481241099
 MonoBehaviour:
   m_ObjectHideFlags: 0

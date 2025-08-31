@@ -37,6 +37,11 @@ public class BeginMenu : MonoBehaviour
     [Header("Sprites")]
     [SerializeField] private Sprite[] sprites;
 
+    [Header("Background")]
+    [SerializeField] private Sprite deckBG;
+    [SerializeField] private Sprite generalBG;
+    [SerializeField] private Image BG;
+
     private GameObject uiObject;
     private GameObject lastSelectedObject;
 
@@ -83,6 +88,7 @@ public class BeginMenu : MonoBehaviour
 
         if (!deckDialogueShown)
         {
+            BG.sprite = generalBG;
             deckDialogueShown = true;
 
             SetMenuInteractuable(false);
@@ -101,13 +107,19 @@ public class BeginMenu : MonoBehaviour
             DialogueSystem.ds.StartDialogue(deckDialogue, spritesShow, () => { SetMenuInteractuable(true); });
         }
         else
+        {
+            BG.sprite = deckBG;
             buttonsDeck.SetActive(true);
+        }        
     }
 
     private void SetMenuInteractuable(bool state)
     {
         if (state)
+        {
+            BG.sprite = deckBG;
             buttonsDeck.SetActive(true);
+        }    
 
         CanvasGroup cg = deckMenu.GetComponent<CanvasGroup>();
         if (cg != null)
