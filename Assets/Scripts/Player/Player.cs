@@ -543,8 +543,7 @@ public class Player : MonoBehaviour, IHittable
     public void ResetPlayer()
     {
         ClearHand();
-        deck.AddRange(cementery);
-        cementery.Clear();
+        ShuffleCementeryIntoDeck();
         selectedCardIndex = 0;
         selectedCard = null;
         this.Health = this.totalHealth;
@@ -566,6 +565,7 @@ public class Player : MonoBehaviour, IHittable
     {
         for (int i = hand.Count - 1; i >= 0; i--)
         {
+            cementery.Add(hand[i].GetComponent<CardVisualizer>().card);
             GameObject tmp = hand[i];
             hand.Remove(tmp);
             Destroy(tmp);

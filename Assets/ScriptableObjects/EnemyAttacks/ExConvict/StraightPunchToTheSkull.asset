@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e8555c6f36c355c964e4d741f54612, type: 3}
   m_Name: StraightPunchToTheSkull
   m_EditorClassIdentifier: 
-  damageType: 0
+  damageTypes: 000000000300000001000000
   baseAttack: 3
   chanceToHit: 40
   attackName: Straight punch to the skull

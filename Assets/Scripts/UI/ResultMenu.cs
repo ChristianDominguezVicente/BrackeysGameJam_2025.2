@@ -54,7 +54,6 @@ public class ResultMenu : MonoBehaviour
 
     public void ReturnMap()
     {
-        player.ClearDeck();
         Map.map.RevertSelection();
         SceneManager.LoadScene("Map");
     }
@@ -136,7 +135,6 @@ public class ResultMenu : MonoBehaviour
 
     public void GoMap()
     {
-        player.ClearDeck();
         SceneManager.LoadScene("Map");
     }
 }

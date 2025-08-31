@@ -226,36 +226,36 @@ public class TurnManager : MonoBehaviour
                 {
                     SpawnEnemies(new GameObject[] { ratPrefab, racoonPrefab });
                     resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = ratPrefab.GetComponent<SpriteRenderer>().sprite;
-                } 
+                }
                 else
                 {
                     SpawnEnemies(new GameObject[] { ratPrefab, mutantRatPrefab, ratPrefab });
                     resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = mutantRatPrefab.GetComponent<SpriteRenderer>().sprite;
-                }    
+                }
                 break;
             case 3:
                 if (index == 0)
                 {
                     SpawnEnemies(new GameObject[] { ratPrefab, racoonPrefab, ratPrefab });
                     resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = ratPrefab.GetComponent<SpriteRenderer>().sprite;
-                }   
+                }
                 else
                 {
                     SpawnEnemies(new GameObject[] { mutantRatPrefab, mutantDogPrefab, mutantRatPrefab });
                     resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = mutantDogPrefab.GetComponent<SpriteRenderer>().sprite;
-                }    
+                }
                 break;
             case 4:
                 if (index == 0)
                 {
                     SpawnEnemies(new GameObject[] { ratPrefab, racoonPrefab, ratPrefab, racoonPrefab, ratPrefab });
                     resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = ratPrefab.GetComponent<SpriteRenderer>().sprite;
-                }    
+                }
                 else
                 {
                     SpawnEnemies(new GameObject[] { mutantRatPrefab, mutantDogPrefab, mutantRatPrefab, mutantRatPrefab });
                     resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = mutantDogPrefab.GetComponent<SpriteRenderer>().sprite;
-                }   
+                }
                 break;
             case 5:
                 if (index == 0)
@@ -267,7 +267,7 @@ public class TurnManager : MonoBehaviour
                 {
                     SpawnEnemies(new GameObject[] { mutantDogPrefab, mutantRatPrefab, ratPrefab, mutantRatPrefab, mutantDogPrefab });
                     resultMenu.FailEnemySprite.sprite = resultMenu.SuccessEnemySprite.sprite = mutantDogPrefab.GetComponent<SpriteRenderer>().sprite;
-                }  
+                }
                 break;
             case 6:
                 SpawnEnemies(new GameObject[] { wtfPrefab, mutantDogPrefab, mutantRatPrefab, ratPrefab, racoonPrefab });
@@ -395,7 +395,7 @@ public class TurnManager : MonoBehaviour
                                 for (int i = 0; i < phrases.Length; i++)
                                     spritesShow[i] = Player.Images[3];
                                 break;
-                            }       
+                            }
                         case 3:
                             if (selectedNodeIndex == 0)
                             {
@@ -541,6 +541,7 @@ public class TurnManager : MonoBehaviour
         {
             Debug.Log("El jugador estaba inmovil ha pasado el turno");
             player.RemoveStatus(StatusEffect.Numb);
+            ShowTurnFeedback("SHIT! I Cannot move.  HEY!! What Did you do to me?!");
             EndPlayerTurn();
             return;
         }
@@ -589,7 +590,8 @@ public class TurnManager : MonoBehaviour
 
             if (selectedNodeLevel == 6)
             {
-                SceneManager.LoadScene("Menu");
+                player.ClearDeck();
+                SceneManager.LoadScene("Final");
             }
             else
             {
