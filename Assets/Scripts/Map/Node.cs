@@ -69,11 +69,11 @@ public class Node : MonoBehaviour
         switch (difficulty)
         {
             case Difficulty.Human:
-                return new Color(1f, 0.5f, 0f);
+                return new Color(249f / 255f, 86f / 255f, 79f / 255f);
             case Difficulty.NoHuman:
-                return new Color(0.5f, 0f, 0.5f);
+                return new Color(123f / 255f, 30f / 255f, 122f / 255f);
             case Difficulty.Non:
-                return Color.gray;
+                return new Color(12f / 255f, 10f / 255f, 62f / 255f);
             default:
                 return Color.white;
         }

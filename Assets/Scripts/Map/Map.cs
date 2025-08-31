@@ -151,7 +151,7 @@ public class Map : MonoBehaviour
 
         Node firstNode = graph[0][0];
         SelectNode(firstNode);
-        firstNode.GetComponent<SpriteRenderer>().color = Color.green;
+        firstNode.GetComponent<SpriteRenderer>().color = new Color(179f / 255f, 63f / 255f, 98f / 255f);
 
         if (firstNode.ConnectedNodes.Count > 0)
         {
@@ -226,7 +226,7 @@ public class Map : MonoBehaviour
         selectionHistory.Push(node);
 
         node.IsSelected = true;
-        node.GetComponent<SpriteRenderer>().color = Color.green;
+        node.GetComponent<SpriteRenderer>().color = new Color(179f / 255f, 63f / 255f, 98f / 255f);
         currentLevel = node.Level;
 
         if (currentLevel + 1 < graph.Count)
@@ -255,7 +255,7 @@ public class Map : MonoBehaviour
         hoveredNode = node;
 
         if (hoveredNode != null && !hoveredNode.IsSelected)
-            hoveredNode.GetComponent<SpriteRenderer>().color = Color.yellow;
+            hoveredNode.GetComponent<SpriteRenderer>().color = new Color(243f / 255f, 198f / 255f, 119f / 255f);
 
         UpdateLines();
     }
@@ -274,14 +274,14 @@ public class Map : MonoBehaviour
             if (line.Origin.IsSelected && line.Destination.IsSelected)
             {
                 line.LineRenderer.material = solidLineMat;
-                line.LineRenderer.startColor = Color.green;
-                line.LineRenderer.endColor = Color.green;
+                line.LineRenderer.startColor = new Color(179f / 255f, 63f / 255f, 98f / 255f);
+                line.LineRenderer.endColor = new Color(179f / 255f, 63f / 255f, 98f / 255f);
             }
             else if (hoveredNode != null && ((line.Origin.IsSelected && line.Destination == hoveredNode) || (line.Destination.IsSelected && line.Origin == hoveredNode)))
             {
                 line.LineRenderer.material = solidLineMat;
-                line.LineRenderer.startColor = Color.yellow;
-                line.LineRenderer.endColor = Color.yellow;
+                line.LineRenderer.startColor = new Color(243f / 255f, 198f / 255f, 119f / 255f);
+                line.LineRenderer.endColor = new Color(243f / 255f, 198f / 255f, 119f / 255f);
             }
             else if ((line.Origin.IsSelected && !line.Destination.IsSelected && CanSelectNode(line.Destination)) || (line.Destination.IsSelected && !line.Origin.IsSelected && CanSelectNode(line.Origin)))
             {
